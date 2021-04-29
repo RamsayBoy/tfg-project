@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  public isPasswordVisible: Boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
