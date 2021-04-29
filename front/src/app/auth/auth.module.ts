@@ -9,8 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-
-
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -22,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
   ]
 })
 export class AuthModule { }
