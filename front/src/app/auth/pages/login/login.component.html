@@ -1,19 +1,31 @@
-<mat-card class="center">
-  <h1>Iniciar sesión</h1>
+<div>
+  <mat-card>
+    <h1>Iniciar sesión</h1>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input type="email" matInput placeholder="manoloeldelbombo@tfg.es">
-    <mat-icon matSuffix>account_circle</mat-icon>
-    <mat-hint>Introduzca su email</mat-hint>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="manoloeldelbombo@tfg.es">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint>Introduzca su email</mat-hint>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Password</mat-label>
-    <input [type]="isPasswordVisible ? 'text' : 'password'" matInput>
-    <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
-      {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
-    </mat-icon>
-    <mat-hint>Introduzca su contraseña</mat-hint>
-  </mat-form-field>
-</mat-card>
+    <br>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input [type]="isPasswordVisible ? 'text' : 'password'" matInput>
+      <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
+        {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
+      </mat-icon>
+      <mat-hint>Introduzca su contraseña</mat-hint>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary">Iniciar sesión</button>
+    <button mat-button>Registrarse</button>
+
+    <mat-divider></mat-divider>
+
+    <a href="#">He olvidado mi contraseña</a>
+
+  </mat-card>
+</div>
