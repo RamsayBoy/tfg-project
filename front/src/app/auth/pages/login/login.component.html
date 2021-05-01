@@ -2,26 +2,37 @@
   <mat-card>
     <h1>Iniciar sesión</h1>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput placeholder="manoloeldelbombo@tfg.es">
-      <mat-icon matSuffix>account_circle</mat-icon>
-      <mat-hint>Introduzca su email</mat-hint>
-    </mat-form-field>
+    <!-- TODO: Add app logo -->
 
-    <br>
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-hint>Introduzca su email</mat-hint>
+        <mat-error *ngIf="email!.invalid">
+          El email introducido no es correcto
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Contraseña</mat-label>
-      <input [type]="isPasswordVisible ? 'text' : 'password'" matInput>
-      <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
-        {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
-      </mat-icon>
-      <mat-hint>Introduzca su contraseña</mat-hint>
-    </mat-form-field>
+      <br>
 
-    <button mat-raised-button color="primary">Iniciar sesión</button>
-    <button mat-button>Registrarse</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'">
+        <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
+          {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+        <mat-hint>Introduzca su contraseña</mat-hint>
+        <!-- TODO: See why is not working password!.errors?.minLength -->
+        <mat-error *ngIf="password!.invalid">
+          La contraseña introducida no es válida.
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="loginForm.invalid" mat-raised-button color="primary">Iniciar sesión</button>
+      <button mat-button>Registrarse</button>
+    </form> <!-- loginForm -->
 
     <mat-divider></mat-divider>
 

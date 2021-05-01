@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginComponent } from './pages/login/login.component';
 
 // Angular Material
-// TODO: Make it global
+// TODO: Share with modules that use them
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatRippleModule,
     MatButtonModule,
     MatDividerModule,
+    ReactiveFormsModule,
   ]
 })
 export class AuthModule { }
