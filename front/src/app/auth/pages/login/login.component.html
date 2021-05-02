@@ -1,0 +1,49 @@
+<div>
+  <mat-card>
+    <h1>Iniciar sesión</h1>
+
+    <!-- TODO: Add app logo -->
+
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-hint>Introduzca su email</mat-hint>
+
+        <mat-error *ngIf="email!.hasError('email')">
+          El email no tiene un formato válido
+        </mat-error>
+        <mat-error *ngIf="!email!.hasError('email') && email!.invalid">
+          El email introducido no es válido
+        </mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'">
+        <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
+          {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+        <mat-hint>Introduzca su contraseña</mat-hint>
+
+        <mat-error *ngIf="password!.hasError('minlength')">
+          La contraseña introducida debe contener al menos 6 caracteres
+        </mat-error>
+        <mat-error *ngIf="!password!.hasError('minlength') && password!.invalid">
+          La contraseña introducida no es válida
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="loginForm.invalid" mat-raised-button color="primary">Iniciar sesión</button>
+      <button mat-button>Registrarse</button>
+    </form> <!-- loginForm -->
+
+    <mat-divider></mat-divider>
+
+    <a href="#">He olvidado mi contraseña</a>
+
+  </mat-card>
+</div>
