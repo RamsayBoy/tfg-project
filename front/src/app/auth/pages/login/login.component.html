@@ -7,11 +7,12 @@
     <form [formGroup]="loginForm">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
+        <input matInput formControlName="email" type="email">
         <mat-icon matSuffix>account_circle</mat-icon>
         <mat-hint>Introduzca su email</mat-hint>
+
         <mat-error *ngIf="email!.invalid">
-          El email introducido no es correcto
+          El email introducido no es válido
         </mat-error>
       </mat-form-field>
 
@@ -24,8 +25,11 @@
           {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
         </mat-icon>
         <mat-hint>Introduzca su contraseña</mat-hint>
-        <!-- TODO: See why is not working password!.errors?.minLength -->
-        <mat-error *ngIf="password!.invalid">
+
+        <mat-error *ngIf="password!.hasError('minlength')">
+          La contraseña introducida debe contener al menos 6 caracteres.
+        </mat-error>
+        <mat-error *ngIf="!password!.hasError('minlength') && password!.invalid">
           La contraseña introducida no es válida.
         </mat-error>
       </mat-form-field>
