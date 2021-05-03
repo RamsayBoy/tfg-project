@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import authRoutes from './routes/auth.route';
 
+// TODO: Add port, host, and api base url as environment variables
 const app = express();
 
 // Middleware
