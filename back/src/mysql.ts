@@ -22,6 +22,6 @@ pool.getConnection((error, connection) => {
     }
     if (connection) connection.release();
     return;
-})
+});
 
 export default pool;
