@@ -19,10 +19,10 @@ export const login = async (request: Request, response: Response) => {
             return response.status(401).json({
                 status: 401,
                 statusText: 'Unauthorized',
-                message: 'El email o la contraseña son incorrectas',
+                message: 'El email o la contraseña son incorrectos',
                 error: {
                     code: 'UNAUTHORIZED',
-                    message: 'El email o la contraseña son incorrectas',
+                    message: 'El email o la contraseña son incorrectos',
                 }
             });
         }

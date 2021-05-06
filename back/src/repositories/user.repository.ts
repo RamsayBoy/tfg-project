@@ -22,4 +22,5 @@ export default class UserRepository {
 }
 
 // TODO: Remove when dependency injection
-export const userRepository = new UserRepository();
+const userRepository = new UserRepository();
+export {userRepository};
