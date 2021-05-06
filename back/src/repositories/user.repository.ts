@@ -1,8 +1,9 @@
 import database from '../mysql';
+import User from '../types/User.type';
 
 // TODO: Dependency injection
 export default class UserRepository {
-    async getByEmailAndPassword(email: string, password: string) {
+    async getByEmailAndPassword(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT u.id, email, r.name as role
