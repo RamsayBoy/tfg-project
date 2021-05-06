@@ -13,7 +13,7 @@ const config = {
         PASSWORD : process.env.DB_PASS,
         NAME     : process.env.DB_NAME,
     },
-    TOKEN_SECRET: process.env.TOKEN_SECRET,
+    TOKEN_SECRET: process.env.TOKEN_SECRET || 'devToken',
 }
 
 export default config;
