@@ -1,6 +1,7 @@
 import database from '../mysql';
 
-export class UserRepository {
+// TODO: Dependency injection
+export default class UserRepository {
     async getByEmailAndPassword(email: string, password: string) {
         return new Promise((resolve, reject) => {
             const query = `

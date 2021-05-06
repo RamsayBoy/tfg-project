@@ -1,16 +1,9 @@
-import {UserRepository, userRepository} from '../repositories/user.repository';
+import {userRepository} from '../repositories/user.repository';
 
 // TODO: Dependency injection
-export class UserService {
-    
-    private _userRepository: UserRepository;
-
-    constructor() {
-        this._userRepository = userRepository;
-    }
-
+export default class UserService {
     async getByEmailAndPassword(email: string, password: string) {
-        const user = await this._userRepository.getByEmailAndPassword(email, password);
+        const user = await userRepository.getByEmailAndPassword(email, password);
 
         // TODO: Check user email and password
         

@@ -4,7 +4,6 @@ import helmet from 'helmet';
 import cors from 'cors';
 import authRoutes from './routes/auth.route';
 
-// TODO: Add port, host, and api base url as environment variables
 const app = express();
 
 // Middleware
@@ -14,9 +13,6 @@ app.use(cors());
 
 // Routes
 app.use(`${config.api.BASE_URL}/auth`, authRoutes);
-// app.use(`${config.api.BASE_URL}/auth`, (req, res) =>{
-//     return res.json({'asd':'asd'});
-// });
 
 app.listen(config.api.PORT, config.api.HOST, () => {
     console.log(`App listening at http://${config.api.HOST}:${config.api.PORT}${config.api.BASE_URL}`);
