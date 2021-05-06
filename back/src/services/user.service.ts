@@ -3,7 +3,6 @@ import User from '../types/User.type';
 
 // TODO: Dependency injection
 export default class UserService {
-    // TODO: Remove unknown
     async getByEmailAndPassword(email: string, password: string): Promise<User> {
         const user: User = await userRepository.getByEmailAndPassword(email, password);
 
