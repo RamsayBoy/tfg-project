@@ -3,10 +3,6 @@ import {userService} from '../services/user.service';
 import { JwtToken } from '../types/Token.type';
 import User from '../types/User.type';
 
-export const test = async (request: Request, response: Response): Promise<Response> => {
-    return response.json({'test':'You have access!'});
-};
-
 export const register = async (request: Request, response: Response): Promise<Response> => {
     return response.json({'register':'OK'});
 };
