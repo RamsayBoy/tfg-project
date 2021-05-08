@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public isPasswordVisible: Boolean = false;
-  // TODO: See why it is giving an error when is not initialized
   public loginForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this._formBuilder.group({
       email: ['', [
         Validators.required,
         Validators.email,
@@ -36,4 +39,10 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  onSubmit(): void {
+    this._authService.login(this.loginForm.value)
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 }

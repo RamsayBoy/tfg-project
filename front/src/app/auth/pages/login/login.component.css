@@ -8,12 +8,7 @@ mat-card {
   width: 30vw;
   max-width: 20rem;
   min-width: 16rem;
-  transition: 0.5s;
-}
-
-mat-card:hover {
-  box-shadow: 0px 0px 10px 1px rgba(34, 34, 34, 0.2) !important;
-  transition: 0.5s;
+  box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.05) !important;
 }
 
 h1 {

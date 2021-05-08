@@ -14,9 +14,10 @@ export const login = async (request: Request, response: Response): Promise<Respo
     } = request.body;
 
     try {
-        const {user, token}: {
+        const {user, token, expiresIn}: {
             user: User,
-            token: JwtToken
+            token: JwtToken,
+            expiresIn: number,
         } = await userService.getByEmailAndPassword(email, password);
 
         if (!token) {
@@ -35,7 +36,11 @@ export const login = async (request: Request, response: Response): Promise<Respo
             status: 200,
             statusText: 'OK',
             message: `Usuario con ID ${user.id} ha iniciado sesión de manera exitosa`,
-            data: user,
+            data: {
+                user,
+                token,
+                expiresIn,
+            },
         });
     }
     catch (exception) {

@@ -4,7 +4,7 @@
 
     <!-- TODO: Add app logo -->
 
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" type="email">
@@ -25,7 +25,7 @@
         <mat-label>Contraseña</mat-label>
         <input matInput formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'">
         <mat-icon matRipple matSuffix (click)="isPasswordVisible = !isPasswordVisible">
-          {{isPasswordVisible ? 'visibility' : 'visibility_off'}}
+          {{isPasswordVisible ? 'visibility_off' : 'visibility'}}
         </mat-icon>
         <mat-hint>Introduzca su contraseña</mat-hint>
 
