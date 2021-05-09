@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   public isPasswordVisible: Boolean = false;
   public loginForm: FormGroup = new FormGroup({});
+  public loginErrorMessage: string = '';
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -41,8 +42,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this._authService.login(this.loginForm.value)
-      .subscribe(response => {
-        console.log(response);
+      .subscribe({
+        next: (response) => {
+          this.loginErrorMessage = '';
+          this._authService.setLocalStorage(response);
+        },
+        error: (errorResponse) => {
+          this.loginErrorMessage = errorResponse.error.message;
+        }
       });
   }
 }

@@ -23,12 +23,11 @@ export class AuthService {
     return this._http.post<any>(this._loginUrl, loginFormData);
   }
 
+  // TODO: Maybe it is better to pass the token directly
   setLocalStorage(responseObject: any): void {
-    // Get expiresIn time
-    let currentTime: Date = new Date();
-    const expiresIn: number = currentTime.setSeconds(
-      currentTime.getSeconds() + responseObject.data.expiresIn
-    );
+    // Get token expiresIn time
+    const tokenExpiresIn: number = (JSON.parse(atob(responseObject.data.token.split('.')[1]))).exp;
+    const expiresIn: number = Date.now() + tokenExpiresIn;
 
     // Create item for session storage with the token and its expire time
     const tokenSessionItem: {token: string, expiresIn: number} = {

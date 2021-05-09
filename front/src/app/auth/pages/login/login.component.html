@@ -4,6 +4,11 @@
 
     <!-- TODO: Add app logo -->
 
+    <!-- TODO: Add styles to CSS and add red border and red background-color with opacity -->
+    <mat-error style="text-align: center!important; margin-bottom: 1rem;" *ngIf="loginErrorMessage!">
+      {{loginErrorMessage}}
+    </mat-error>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
