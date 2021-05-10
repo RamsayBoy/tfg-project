@@ -16,10 +16,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtTokenInterceptor } from './interceptors/jwt-token.interceptor';
 
 @NgModule({
   declarations: [
     LoginComponent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtTokenInterceptor,
+      multi: true,
+    }
   ],
   imports: [
     CommonModule,

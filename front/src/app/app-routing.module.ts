@@ -8,6 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule)
   },
   {
+    // TODO: Not found page
     path: '**',
     redirectTo: 'auth'
   },

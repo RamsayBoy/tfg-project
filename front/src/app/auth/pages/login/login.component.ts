@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.loginErrorMessage = '';
-          this._authService.setLocalStorage(response);
+          this._authService.setTokenInLocalStorageFrom(response);
         },
         error: (errorResponse) => {
           this.loginErrorMessage = errorResponse.error.message;

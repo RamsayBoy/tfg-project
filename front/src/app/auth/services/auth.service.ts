@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   // TODO: Maybe it is better to pass the token directly
-  setLocalStorage(responseObject: any): void {
+  setTokenInLocalStorageFrom(responseObject: any): void {
     // Get token expiresIn time
     const tokenExpiresIn: number = (JSON.parse(atob(responseObject.data.token.split('.')[1]))).exp;
     const expiresIn: number = Date.now() + tokenExpiresIn;
@@ -55,11 +55,7 @@ export class AuthService {
     return currentTime < tokenExpiresIn;
   }
 
-  isLogginOut(): boolean {
-    return !this.isLogginIn();
-  }
-
-  getExpiration(): number | null {
+  private getExpiration(): number | null {
     const tokenSessionItem: string | null = localStorage.getItem('token');
 
     if (!tokenSessionItem) {
@@ -67,5 +63,19 @@ export class AuthService {
     }
 
     return JSON.parse(tokenSessionItem).expireIn;
+  }
+
+  isLogginOut(): boolean {
+    return !this.isLogginIn();
+  }
+
+  getJwtToken(): string | null {
+    const token: string | null = localStorage.getItem('token');
+
+    if (!token) {
+      return null;
+    }
+
+    return token;
   }
 }
