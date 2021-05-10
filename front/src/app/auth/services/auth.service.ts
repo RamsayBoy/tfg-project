@@ -62,7 +62,7 @@ export class AuthService {
       return null;
     }
 
-    return JSON.parse(tokenSessionItem).expireIn;
+    return JSON.parse(tokenSessionItem).expiresIn;
   }
 
   isLogginOut(): boolean {

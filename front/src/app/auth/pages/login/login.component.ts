@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           this.loginErrorMessage = '';
           this._authService.setTokenInLocalStorageFrom(response);
+          this._router.navigate(['/classes']);
         },
         error: (errorResponse) => {
           this.loginErrorMessage = errorResponse.error.message;
