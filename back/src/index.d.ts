@@ -1,5 +1,6 @@
 interface Locals {
     userId: number,
+    userRole?: string;
 }
 
 declare module 'express' {

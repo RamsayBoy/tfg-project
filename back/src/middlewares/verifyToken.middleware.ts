@@ -1,13 +1,8 @@
 import {Request, Response, NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import Payload from '../interfaces/Payload.interface';
 import { JwtToken } from '../types/Token.type';
-
-interface Payload {
-    id: number;
-    iat: number;
-    exp: number;
-}
 
 export const TokenValidation = async (request: Request, response: Response, next: NextFunction): Promise<Response | void> => {
     const token: JwtToken = request.header('auth-token');
@@ -24,6 +19,7 @@ export const TokenValidation = async (request: Request, response: Response, next
 
     const payload = jwt.verify(token, config.TOKEN_SECRET) as Payload;
     response.locals.userId = payload.id;
+    response.locals.userRole = payload.role;
 
     next();
 };

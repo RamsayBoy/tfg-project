@@ -1,5 +1,5 @@
 import database from '../mysql';
-import User from '../types/User.type';
+import User from '../interfaces/User.interface';
 
 // TODO: Dependency injection
 export default class UserRepository {
