@@ -15,13 +15,17 @@ export class LoginComponent implements OnInit {
   public loginErrorMessage: string = '';
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _authService: AuthService,
-    private _router: Router
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this._formBuilder.group({
+    if (this.authService.isLogginIn()) {
+      this.router.navigate(['/classes']);
+    }
+
+    this.loginForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
         Validators.email,
@@ -43,12 +47,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this._authService.login(this.loginForm.value)
+    this.authService.login(this.loginForm.value)
       .subscribe({
         next: (response) => {
           this.loginErrorMessage = '';
-          this._authService.setTokenInLocalStorageFrom(response);
-          this._router.navigate(['/classes']);
+          this.authService.setTokenInLocalStorageFrom(response);
+          this.router.navigate(['/classes']);
         },
         error: (errorResponse) => {
           this.loginErrorMessage = errorResponse.error.message;

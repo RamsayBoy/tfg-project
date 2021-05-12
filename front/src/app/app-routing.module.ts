@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: 'auth',
     // Auth module lazy load
-    loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule),
   },
   {
     path: 'classes',
