@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           this.loginErrorMessage = '';
           this.authService.setTokenInLocalStorageFrom(response);
-          this.router.navigate(['/classes']);
+          this.router.navigate([this.authService.redirectUrl]);
         },
         error: (errorResponse) => {
           this.loginErrorMessage = errorResponse.error.message;
