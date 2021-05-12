@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -47,6 +48,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.loginForm.value).subscribe();
+    this.authService.login(this.loginForm.value).subscribe(
+      _ => this.router.navigate([this.authService.redirectUrl]),
+      failedResponse => this.loginErrorMessage = failedResponse.error.message,
+    );
   }
 }
