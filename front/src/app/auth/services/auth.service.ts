@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class AuthService {
   public redirectUrl = "/classes";
 
   constructor(
-    private _http: HttpClient
+    private http: HttpClient,
+    private router: Router,
   ) { }
 
   register(): void {
@@ -21,7 +24,16 @@ export class AuthService {
   }
 
   login(loginFormData: any): Observable<any> {
-    return this._http.post<any>(this.loginUrl, loginFormData);
+    // TODO: Ask Enrique if I can share interfaces between angular and node (routes references in .env?)
+    return this.http.post<any>(this.loginUrl, loginFormData)
+      .pipe(
+        tap(response => {
+          // TODO: Add error catcher and refactor code (improve it) and etc...
+          console.log(response.data.token);
+          this.setTokenInLocalStorageFrom(response);
+          this.router.navigate(['/classes']);
+        }),
+      );
   }
 
   // TODO: Maybe it is better to pass the token directly

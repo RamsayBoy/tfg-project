@@ -47,16 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.loginForm.value)
-      .subscribe({
-        next: (response) => {
-          this.loginErrorMessage = '';
-          this.authService.setTokenInLocalStorageFrom(response);
-          this.router.navigate([this.authService.redirectUrl]);
-        },
-        error: (errorResponse) => {
-          this.loginErrorMessage = errorResponse.error.message;
-        }
-      });
+    this.authService.login(this.loginForm.value).subscribe();
   }
 }

@@ -8,7 +8,7 @@ mat-card {
   width: 30vw;
   max-width: 20rem;
   min-width: 16rem;
-  box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0px 0px 15px 10px rgb(0 0 0 / 10%) !important;
 }
 
 h1 {
