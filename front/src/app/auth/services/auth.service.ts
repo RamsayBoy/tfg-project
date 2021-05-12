@@ -9,9 +9,10 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
 
   // TODO: Change hardcode url
-  private registerUrl = "http://localhost:3000/api/v0/auth/register";
-  private loginUrl = "http://localhost:3000/api/v0/auth/login";
-  public redirectUrl = "/classes";
+  private registerUrl: string = "http://localhost:3000/api/v0/auth/register";
+  private loginUrl: string = "http://localhost:3000/api/v0/auth/login";
+  public redirectUrl: string = "/classes";
+  private tokenKeySessionStorage: string = "jwt-token";
 
   constructor(
     private http: HttpClient,
@@ -38,11 +39,11 @@ export class AuthService {
       expiresIn: expiresIn,
     }
 
-    localStorage.setItem('token', JSON.stringify(tokenSessionItem));
+    localStorage.setItem(this.tokenKeySessionStorage, JSON.stringify(tokenSessionItem));
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.tokenKeySessionStorage);
   }
 
   isLogginIn(): boolean {
@@ -59,7 +60,7 @@ export class AuthService {
   }
 
   private getExpiration(): number | null {
-    const tokenSessionItem: string | null = localStorage.getItem('token');
+    const tokenSessionItem: string | null = localStorage.getItem(this.tokenKeySessionStorage);
 
     if (!tokenSessionItem) {
       return null;
@@ -73,7 +74,7 @@ export class AuthService {
   }
 
   getJwtToken(): string | null {
-    const token: string | null = localStorage.getItem('token');
+    const token: string | null = localStorage.getItem(this.tokenKeySessionStorage);
 
     if (!token) {
       return null;
