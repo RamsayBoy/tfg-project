@@ -27,7 +27,7 @@ export class AuthService {
       .pipe( tap(response => this.setTokenInLocalStorage(response.data.token)) );
   }
 
-  setTokenInLocalStorage(token: string): void {
+  private setTokenInLocalStorage(token: string): void {
     // Get token expiresIn time
     const tokenExpiresIn: number = (JSON.parse(atob(token.split('.')[1]))).exp;
     const expiresIn: number = Date.now() + tokenExpiresIn;
