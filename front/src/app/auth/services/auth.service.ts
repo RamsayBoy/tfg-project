@@ -23,26 +23,18 @@ export class AuthService {
 
   login(loginFormData: any): Observable<any> {
     // TODO: Ask Enrique if I can share interfaces between angular and node (routes references in .env?)
-    return this.http.post<any>(this.loginUrl, loginFormData).pipe(
-      tap(
-          response => {
-            // TODO: Add error catcher and refactor code (improve it) and etc...
-            console.log('authService: ', response.data.token);
-            this.setTokenInLocalStorageFrom(response);
-          },
-      ),
-    );
+    return this.http.post<any>(this.loginUrl, loginFormData)
+      .pipe( tap(response => this.setTokenInLocalStorage(response.data.token)) );
   }
 
-  // TODO: Maybe it is better to pass the token directly
-  setTokenInLocalStorageFrom(responseObject: any): void {
+  setTokenInLocalStorage(token: string): void {
     // Get token expiresIn time
-    const tokenExpiresIn: number = (JSON.parse(atob(responseObject.data.token.split('.')[1]))).exp;
+    const tokenExpiresIn: number = (JSON.parse(atob(token.split('.')[1]))).exp;
     const expiresIn: number = Date.now() + tokenExpiresIn;
 
     // Create item for session storage with the token and its expire time
     const tokenSessionItem: {token: string, expiresIn: number} = {
-      token: responseObject.data.token,
+      token: token,
       expiresIn: expiresIn,
     }
 
