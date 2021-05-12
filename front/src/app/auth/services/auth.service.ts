@@ -8,8 +8,9 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   // TODO: Change hardcode url
-  private _registerUrl = "http://localhost:3000/api/v0/auth/register";
-  private _loginUrl = "http://localhost:3000/api/v0/auth/login";
+  private registerUrl = "http://localhost:3000/api/v0/auth/register";
+  private loginUrl = "http://localhost:3000/api/v0/auth/login";
+  public redirectUrl = "/classes";
 
   constructor(
     private _http: HttpClient
@@ -20,7 +21,7 @@ export class AuthService {
   }
 
   login(loginFormData: any): Observable<any> {
-    return this._http.post<any>(this._loginUrl, loginFormData);
+    return this._http.post<any>(this.loginUrl, loginFormData);
   }
 
   // TODO: Maybe it is better to pass the token directly
