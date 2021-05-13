@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { ClassesComponent } from './classes/pages/classes/classes.component';
 
 const routes: Routes = [
   {
     path: 'auth',
-    // Auth module lazy load
     loadChildren: () => import('./auth/auth.module').then(module => module.AuthModule),
   },
   {
     path: 'classes',
-    component: ClassesComponent,
+    loadChildren: () => import('./classes/class.module').then(module => module.ClassModule),
     canActivate: [AuthGuard]
   },
   {
