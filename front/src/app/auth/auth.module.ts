@@ -24,6 +24,7 @@ import { JwtTokenInterceptor } from './interceptors/jwt-token.interceptor';
     LoginComponent
   ],
   providers: [
+    // TODO: Maybe it has to be in app.module.ts. Will see
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,

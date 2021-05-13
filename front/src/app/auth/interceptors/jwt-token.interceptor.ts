@@ -12,11 +12,11 @@ import { AuthService } from '../services/auth.service';
 export class JwtTokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private _authService: AuthService,
+    private authService: AuthService,
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token: string | null = this._authService.getJwtToken();
+    const token: string | null = this.authService.getToken();
 
     if (token) {
       request = this.addToken(request, token);
