@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-// TODO: Hazlo mejor para ver cómo gestionas lo de recibir el token y tal. Métodos buenos.
-
 @Injectable({
   providedIn: 'root'
 })
