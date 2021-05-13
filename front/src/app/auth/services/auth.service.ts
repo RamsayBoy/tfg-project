@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+// TODO: Hazlo mejor para ver cómo gestionas lo de recibir el token y tal. Métodos buenos.
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +13,11 @@ export class AuthService {
   // TODO: Change hardcode url
   private registerUrl: string = "http://localhost:3000/api/v0/auth/register";
   private loginUrl: string = "http://localhost:3000/api/v0/auth/login";
-  public redirectUrl: string = "/classes";
+
   private tokenKeySessionStorage: string = "jwt-token";
+
+  public readonly redirectUrl: string = "/classes";
+  public readonly authUrl: string = "/auth/login";
 
   constructor(
     private http: HttpClient,
@@ -29,17 +34,22 @@ export class AuthService {
   }
 
   private setTokenInLocalStorage(token: string): void {
-    // Get token expiresIn time
-    const tokenExpiresIn: number = (JSON.parse(atob(token.split('.')[1]))).exp;
-    const expiresIn: number = Date.now() + tokenExpiresIn;
+    localStorage.setItem(this.tokenKeySessionStorage, token);
+  }
 
-    // Create item for session storage with the token and its expire time
-    const tokenSessionItem: {token: string, expiresIn: number} = {
-      token: token,
-      expiresIn: expiresIn,
+  // TODO: It is better to put this method in an object called TokenManager or so
+  getToken(): string | null {
+    const tokenSessionItem: string | null = localStorage.getItem(this.tokenKeySessionStorage);
+
+    if (!tokenSessionItem) {
+      return null;
     }
 
-    localStorage.setItem(this.tokenKeySessionStorage, JSON.stringify(tokenSessionItem));
+    return tokenSessionItem;
+  }
+
+  private getPayload(token: string): string {
+    return (JSON.parse(atob(token.split('.')[1])));
   }
 
   logout() {
@@ -47,39 +57,23 @@ export class AuthService {
   }
 
   isLogginIn(): boolean {
-    const tokenExpiresIn: number | null = this.getExpiration();
+    const token: string | null = this.getToken();
 
-    if (!tokenExpiresIn) {
+    if (!token) {
       return false;
     }
 
-    const currentTime: number = new Date().getSeconds();
+    const currentTime: number = (Math.floor((new Date).getTime() / 1000));
+    const expirationTime: number = this.getExpirationTime(token);
 
-    // TODO: See if it is OK (comparing by seconds)
-    return currentTime < tokenExpiresIn;
+    return expirationTime >= currentTime;
   }
 
-  private getExpiration(): number | null {
-    const tokenSessionItem: string | null = localStorage.getItem(this.tokenKeySessionStorage);
+  private getExpirationTime(token: string): number {
+    // TODO: Create interface for payload
+    const payload: { exp: number } = this.getPayload(token) as any;
+    const expirationTime: number = payload.exp;
 
-    if (!tokenSessionItem) {
-      return null;
-    }
-
-    return JSON.parse(tokenSessionItem).expiresIn;
-  }
-
-  isLogginOut(): boolean {
-    return !this.isLogginIn();
-  }
-
-  getJwtToken(): string | null {
-    const token: string | null = localStorage.getItem(this.tokenKeySessionStorage);
-
-    if (!token) {
-      return null;
-    }
-
-    return token;
+    return expirationTime;
   }
 }
