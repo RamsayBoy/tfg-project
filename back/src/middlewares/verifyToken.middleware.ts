@@ -4,6 +4,8 @@ import config from '../config';
 import Payload from '../interfaces/Payload.interface';
 import { JwtToken } from '../types/Token.type';
 
+// TODO: I think I should check the expiration. And in the next steps check
+//  if the user is admin or not, etc...
 export const TokenValidation = async (request: Request, response: Response, next: NextFunction): Promise<Response | void> => {
     const token: JwtToken = request.header('auth-token');
 
