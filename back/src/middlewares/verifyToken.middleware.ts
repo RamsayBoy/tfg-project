@@ -9,6 +9,7 @@ import { JwtToken } from '../types/Token.type';
 export const TokenValidation = async (request: Request, response: Response, next: NextFunction): Promise<Response | void> => {
     const token: JwtToken = request.header('auth-token');
 
+    // TODO: Use the responseWrapped interface
     if (!token) return response.status(401).json({
         status: 401,
         statusText: 'Unauthorized',
