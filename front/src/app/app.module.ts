@@ -16,10 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  /* What happen if I do not add authservice, for example, here?
-    I can use it because of the router.
-    There are problems with instances of authService? Is singleton, it is not?
-    ...*/
   providers: [],
   bootstrap: [AppComponent]
 })
