@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -9,11 +9,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public isPasswordVisible: Boolean = false;
   public loginForm: FormGroup = new FormGroup({});
   public loginErrorMessage: string = '';
+  public isLoggingIn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,5 +53,9 @@ export class LoginComponent implements OnInit {
       _ => this.router.navigate([this.authService.redirectUrl]),
       failedResponse => this.loginErrorMessage = failedResponse.error.message,
     );
+  }
+
+  ngOnDestroy(): void {
+    // TODO: unsubscribe() this.authService.login ???
   }
 }

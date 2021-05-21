@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,10 @@ export class AuthService {
   login(loginFormData: any): Observable<any> {
     // TODO: Ask Enrique if I can share interfaces between angular and node (routes references in .env?)
     return this.http.post<any>(this.loginUrl, loginFormData)
-      .pipe( tap(response => this.setTokenInLocalStorage(response.data.token)) );
+      .pipe(
+        tap(response => this.setTokenInLocalStorage(response.data.token)),
+        delay(3000)
+      );
   }
 
   private setTokenInLocalStorage(token: string): void {

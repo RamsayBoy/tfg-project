@@ -4,7 +4,6 @@
 
     <!-- TODO: Add app logo -->
 
-    <!-- TODO: Add styles to CSS and add red border and red background-color with opacity -->
     <mat-error class="loginErrorMessage" *ngIf="loginErrorMessage!">
       {{loginErrorMessage}}
     </mat-error>
@@ -42,8 +41,11 @@
         </mat-error>
       </mat-form-field>
 
-      <button [disabled]="loginForm.invalid" mat-raised-button color="primary">Iniciar sesión</button>
-      <button mat-button>Registrarse</button>
+      <button type="submit" [disabled]="loginForm.invalid" mat-raised-button color="primary">
+        {{ isLoggingIn ? '' : 'Iniciar sesión' }}
+        <mat-icon *ngIf="isLoggingIn"><mat-spinner diameter="23"></mat-spinner></mat-icon>
+      </button>
+      <button type="button" mat-button>Registrarse</button>
     </form> <!-- loginForm -->
 
     <mat-divider></mat-divider>
