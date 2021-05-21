@@ -30,7 +30,6 @@ export class AuthService {
     return this.http.post<any>(this.loginUrl, loginFormData)
       .pipe(
         tap(response => this.setTokenInLocalStorage(response.data.token)),
-        delay(3000)
       );
   }
 
