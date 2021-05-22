@@ -1,36 +1,34 @@
-<p>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span class="spacer"></span>
-      <span class="toolbar-title">Clases</span>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </mat-toolbar-row>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="spacer"></span>
+    <span class="toolbar-title">Clases</span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
 
-    <mat-toolbar-row class="toolbar-prev-calendar-next-row">
-      <button type="button" mat-icon-button>
-        <mat-icon>arrow_back</mat-icon>
-      </button>
+  <mat-toolbar-row class="toolbar-prev-calendar-next-row">
+    <button type="button" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
 
-      <!--
-        TODO: Make it works
-          An idea is to bind the input value to a parent component property
-          call "day"
-          See output here:
-          https://angular.io/guide/inputs-outputs#sending-data-to-a-parent-component
-      -->
-      <div>
-        <input hidden matInput [matDatepicker]="picker">
-        <mat-datepicker touchUi #picker></mat-datepicker>
-        <button mat-icon-button (click)="picker.open()">
-          <mat-icon>today</mat-icon>
-        </button>
-      </div>
-
-      <button type="button" mat-icon-button>
-        <mat-icon>arrow_forward</mat-icon>
+    <!--
+      TODO: Make it works
+        An idea is to bind the input value to a parent component property
+        call "day"
+        See output here:
+        https://angular.io/guide/inputs-outputs#sending-data-to-a-parent-component
+    -->
+    <div>
+      <input hidden matInput [matDatepicker]="picker">
+      <mat-datepicker touchUi #picker></mat-datepicker>
+      <button mat-icon-button (click)="picker.open()">
+        <mat-icon>today</mat-icon>
       </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</p>
+    </div>
+
+    <button type="button" mat-icon-button>
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
