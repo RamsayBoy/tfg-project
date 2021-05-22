@@ -53,7 +53,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value)
       .subscribe(
         _ => this.router.navigate([this.authService.redirectUrl]),
-        failedResponse => this.loginErrorMessage = failedResponse.error.message,
+        failedResponse => {
+          if (!failedResponse.error.message) {
+            this.loginErrorMessage = 'Se ha producido un error al iniciar sesión';
+          }
+          else {
+            this.loginErrorMessage = failedResponse.error.message;
+          }
+        },
       )
       .add(() => this.isLoggingIn = false);
   }
