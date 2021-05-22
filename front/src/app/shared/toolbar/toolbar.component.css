@@ -1,0 +1,13 @@
+.spacer {
+  width: 40px;
+}
+
+.toolbar-title {
+  margin: 0 auto;
+}
+
+.toolbar-prev-calendar-next-row {
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 45rem;
+}
