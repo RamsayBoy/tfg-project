@@ -1,0 +1,11 @@
+.class {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 0.8rem;
+}
+
+.button-to-left {
+  display: flex;
+  justify-content: flex-end;
+}
