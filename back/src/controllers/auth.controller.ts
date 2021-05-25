@@ -29,7 +29,7 @@ export const login = async (request: Request, response: Response): Promise<Respo
             return response.status(401).json(responseWrapped);
         }
 
-        const token: JwtToken = authService.generateToken(user, 60 * 60 * 24);  // Expires in a day
+        const token: JwtToken = await authService.generateToken(user, 60 * 60 * 24);  // Expires in a day
 
         const responseWrapped = {
             status: 200,

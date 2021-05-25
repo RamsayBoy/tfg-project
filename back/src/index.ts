@@ -3,6 +3,7 @@ import express, {Express} from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import authRoutes from './routes/auth.route';
+import classesRoutes from './routes/class.route';
 
 const app: Express = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 
 // Routes
 app.use(`${config.api.BASE_URL}/auth`, authRoutes);
+app.use(`${config.api.BASE_URL}/auth`, classesRoutes);
 
 app.listen(config.api.PORT, config.api.HOST, (): void => {
     console.log(`App listening at http://${config.api.HOST}:${config.api.PORT}${config.api.BASE_URL}`);

@@ -1,8 +1,5 @@
 import {userRepository} from '../repositories/user.repository';
 import User from '../interfaces/User.interface';
-import jwt from 'jsonwebtoken';
-import config from '../config';
-import { JwtToken } from '../types/Token.type';
 
 // TODO: Dependency injection
 export default class UserService {
