@@ -21,13 +21,17 @@ CREATE TABLE `user`(
 	id			INT UNSIGNED	AUTO_INCREMENT,
     email		VARCHAR(256)	NOT NULL UNIQUE,
     `password`  VARCHAR(64)     NOT NULL,        -- TODO: Check size (use 64 max. in the client due to limitations in certain hashing algorithms)
-    `roleId`      INT UNSIGNED,
+    `roleId`    INT UNSIGNED,
+    teacherId   INT UNSIGNED,
     
 	PRIMARY KEY(id),
     
     FOREIGN KEY(`roleId`)	REFERENCES `role`(id)
         ON UPDATE CASCADE
-        ON DELETE SET NULL
+        ON DELETE SET NULL,
+    FOREIGN KEY(teacherId)	REFERENCES `user`(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE class(
@@ -47,87 +51,88 @@ CREATE TABLE class(
 -- --------------------------------------------------------
 -- DATA
 -- --------------------------------------------------------
-INSERT INTO `role`(`name`)
+INSERT INTO `role`(id, `name`)
 VALUES
-    ('admin');
+    (1, 'user'),
+    (2, 'admin');
 
-INSERT INTO `user`(email, `password`, `roleId`)
+INSERT INTO `user`(id, email, `password`, `roleId`, teacherId)
 VALUES
-    ('admin1@tfg.es', 'admin1pass', (SELECT id FROM `role` WHERE `name` = 'admin')),
-    ('user1@tfg.es', 'user1pass', NULL),
-    ('user2@tfg.es', 'user2pass', NULL);
+    (1, 'admin1@tfg.es', 'admin1pass', 2, NULL),
+    (2, 'user1@tfg.es', 'user1pass', 1, 1),
+    (3, 'user2@tfg.es', 'user2pass', 1, 1);
 
 INSERT INTO class(`date`, duration, numMaxClients, teacherId)
 VALUES
     (
         DATE_SUB(NOW(), INTERVAL 1 DAY),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 30 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(DATE_SUB(NOW(), INTERVAL 1 DAY), INTERVAL 30 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 60 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(DATE_SUB(NOW(), INTERVAL 1 DAY), INTERVAL 60 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 90 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(DATE_SUB(NOW(), INTERVAL 1 DAY), INTERVAL 90 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 120 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         NOW(),
-        CAST(ADDDATE(NOW(), INTERVAL 30 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(NOW(), INTERVAL 30 MINUTE),
-        CAST(ADDDATE(NOW(), INTERVAL 60 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(NOW(), INTERVAL 60 MINUTE),
-        CAST(ADDDATE(NOW(), INTERVAL 90 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(NOW(), INTERVAL 90 MINUTE),
-        CAST(ADDDATE(NOW(), INTERVAL 120 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(NOW(), 1),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 30 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(ADDDATE(NOW(), 1), INTERVAL 30 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 60 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(ADDDATE(NOW(), 1), INTERVAL 60 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 90 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     ),
     (
         ADDDATE(ADDDATE(NOW(), 1), INTERVAL 90 MINUTE),
-        CAST(ADDDATE(ADDDATE(NOW(), 1), INTERVAL 120 MINUTE) AS TIME),
+        '00:30:00',
         8,
-        (SELECT id FROM `role` WHERE `name` = 'admin')
+        1
     );
