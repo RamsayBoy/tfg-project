@@ -7,14 +7,14 @@ export const getClasses = async (request: Request, response: Response): Promise<
     const teacherId: number = response.locals.teacherId;
     
     try {
-        const classes: Class[] | null = await classService.getAllByTeacherId(teacherId);
+        const classes: Class[] = await classService.getAllByTeacherId(teacherId);
 
         const responseWrapped = {
             status: 200,
             statusText: 'OK',
             message: `Se han obtenido todas las clases`,
             data: {
-                classes
+                classes,
             },
         };
 

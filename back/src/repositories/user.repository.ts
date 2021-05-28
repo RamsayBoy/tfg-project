@@ -4,6 +4,7 @@ import User from '../interfaces/User.interface';
 // TODO: Dependency injection
 export default class UserRepository {
     async getByEmailAndPassword(email: string, password: string): Promise<User> {
+        // TODO: Change the query, it is wrong -> INNER JOIN role r ON r.id = u.id; is not the u.id
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT u.id, email, r.name as role
