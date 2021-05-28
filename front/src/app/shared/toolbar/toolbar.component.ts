@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ToolbarComponent implements OnInit {
 
   public date!: Date;
+  @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
 
   constructor() { }
 
@@ -15,4 +17,7 @@ export class ToolbarComponent implements OnInit {
     this.date = new Date();
   }
 
+  onDatePick(event: MatDatepickerInputEvent<any, any>): void {
+    this.onDatePickerEvent.emit(event.value);
+  }
 }

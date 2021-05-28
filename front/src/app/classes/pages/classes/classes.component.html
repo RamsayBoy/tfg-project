@@ -1,7 +1,8 @@
-<app-toolbar></app-toolbar>
+<app-toolbar (date)="updateDatePicked($event)"></app-toolbar>
 <div class="container">
   <div class="classes">
     <button (click)="logout()" mat-button>Log out man</button>
+    <button (click)="showMeYOurDate()" mat-button>Show me your date</button>
     <app-class></app-class>
     <app-class></app-class>
     <app-class></app-class>
