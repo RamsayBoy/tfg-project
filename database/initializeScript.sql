@@ -22,17 +22,29 @@ CREATE TABLE `user`(
     email		VARCHAR(256)	NOT NULL UNIQUE,
     `password`  VARCHAR(64)     NOT NULL,        -- TODO: Check size (use 64 max. in the client due to limitations in certain hashing algorithms)
     `roleId`    INT UNSIGNED,
-    teacherId   INT UNSIGNED    NOT NULL,
     
 	PRIMARY KEY(id),
     
     FOREIGN KEY(`roleId`)	REFERENCES `role`(id)
         ON UPDATE CASCADE
-        ON DELETE SET NULL,
+        ON DELETE SET NULL
+);
+
+CREATE TABLE `client`(
+    id          INT UNSIGNED    NOT NULL,
+    teacherId   INT UNSIGNED    NOT NULL,
+    
+    PRIMARY KEY(id),
+    
+    FOREIGN KEY(id)	REFERENCES `user`(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     FOREIGN KEY(teacherId)	REFERENCES `user`(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+-- CREATE TABLE teacher => only when teacher has to have columns teacher only has (and not the clients)
 
 CREATE TABLE class(
     id              INT UNSIGNED    AUTO_INCREMENT,
@@ -56,11 +68,16 @@ VALUES
     (1, 'user'),
     (2, 'admin');
 
-INSERT INTO `user`(id, email, `password`, `roleId`, teacherId)
+INSERT INTO `user`(id, email, `password`, `roleId`)
 VALUES
-    (1, 'admin1@tfg.es', 'admin1pass', 2, 1),
-    (2, 'user1@tfg.es', 'user1pass', 1, 1),
-    (3, 'user2@tfg.es', 'user2pass', 1, 1);
+    (1, 'admin1@tfg.es', 'admin1pass', 2),
+    (2, 'user1@tfg.es', 'user1pass', 1),
+    (3, 'user2@tfg.es', 'user2pass', 1);
+    
+INSERT INTO `client`(id, teacherId)
+VALUES
+    (2, 1),
+    (3, 1);
 
 INSERT INTO class(`date`, duration, numMaxClients, teacherId)
 VALUES
