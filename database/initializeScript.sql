@@ -22,7 +22,7 @@ CREATE TABLE `user`(
     email		VARCHAR(256)	NOT NULL UNIQUE,
     `password`  VARCHAR(64)     NOT NULL,        -- TODO: Check size (use 64 max. in the client due to limitations in certain hashing algorithms)
     `roleId`    INT UNSIGNED,
-    teacherId   INT UNSIGNED,
+    teacherId   INT UNSIGNED    NOT NULL,
     
 	PRIMARY KEY(id),
     
@@ -58,7 +58,7 @@ VALUES
 
 INSERT INTO `user`(id, email, `password`, `roleId`, teacherId)
 VALUES
-    (1, 'admin1@tfg.es', 'admin1pass', 2, NULL),
+    (1, 'admin1@tfg.es', 'admin1pass', 2, 1),
     (2, 'user1@tfg.es', 'user1pass', 1, 1),
     (3, 'user2@tfg.es', 'user2pass', 1, 1);
 
