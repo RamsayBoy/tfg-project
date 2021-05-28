@@ -15,9 +15,9 @@ export class ToolbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // TODO: If it does not work, initialize them above
     this.date = new Date();
     this.onDatePickerEvent.emit(this.date);
-    // this.showToolbarDateControls = false;
   }
 
   onDatePick(event: MatDatepickerInputEvent<any, any>): void {
