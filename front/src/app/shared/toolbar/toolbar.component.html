@@ -12,13 +12,6 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
 
-    <!--
-      TODO: Make it works
-        An idea is to bind the input value to a parent component property
-        call "day"
-        See output here:
-        https://angular.io/guide/inputs-outputs#sending-data-to-a-parent-component
-    -->
     <div>
       <input hidden matInput [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="onDatePick($event)">
       <mat-datepicker touchUi #picker></mat-datepicker>
