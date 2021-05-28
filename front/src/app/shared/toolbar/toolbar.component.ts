@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
+  public date!: Date;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.date = new Date();
   }
 
 }

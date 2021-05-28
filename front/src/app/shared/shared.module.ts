@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -32,6 +33,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
+    FormsModule,
   ],
   exports: [
     MatCardModule,
