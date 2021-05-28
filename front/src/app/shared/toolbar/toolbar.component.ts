@@ -10,7 +10,8 @@ export class ToolbarComponent implements OnInit {
 
   public date!: Date;
   @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
-  @Input('showDateControls') public showToolbarDateControls: boolean = false;
+  @Input('title') public title!: string;
+  @Input('showDateControls') public showDateControls: boolean = false;
 
   constructor() { }
 

@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span class="spacer"></span>
-    <span class="toolbar-title">Clases</span>
+    <span class="toolbar-title">{{title}}</span>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="showToolbarDateControls" class="toolbar-prev-calendar-next-row">
+  <mat-toolbar-row *ngIf="showDateControls" class="toolbar-prev-calendar-next-row">
     <button type="button" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
