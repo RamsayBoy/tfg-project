@@ -3,10 +3,11 @@ import Class from "../interfaces/Class.interface";
 import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
 import { classService } from '../services/class.service';
 
-
 export const getClasses = async (request: Request, response: Response): Promise<Response> => {
+    const teacherId: number = response.locals.teacherId;
+    
     try {
-        const classes: Class[] | null = await classService.getAll();
+        const classes: Class[] | null = await classService.getAllByTeacherId(teacherId);
 
         const responseWrapped = {
             status: 200,

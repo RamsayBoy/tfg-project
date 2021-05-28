@@ -14,7 +14,7 @@ app.use(cors());
 
 // Routes
 app.use(`${config.api.BASE_URL}/auth`, authRoutes);
-app.use(`${config.api.BASE_URL}/auth`, classesRoutes);
+app.use(`${config.api.BASE_URL}`, classesRoutes);
 
 app.listen(config.api.PORT, config.api.HOST, (): void => {
     console.log(`App listening at http://${config.api.HOST}:${config.api.PORT}${config.api.BASE_URL}`);

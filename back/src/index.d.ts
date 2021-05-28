@@ -1,6 +1,7 @@
 interface Locals {
-    userId: number,
+    userId: number;
     userRole?: string;
+    teacherId?: number;
 }
 
 declare module 'express' {

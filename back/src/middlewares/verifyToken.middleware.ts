@@ -23,6 +23,7 @@ export const TokenValidation = async (request: Request, response: Response, next
     const payload = jwt.verify(token, config.TOKEN_SECRET) as Payload;
     response.locals.userId = payload.id;
     response.locals.userRole = payload.role;
+    response.locals.teacherId = payload.teacherId;
 
     next();
 };

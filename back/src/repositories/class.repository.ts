@@ -3,17 +3,18 @@ import database from '../mysql';
 
 // TODO: Dependency injection
 export default class ClassRepository {
-    async getByEmailAndPassword(email: string, password: string): Promise<Class[]> {
+    async getAllByTeacherId(teacherId: number): Promise<Class[]> {
         // TODO: Teacher ID is needed for getting all the classes
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT id, date, duration, numMaxClients, teacherId
                 FROM class
+                WHERE teacherId = ${teacherId}
             `;
 
             database.query(query, (error, results) => {
                 if (error) return reject(error);
-                resolve(results[0]);
+                resolve(results);
             });
         });
     }
