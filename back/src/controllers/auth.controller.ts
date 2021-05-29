@@ -47,7 +47,7 @@ export const login = async (request: Request, response: Response): Promise<Respo
         const responseWrapped: ResponseWrapped = {
             status: 500,
             statusText: 'Internal error',
-            message: 'Se ha producido un error en el servidor',
+            message: 'Se ha producido un error al iniciar sesión',
             error: {
                 code: 'INTERNAL_ERROR',
                 message: 'Se ha producido un error en el servidor',

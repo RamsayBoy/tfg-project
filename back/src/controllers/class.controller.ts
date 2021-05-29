@@ -24,7 +24,7 @@ export const getClasses = async (request: Request, response: Response): Promise<
         const responseWrapped: ResponseWrapped = {
             status: 500,
             statusText: 'Internal error',
-            message: 'Se ha producido un error en el servidor',
+            message: 'Se ha producido un error al cargar las clases',
             error: {
                 code: 'INTERNAL_ERROR',
                 message: 'Se ha producido un error en el servidor',
