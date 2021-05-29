@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import Class from 'src/interfaces/Class.interface';
+import { ClassService } from '../../services/class.service';
 
 @Component({
   selector: 'app-classes',
@@ -12,17 +14,22 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class ClassesComponent implements OnInit {
 
   @Input() private date!: Date;
+  // TODO: Make interfaces shared between the backend and the frontend
+  public classes: Class[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private classService: ClassService,
   ) { }
 
   showMeYOurDate(){
     console.log(this.date);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getClasses();
+  }
 
   logout(): void {
     this.authService.logout();
@@ -31,5 +38,13 @@ export class ClassesComponent implements OnInit {
 
   updateDatePicked(date: Date) {
     this.date = date;
+  }
+
+  getClasses(): void {
+    this.classService.getClasses()
+      .subscribe(
+        response => this.classes = response.data.classes,
+        errorResponse => console.log('Pop-up with:', errorResponse.error.message),
+      );
   }
 }

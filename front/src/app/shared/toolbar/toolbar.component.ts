@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+// TODO: Move to shared/components/toolbar folder
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',

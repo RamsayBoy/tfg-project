@@ -8,6 +8,5 @@ export default interface ResponseWrapped {
     statusText: string,
     message: string,
     error?: ResponseWrapperError,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
 }

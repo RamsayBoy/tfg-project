@@ -3,16 +3,11 @@
               [title]="'Clases'"
               ></app-toolbar>
 <div class="container">
-  <div class="classes">
+  <div class="classes"> <!-- TODO: Delete this button when implement it on menu -->
     <button (click)="logout()" mat-button>Log out man</button>
-    <button (click)="showMeYOurDate()" mat-button>Show me your date</button>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
-    <app-class></app-class>
+  </div>
+  <!-- TODO: Add spinner -->
+  <div class="classes" *ngFor="let class of classes">
+    <app-class [class]="class"></app-class>
   </div>
 </div>

@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
+// TODO: Make it works for getting classes and so on
 @Injectable()
 export class JwtTokenInterceptor implements HttpInterceptor {
 
