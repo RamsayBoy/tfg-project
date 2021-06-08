@@ -3,10 +3,13 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 // TODO: Make it works for getting classes and so on
 @Injectable()
@@ -14,6 +17,7 @@ export class JwtTokenInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
+    private router: Router,
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -23,13 +27,20 @@ export class JwtTokenInterceptor implements HttpInterceptor {
       request = this.addToken(request, token);
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.router.navigateByUrl('/login');
+        }
+        return throwError(error);
+      })
+    );
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
     return request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${token}`,
+        'authorization': `Bearer ${token}`,
       }
     });
   }

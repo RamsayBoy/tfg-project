@@ -13,14 +13,6 @@ import { JwtTokenInterceptor } from './interceptors/jwt-token.interceptor';
   declarations: [
     LoginComponent
   ],
-  providers: [
-    // TODO: Maybe it has to be in app.module.ts. Will see
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtTokenInterceptor,
-      multi: true,
-    }
-  ],
   imports: [
     CommonModule,
     AuthRoutingModule,
