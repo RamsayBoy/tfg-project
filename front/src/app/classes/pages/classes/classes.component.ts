@@ -23,6 +23,7 @@ export class ClassesComponent implements OnInit {
     private classService: ClassService,
   ) { }
 
+  // TODO: Remove this method
   showMeYOurDate(){
     console.log(this.date);
   }
@@ -43,8 +44,11 @@ export class ClassesComponent implements OnInit {
   getClasses(): void {
     this.classService.getClasses()
       .subscribe(
-        response => this.classes = response.data.classes,
-        errorResponse => console.log('Pop-up with:', errorResponse.error.message),
+        data => {
+          console.log('data', data);
+          this.classes = data;
+        },
+        error => console.log('Pop-up with:', error),
       );
   }
 }

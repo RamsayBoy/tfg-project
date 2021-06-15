@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MondayAsFirstDay } from './shared/dateAdapter/mondayAsFirstDay';
 import { JwtTokenInterceptor } from './auth/interceptors/jwt-token.interceptor';
+import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
 
 @NgModule({
@@ -23,11 +24,16 @@ import { JwtTokenInterceptor } from './auth/interceptors/jwt-token.interceptor';
   providers: [
     {provide: DateAdapter, useClass: MondayAsFirstDay},
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtTokenInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtTokenInterceptor,
+      useClass: HttpErrorInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

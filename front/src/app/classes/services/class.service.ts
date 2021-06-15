@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import Class from 'src/interfaces/Class.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 
 // TODO: Any was for lazy loaded modules? Or something like that. See it better
@@ -18,7 +20,13 @@ export class ClassService {
     private http: HttpClient,
   ) { }
 
-  getClasses(): Observable<ResponseWrapped> {
-    return this.http.get<ResponseWrapped>(this.url);
+  getClasses(): Observable<Class[]> {
+    return this.http.get<ResponseWrapped>(this.url)
+      .pipe(
+        map(response => {
+          response.data.classes
+          return response.data.classes;
+        })
+      );
   }
 }

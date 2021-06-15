@@ -16,6 +16,9 @@ export class ClassComponent implements OnInit {
   }
 
   get durationPeriod() {
+    console.log(this.class)
+    console.log(typeof(this.class.date))
+    console.log(new Date(this.class.date))
     let startHour = this.class.date.getHours();
     let startMinutes = this.class.date.getMinutes();
 
