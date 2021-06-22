@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import Class from 'src/interfaces/Class.interface';
 import { ClassService } from '../../services/class.service';
 
@@ -21,10 +22,11 @@ export class ClassesComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private classService: ClassService,
+    private dialogService: DialogService
   ) { }
 
   // TODO: Remove this method
-  showMeYOurDate(){
+  showMeYOurDate() {
     console.log(this.date);
   }
 
@@ -48,7 +50,9 @@ export class ClassesComponent implements OnInit {
           console.log('data', data);
           this.classes = data;
         },
-        error => console.log('Pop-up with:', error),
+        error => {
+          this.dialogService.open('Error', error);
+        }
       );
   }
 }

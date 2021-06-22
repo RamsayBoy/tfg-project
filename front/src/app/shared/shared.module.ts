@@ -11,14 +11,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule } from '@angular/forms';
+import { DialogComponent } from './dialog/components/dialog.component';
 
 
 
 @NgModule({
   declarations: [
-    ToolbarComponent
+    ToolbarComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +37,7 @@ import { FormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatToolbarModule,
     FormsModule,
+    MatDialogModule,
   ],
   exports: [
     MatCardModule,
@@ -47,6 +51,7 @@ import { FormsModule } from '@angular/forms';
     MatToolbarModule,
     MatDatepickerModule,
     ToolbarComponent,
-  ]
+    DialogComponent,
+  ],
 })
 export class SharedModule { }

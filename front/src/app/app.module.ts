@@ -10,6 +10,8 @@ import { MondayAsFirstDay } from './shared/dateAdapter/mondayAsFirstDay';
 import { JwtTokenInterceptor } from './auth/interceptors/jwt-token.interceptor';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -20,10 +22,11 @@ import { HttpErrorInterceptor } from './shared/interceptors/http-error.intercept
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatDialogModule
   ],
   providers: [
-    {provide: DateAdapter, useClass: MondayAsFirstDay},
-    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+    { provide: DateAdapter, useClass: MondayAsFirstDay },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: JwtTokenInterceptor,
