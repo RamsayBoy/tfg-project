@@ -9,23 +9,33 @@ import Class from 'src/interfaces/Class.interface';
 export class ClassComponent implements OnInit {
 
   @Input('class') public class!: Class;
+  public durationPeriod!: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    // Done here for avoiding errors
+    this.durationPeriod = this.getDurationPeriod();
   }
 
-  get durationPeriod() {
-    console.log(this.class)
-    console.log(typeof(this.class.date))
-    console.log(new Date(this.class.date))
-    let startHour = this.class.date.getHours();
-    let startMinutes = this.class.date.getMinutes();
+  getDurationPeriod() {
+    let date = this.class.date;
+    let secondsToEnd = this.getSecondsFromTime(this.class.duration);
+    let endDate = date;
 
-    let endHour = this.class.date.getHours();
-    let endMinutes = this.class.date.getMinutes();
+    let startHour = date.getHours();
+    let startMinutes = date.getMinutes();
+
+    endDate.setSeconds(date.getSeconds() + secondsToEnd);
+
+    let endHour = endDate.getHours();
+    let endMinutes = endDate.getMinutes();
 
     return `${startHour}:${startMinutes} - ${endHour}:${endMinutes}`;
   }
 
+  getSecondsFromTime(time: string) {
+    let parts = time.split(':');
+    return (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
+  }
 }

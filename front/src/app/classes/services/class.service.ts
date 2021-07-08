@@ -24,7 +24,9 @@ export class ClassService {
     return this.http.get<ResponseWrapped>(this.url)
       .pipe(
         map(response => {
-          response.data.classes
+          response.data.classes.forEach((element: Class) => {
+            element.date = new Date(element.date);
+          });
           return response.data.classes;
         })
       );

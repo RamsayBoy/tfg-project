@@ -47,7 +47,6 @@ export class ClassesComponent implements OnInit {
     this.classService.getClasses()
       .subscribe(
         data => {
-          console.log('data', data);
           this.classes = data;
         },
         error => {

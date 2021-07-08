@@ -27,11 +27,11 @@ import { MatDialogModule } from '@angular/material/dialog';
   providers: [
     { provide: DateAdapter, useClass: MondayAsFirstDay },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: JwtTokenInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtTokenInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
