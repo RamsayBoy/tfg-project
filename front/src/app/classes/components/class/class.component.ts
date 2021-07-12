@@ -23,13 +23,19 @@ export class ClassComponent implements OnInit {
     let secondsToEnd = this.getSecondsFromTime(this.class.duration);
     let endDate = date;
 
-    let startHour = date.getHours();
-    let startMinutes = date.getMinutes();
+    let startHour = date.getHours().toString();
+    startHour = ("0" + startHour).slice(-2);
+
+    let startMinutes = date.getMinutes().toString();
+    startMinutes = ("0" + startMinutes).slice(-2);
 
     endDate.setSeconds(date.getSeconds() + secondsToEnd);
 
-    let endHour = endDate.getHours();
-    let endMinutes = endDate.getMinutes();
+    let endHour = endDate.getHours().toString();
+    endHour = ("0" + endHour).slice(-2);
+
+    let endMinutes = endDate.getMinutes().toString();
+    endMinutes = ("0" + endMinutes).slice(-2);
 
     return `${startHour}:${startMinutes} - ${endHour}:${endMinutes}`;
   }

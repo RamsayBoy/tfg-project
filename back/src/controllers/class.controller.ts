@@ -5,9 +5,10 @@ import { classService } from '../services/class.service';
 
 export const getClasses = async (request: Request, response: Response): Promise<Response> => {
     const teacherId: number = response.locals.teacherId;
-    
+    const date: string = request.query.date as string;
+
     try {
-        const classes: Class[] = await classService.getAllByTeacherId(teacherId);
+        const classes: Class[] = await classService.getAll(teacherId, new Date(date));
 
         const responseWrapped = {
             status: 200,

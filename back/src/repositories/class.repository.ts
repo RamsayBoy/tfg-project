@@ -3,12 +3,13 @@ import database from '../mysql';
 
 // TODO: Dependency injection
 export default class ClassRepository {
-    async getAllByTeacherId(teacherId: number): Promise<Class[]> {
+    async getAll(teacherId: number, date: Date): Promise<Class[]> {
         return new Promise((resolve, reject) => {
             const query = `
-                SELECT id, date, duration, numMaxClients, teacherId
-                FROM class
-                WHERE teacherId = ${teacherId}
+                    SELECT id, date, duration, numMaxClients, teacherId
+                    FROM class
+                    WHERE teacherId = ${teacherId}
+                        AND DATE(date) = '${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}'
             `;
 
             database.query(query, (error, results) => {

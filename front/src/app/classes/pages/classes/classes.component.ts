@@ -31,7 +31,7 @@ export class ClassesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getClasses();
+    //this.getClasses(); -> It is call when datepicker is updated
   }
 
   logout(): void {
@@ -41,10 +41,11 @@ export class ClassesComponent implements OnInit {
 
   updateDatePicked(date: Date) {
     this.date = date;
+    this.getClasses(this.date);
   }
 
-  getClasses(): void {
-    this.classService.getClasses()
+  getClasses(date: Date): void {
+    this.classService.getClasses(date)
       .subscribe(
         data => {
           this.classes = data;

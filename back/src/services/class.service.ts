@@ -3,8 +3,8 @@ import { classRepository } from "../repositories/class.repository";
 
 // TODO: Dependency injection
 export default class ClassService {
-    async getAllByTeacherId(teacherId: number): Promise<Class[]> {
-        return await classRepository.getAllByTeacherId(teacherId);
+    async getAll(teacherId: number, date: Date): Promise<Class[]> {
+        return await classRepository.getAll(teacherId, date);
     }
 }
 

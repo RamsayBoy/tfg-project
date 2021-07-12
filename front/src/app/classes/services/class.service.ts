@@ -20,8 +20,8 @@ export class ClassService {
     private http: HttpClient,
   ) { }
 
-  getClasses(): Observable<Class[]> {
-    return this.http.get<ResponseWrapped>(this.url)
+  getClasses(date: Date): Observable<Class[]> {
+    return this.http.get<ResponseWrapped>(this.url + '?date=' + date.toJSON())
       .pipe(
         map(response => {
           response.data.classes.forEach((element: Class) => {
