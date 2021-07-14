@@ -8,7 +8,7 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="showDateControls" class="toolbar-prev-calendar-next-row">
-    <button type="button" mat-icon-button>
+    <button (click)="previousDay()" type="button" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
 
@@ -20,7 +20,7 @@
       </button>
     </div>
 
-    <button type="button" mat-icon-button>
+    <button (click)="nextDay()" type="button" mat-icon-button>
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </mat-toolbar-row>

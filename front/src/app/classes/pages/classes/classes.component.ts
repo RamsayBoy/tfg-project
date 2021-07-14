@@ -42,6 +42,7 @@ export class ClassesComponent implements OnInit {
   updateDatePicked(date: Date) {
     this.date = date;
     this.getClasses(this.date);
+    window.scroll(0, 0);
   }
 
   getClasses(date: Date): void {

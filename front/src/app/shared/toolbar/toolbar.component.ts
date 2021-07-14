@@ -25,4 +25,14 @@ export class ToolbarComponent implements OnInit {
   onDatePick(event: MatDatepickerInputEvent<any, any>): void {
     this.onDatePickerEvent.emit(event.value);
   }
+
+  previousDay(): void {
+    this.date.setDate(this.date.getDate() - 1);
+    this.onDatePickerEvent.emit(this.date);
+  }
+
+  nextDay(): void {
+    this.date.setDate(this.date.getDate() + 1);
+    this.onDatePickerEvent.emit(this.date);
+  }
 }
