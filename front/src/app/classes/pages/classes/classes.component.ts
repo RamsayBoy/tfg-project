@@ -14,7 +14,7 @@ import { ClassService } from '../../services/class.service';
 })
 export class ClassesComponent implements OnInit {
 
-  @Input() private date!: Date;
+  @Input() public date!: Date;
   // TODO: Make interfaces shared between the backend and the frontend
   public classes: Class[] = [];
 
@@ -27,6 +27,7 @@ export class ClassesComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getClasses(); -> It is call when datepicker is updated
+    this.date = new Date();
   }
 
   logout(): void {
@@ -35,9 +36,9 @@ export class ClassesComponent implements OnInit {
   }
 
   updateDatePicked(date: Date) {
-    this.date = date;
+    //this.date = date;
     // TODO: Make date be the last one if connection fails
-    this.getClasses(this.date);
+    this.getClasses(date);
     window.scroll(0, 0);
   }
 
@@ -45,6 +46,7 @@ export class ClassesComponent implements OnInit {
     this.classService.getClasses(date)
       .subscribe(
         data => {
+          this.date = date;
           this.classes = data;
         },
         error => {

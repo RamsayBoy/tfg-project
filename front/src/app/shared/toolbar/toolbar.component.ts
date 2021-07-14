@@ -9,7 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class ToolbarComponent implements OnInit {
 
-  public date!: Date;
+  @Input('pageDate') public date!: Date;
   @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
   @Input('title') public title!: string;
   @Input('showDateControls') public showDateControls: boolean = false;
@@ -18,7 +18,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO: If it does not work, initialize them above
-    this.date = new Date();
+    //this.date = new Date();
     this.onDatePickerEvent.emit(this.date);
   }
 
@@ -27,12 +27,16 @@ export class ToolbarComponent implements OnInit {
   }
 
   previousDay(): void {
-    this.date.setDate(this.date.getDate() - 1);
-    this.onDatePickerEvent.emit(this.date);
+    let d1 = new Date(this.date);
+    d1.setDate(this.date.getDate() - 1);
+    //this.date.setDate(this.date.getDate() - 1);
+    this.onDatePickerEvent.emit(d1);
   }
 
   nextDay(): void {
-    this.date.setDate(this.date.getDate() + 1);
-    this.onDatePickerEvent.emit(this.date);
+    let d1 = new Date(this.date);
+    d1.setDate(this.date.getDate() + 1);
+    //this.date.setDate(this.date.getDate() + 1);
+    this.onDatePickerEvent.emit(d1);
   }
 }
