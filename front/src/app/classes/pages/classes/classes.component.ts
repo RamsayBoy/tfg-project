@@ -25,11 +25,6 @@ export class ClassesComponent implements OnInit {
     private dialogService: DialogService
   ) { }
 
-  // TODO: Remove this method
-  showMeYOurDate() {
-    console.log(this.date);
-  }
-
   ngOnInit(): void {
     //this.getClasses(); -> It is call when datepicker is updated
   }
@@ -41,6 +36,7 @@ export class ClassesComponent implements OnInit {
 
   updateDatePicked(date: Date) {
     this.date = date;
+    // TODO: Make date be the last one if connection fails
     this.getClasses(this.date);
     window.scroll(0, 0);
   }
