@@ -14,6 +14,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor() {}
 
+  // TODO: Add here the popup or error notification
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
@@ -22,7 +23,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {
             // client-side error
-            errorMessage = error.error.message;
+            //errorMessage = error.error.message;
+            errorMessage = "Se ha producido un error"
           } else {
             // server-side error
             errorMessage = error.error.message;
