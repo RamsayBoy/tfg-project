@@ -54,6 +54,7 @@ export class ClassesComponent implements OnInit {
           // Set the date to the previous date if there is an error
           // By using the ngOnChanges on toolbar.component.ts
           this.date = new Date(this.date);
+          console.log(error)
           this.dialogService.open('Error', error);
         }
       );

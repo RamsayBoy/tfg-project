@@ -21,13 +21,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         retry(1),
         catchError((error: HttpErrorResponse) => {
           let errorMessage = '';
+          console.log(error)
+          console.log(error.error)
           if (error.error instanceof ErrorEvent) {
             // client-side error
-            //errorMessage = error.error.message;
-            errorMessage = "Se ha producido un error"
+            errorMessage = error.error.message;
           } else {
             // server-side error
-            errorMessage = error.error.message;
+            errorMessage = error.message;
           }
 
           return throwError(errorMessage);
