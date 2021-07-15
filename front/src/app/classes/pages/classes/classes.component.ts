@@ -28,6 +28,7 @@ export class ClassesComponent implements OnInit {
   ngOnInit(): void {
     //this.getClasses(); -> It is call when datepicker is updated
     this.date = new Date();
+    this.updateDatePicked(this.date);
   }
 
   logout(): void {
@@ -50,6 +51,9 @@ export class ClassesComponent implements OnInit {
           this.classes = data;
         },
         error => {
+          // Set the date to the previous date if there is an error
+          // By using the ngOnChanges on toolbar.component.ts
+          this.date = new Date(this.date);
           this.dialogService.open('Error', error);
         }
       );
