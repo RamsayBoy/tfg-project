@@ -24,15 +24,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     for (let propName in changes) {
-      // only run when property "data" changed
       if (propName === 'date') {
-          //  this line will update posts values
-          //this.date = changes[propName].previousValue;
           this.date = changes[propName].currentValue;
-          console.log('OnChanges', changes[propName].currentValue);
-          //console.log(this.date);
       }
     }
   }
