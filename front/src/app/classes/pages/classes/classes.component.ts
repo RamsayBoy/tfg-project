@@ -2,8 +2,10 @@ import { Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/
 import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import Class from 'src/interfaces/Class.interface';
@@ -19,7 +21,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
   @Input() public date!: Date;
   // TODO: Make interfaces shared between the backend and the frontend
   classes$!: Observable<Class[]>;
-  areErrors: boolean = false;
 
   dateSubscription!: Subscription;
 
@@ -31,12 +32,10 @@ export class ClassesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    //this.getClasses(); -> It is call when datepicker is updated
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
       this.date = date;
       this.getClasses(this.date);
     });
-    // this.updateDatePicked(this.date);
   }
 
   logout(): void {
@@ -49,12 +48,11 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.classes$ = this.classService.getClasses(date);
     this.classes$.subscribe(
       data => {
-        //this.classes = data;
-        this.areErrors = false;
+        //this.areErrors = false;
       },
       error => {
         // Set the date to the previous date if there is an error
-        this.areErrors = true;
+        //this.areErrors = true;
         this.dialogService.open('Error', error);
       }
     );
