@@ -1,5 +1,11 @@
-mat-drawer {
-  width: 40%; /* On PC width change to a lower width */
+mat-sidenav {
+  width: 20rem;
+}
+
+@media (max-width: 600px) {
+  mat-sidenav {
+    width: 12rem;
+  }
 }
 
 .example-sidenav-content {
