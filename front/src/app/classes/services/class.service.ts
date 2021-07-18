@@ -23,21 +23,8 @@ export class ClassService {
     private http: HttpClient,
   ) { }
 
-  // getClasses(date: Date): Observable<Class[]> {
-  //   return this.http.get<ResponseWrapped>(this.url + '?date=' + date.toJSON())
-  //     .pipe(
-  //       map(response => {
-  //         response.data.classes.forEach((element: Class) => {
-  //           element.date = new Date(element.date);
-  //         });
-  //         return response.data.classes;
-  //       })
-  //     );
-  // }
-
-  getClasses(): Observable<Class[]> {
-    console.log(this.dateSource.getValue());
-    return this.http.get<ResponseWrapped>(this.url + '?date=' + this.dateSource.getValue().toJSON())
+  getClasses(date: Date): Observable<Class[]> {
+    return this.http.get<ResponseWrapped>(this.url + '?date=' + date.toJSON())
       .pipe(
         map(response => {
           response.data.classes.forEach((element: Class) => {

@@ -34,7 +34,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
       this.lastDate = this.date;
       this.date = date;
-      this.getClasses();
+      this.getClasses(this.date);
     });
     // this.updateDatePicked(this.date);
   }
@@ -44,9 +44,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/auth/login']);  // TODO: In a constant
   }
 
-  getClasses(): void {
+  getClasses(date: Date): void {
     window.scroll(0, 0);
-    this.classService.getClasses()
+    this.classService.getClasses(date)
       .subscribe(
         data => {
           this.classes = data;
