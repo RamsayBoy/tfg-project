@@ -24,7 +24,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
-      console.log('toolbar',this.date)
       this.date = date;
     });
   }

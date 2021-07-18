@@ -21,6 +21,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   @Input() public date!: Date;
   // TODO: Make interfaces shared between the backend and the frontend
   classes$!: Observable<Class[]>;
+  isLoading$: Subject<boolean> = new Subject();
 
   dateSubscription!: Subscription;
 
@@ -49,10 +50,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.classes$.subscribe(
       data => {
         //this.areErrors = false;
+        this.isLoading$.next(true);
       },
       error => {
         // Set the date to the previous date if there is an error
         //this.areErrors = true;
+        this.isLoading$.next(false);
         this.dialogService.open('Error', error);
       }
     );

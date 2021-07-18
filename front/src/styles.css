@@ -13,3 +13,7 @@ body {
 .cdk-global-scrollblock {
   position: static !important;
 }
+
+.loading-spinner {
+  margin: 0 auto;
+}
