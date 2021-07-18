@@ -14,7 +14,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
   @Input('title') public title!: string;
   @Input('showDateControls') public showDateControls: boolean = false;
-  // public position: string = "fixed";
+
+  // New
+  @Output() onShowMenuEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() isMenuVisible: boolean = false;
 
   constructor() { }
 
@@ -48,5 +51,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
     d1.setDate(this.date.getDate() + 1);
     //this.date.setDate(this.date.getDate() + 1);
     this.onDatePickerEvent.emit(d1);
+  }
+
+  showMenu(): void {
+    this.onShowMenuEvent.emit(!this.isMenuVisible);
   }
 }

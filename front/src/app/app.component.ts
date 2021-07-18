@@ -15,8 +15,21 @@ export class AppComponent implements OnDestroy {
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this._mobileQueryListener = () => {
+      // Close mwnu when change from desktop to mobile
+      if (this.mobileQuery.matches) {
+        this.opened = false;
+      }
+      else {
+        this.opened = true;
+      }
+      return changeDetectorRef.detectChanges();
+    }
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  }
+
+  showMenu(event: any): void {
+    console.log("Jeje");
   }
 
   ngOnDestroy(): void {
