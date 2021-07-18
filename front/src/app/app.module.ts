@@ -11,6 +11,7 @@ import { JwtTokenInterceptor } from './auth/interceptors/jwt-token.interceptor';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: MondayAsFirstDay },

@@ -1,0 +1,7 @@
+mat-drawer {
+  width: 40%; /* On PC width change to a lower width */
+}
+
+.example-sidenav-content {
+  width: 100%;
+}
