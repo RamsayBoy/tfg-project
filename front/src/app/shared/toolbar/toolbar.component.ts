@@ -10,7 +10,7 @@ import { ClassService } from 'src/app/classes/services/class.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit, OnChanges, OnDestroy {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
   @Input() title: string = "";
   date!: Date;
@@ -24,17 +24,18 @@ export class ToolbarComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
+      console.log('toolbar',this.date)
       this.date = date;
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    for (let propName in changes) {
-      if (propName === 'date') {
-          this.date = changes[propName].currentValue;
-      }
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   for (let propName in changes) {
+  //     if (propName === 'date') {
+  //         this.date = changes[propName].currentValue;
+  //     }
+  //   }
+  // }
 
   onDatePick(event: MatDatepickerInputEvent<any, any>): void {
     this.classService.updateDate(event.value);

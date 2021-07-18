@@ -4,6 +4,12 @@
   </div>
   <!-- TODO: Add spinner -->
   <div class="classes">
-    <app-class *ngFor="let class of classes" [class]="class"></app-class>
+    <app-class *ngFor="let class of classes$ | async" [class]="class"></app-class>
+
+    <div *ngIf="areErrors">
+      <h1>No se han podido cargar las clases.</h1>
+      <p>Ha ocurrido un error y no se han podido cargar las clases.</p>
+      <button (click)="getClasses(date)" type="button">Volver a cargar</button>
+    </div>
   </div>
 </div>
