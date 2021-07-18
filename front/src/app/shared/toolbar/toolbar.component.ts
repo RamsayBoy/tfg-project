@@ -14,6 +14,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
   @Input('title') public title!: string;
   @Input('showDateControls') public showDateControls: boolean = false;
+  // public position: string = "fixed";
 
   constructor() { }
 
