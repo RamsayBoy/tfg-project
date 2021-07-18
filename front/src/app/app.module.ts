@@ -12,6 +12,8 @@ import { HttpErrorInterceptor } from './shared/interceptors/http-error.intercept
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HttpClientModule,
     MatDialogModule,
     MatSidenavModule,
+    SharedModule
+
   ],
   providers: [
     { provide: DateAdapter, useClass: MondayAsFirstDay },

@@ -1,7 +1,8 @@
-import { Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import Class from 'src/interfaces/Class.interface';
@@ -12,11 +13,14 @@ import { ClassService } from '../../services/class.service';
   templateUrl: './classes.component.html',
   styleUrls: ['./classes.component.css']
 })
-export class ClassesComponent implements OnInit {
+export class ClassesComponent implements OnInit, OnDestroy {
 
   @Input() public date!: Date;
+  lastDate: Date = new Date();
   // TODO: Make interfaces shared between the backend and the frontend
   public classes: Class[] = [];
+
+  dateSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -27,8 +31,12 @@ export class ClassesComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getClasses(); -> It is call when datepicker is updated
-    this.date = new Date();
-    this.updateDatePicked(this.date);
+    this.dateSubscription = this.classService.currentDate.subscribe(date => {
+      this.lastDate = this.date;
+      this.date = date;
+      this.getClasses();
+    });
+    // this.updateDatePicked(this.date);
   }
 
   logout(): void {
@@ -36,26 +44,21 @@ export class ClassesComponent implements OnInit {
     this.router.navigate(['/auth/login']);  // TODO: In a constant
   }
 
-  updateDatePicked(date: Date) {
-    //this.date = date;
-    // TODO: Make date be the last one if connection fails
-    this.getClasses(date);
+  getClasses(): void {
     window.scroll(0, 0);
-  }
-
-  getClasses(date: Date): void {
-    this.classService.getClasses(date)
+    this.classService.getClasses()
       .subscribe(
         data => {
-          this.date = date;
           this.classes = data;
         },
         error => {
           // Set the date to the previous date if there is an error
-          // By using the ngOnChanges on toolbar.component.ts
-          this.date = new Date(this.date);
           this.dialogService.open('Error', error);
         }
       );
+  }
+
+  ngOnDestroy(): void {
+    this.dateSubscription.unsubscribe();
   }
 }

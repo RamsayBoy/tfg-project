@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import Class from 'src/interfaces/Class.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
@@ -9,19 +9,35 @@ import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 //  https://angular.io/guide/providers
 //  With providedIn: ClassModule it gives me an error (circular dependency or something like that)
 @Injectable({
-  providedIn: 'any',
+  providedIn: 'root',
 })
 export class ClassService {
 
   // TODO: Form url by using environtment variables
   private readonly url: string = "http://localhost:3000/api/v0/classes";
 
+  private dateSource = new BehaviorSubject<Date>(new Date());
+  currentDate = this.dateSource.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
 
-  getClasses(date: Date): Observable<Class[]> {
-    return this.http.get<ResponseWrapped>(this.url + '?date=' + date.toJSON())
+  // getClasses(date: Date): Observable<Class[]> {
+  //   return this.http.get<ResponseWrapped>(this.url + '?date=' + date.toJSON())
+  //     .pipe(
+  //       map(response => {
+  //         response.data.classes.forEach((element: Class) => {
+  //           element.date = new Date(element.date);
+  //         });
+  //         return response.data.classes;
+  //       })
+  //     );
+  // }
+
+  getClasses(): Observable<Class[]> {
+    console.log(this.dateSource.getValue());
+    return this.http.get<ResponseWrapped>(this.url + '?date=' + this.dateSource.getValue().toJSON())
       .pipe(
         map(response => {
           response.data.classes.forEach((element: Class) => {
@@ -30,5 +46,9 @@ export class ClassService {
           return response.data.classes;
         })
       );
+  }
+
+  updateDate(date: Date) {
+    this.dateSource.next(date);
   }
 }

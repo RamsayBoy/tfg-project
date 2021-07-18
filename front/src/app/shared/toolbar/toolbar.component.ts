@@ -1,6 +1,8 @@
-import { SimpleChanges } from '@angular/core';
+import { OnDestroy, SimpleChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Subscription } from 'rxjs';
+import { ClassService } from 'src/app/classes/services/class.service';
 
 // TODO: Move to shared/components/toolbar folder
 @Component({
@@ -8,23 +10,22 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit, OnChanges {
+export class ToolbarComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input('pageDate') public date!: Date;
-  @Output('date') onDatePickerEvent: EventEmitter<Date> = new EventEmitter<Date>();
-  @Input('title') public title!: string;
-  @Input('showDateControls') public showDateControls: boolean = false;
+  @Input() title: string = "";
+  date!: Date;
+  @Input('showDateControls') showDateControls: boolean = true;
 
-  // New
-  @Output() onShowMenuEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() isMenuVisible: boolean = false;
+  dateSubscription!: Subscription;
 
-  constructor() { }
+  constructor(
+    private classService: ClassService
+  ) { }
 
   ngOnInit(): void {
-    // TODO: If it does not work, initialize them above
-    //this.date = new Date();
-    //This is done in classes.component.ts -> this.onDatePickerEvent.emit(this.date);
+    this.dateSubscription = this.classService.currentDate.subscribe(date => {
+      this.date = date;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -36,24 +37,24 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onDatePick(event: MatDatepickerInputEvent<any, any>): void {
-    this.onDatePickerEvent.emit(event.value);
+    this.classService.updateDate(event.value);
   }
 
   previousDay(): void {
     let d1 = new Date(this.date);
     d1.setDate(this.date.getDate() - 1);
     //this.date.setDate(this.date.getDate() - 1);
-    this.onDatePickerEvent.emit(d1);
+    // this.onDatePickerEvent.emit(d1);
   }
 
   nextDay(): void {
     let d1 = new Date(this.date);
     d1.setDate(this.date.getDate() + 1);
     //this.date.setDate(this.date.getDate() + 1);
-    this.onDatePickerEvent.emit(d1);
+    // this.onDatePickerEvent.emit(d1);
   }
 
-  showMenu(): void {
-    this.onShowMenuEvent.emit(!this.isMenuVisible);
+  ngOnDestroy(): void {
+    this.dateSubscription.unsubscribe();
   }
 }

@@ -7,6 +7,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+    <!-- <app-toolbar  (date)="updateDatePicked($event)"
+              [showDateControls]="true"
+              [title]="'Clases'"
+              [pageDate]=date
+              ></app-toolbar> -->
+    <app-toolbar [title]="'Clases'"></app-toolbar>
     <router-outlet></router-outlet>
     <a (click)="opened = !opened">KJAhskdjshakdjsdjahdkj</a>
   </mat-sidenav-content>
