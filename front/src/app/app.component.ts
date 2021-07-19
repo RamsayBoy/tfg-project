@@ -15,7 +15,7 @@ export class AppComponent implements OnDestroy {
   private _mobileQueryListener!: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 640px)');
     this._mobileQueryListener = () => {
       // Close mwnu when change from desktop to mobile
       if (this.mobileQuery.matches) {
