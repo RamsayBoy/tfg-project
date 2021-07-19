@@ -2,6 +2,7 @@ import { OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +29,8 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  showMenu(event: any): void {
-    console.log("Jeje");
+  showMenu(): void {
+    this.opened = true;
   }
 
   ngOnDestroy(): void {

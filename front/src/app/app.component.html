@@ -2,19 +2,14 @@
   <mat-sidenav [opened]=opened class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
               position="end"
               [fixedInViewport]="true"
-              fixedTopGap="0">
+              fixedTopGap="0"
+              (closed)="opened = false">
     <p>Auto-resizing sidenav</p>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- <app-toolbar  (date)="updateDatePicked($event)"
-              [showDateControls]="true"
-              [title]="'Clases'"
-              [pageDate]=date
-              ></app-toolbar> -->
-    <app-toolbar [title]="'Clases'"></app-toolbar>
+    <app-toolbar [title]="'Clases'" (onMenuButtonClick)="showMenu()"></app-toolbar>
     <router-outlet></router-outlet>
-    <a (click)="opened = !opened">KJAhskdjshakdjsdjahdkj</a>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

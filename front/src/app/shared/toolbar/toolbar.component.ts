@@ -15,6 +15,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @Input() title: string = "";
   date!: Date;
   @Input('showDateControls') showDateControls: boolean = true;
+  @Output() onMenuButtonClick: EventEmitter<any> = new EventEmitter();
 
   dateSubscription!: Subscription;
 
@@ -46,6 +47,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     //this.date.setDate(this.date.getDate() + 1);
     // this.onDatePickerEvent.emit(d1);
     this.classService.updateDate(d1);
+  }
+
+  showMenu(): void {
+    this.onMenuButtonClick.emit(null);
   }
 
   ngOnDestroy(): void {
