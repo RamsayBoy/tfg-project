@@ -16,13 +16,12 @@
 
     <!-- TODO: Improve this -->
     <ng-template #loadingOrError>
-      <div *ngIf="isLoading$ | async; else error">
-        <mat-spinner class="loading-spinner"></mat-spinner>
+      <div class="errorMessage" *ngIf="thereIsAnError$ | async; else loading">
+        <h1>No se han podido cargar las clases</h1>
+        <button (click)="getClasses(date)" type="button" color="primary" mat-raised-button>Volver a intentar</button>
       </div>
-      <ng-template #error>
-        <h1>No se han podido cargar las clases.</h1>
-        <p>Ha ocurrido un error y no se han podido cargar las clases.</p>
-        <button (click)="getClasses(date)" type="button">Volver a cargar</button>
+      <ng-template #loading>
+        <mat-spinner class="loading-spinner"></mat-spinner>
       </ng-template>
     </ng-template>
 

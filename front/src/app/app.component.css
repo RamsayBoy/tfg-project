@@ -1,11 +1,14 @@
 mat-sidenav {
   width: 20rem;
 }
-
 @media (max-width: 600px) {
   mat-sidenav {
     width: 12rem;
   }
+}
+
+mat-sidenav-content {
+  min-height: 100vh;
 }
 
 .example-sidenav-content {
