@@ -17,6 +17,8 @@ export class AuthService {
   public readonly redirectUrl: string = "/classes";
   public readonly authUrl: string = "/auth/login";
 
+  public username: string = "Usuario";
+
   constructor(
     private http: HttpClient,
   ) { }

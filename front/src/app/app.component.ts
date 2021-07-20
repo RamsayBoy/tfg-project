@@ -16,12 +16,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener!: () => void;
 
   username!: string;
-  isUserLoggedIn!: boolean;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private authService: AuthService,
+    public authService: AuthService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 640px)');
     this._mobileQueryListener = () => {
@@ -38,8 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isUserLoggedIn = this.authService.isLogginIn();
-    this.username = "Usuario";
+    this.username = this.authService.username;
   }
 
   showMenu(): void {
