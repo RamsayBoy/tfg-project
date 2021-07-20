@@ -1,7 +1,7 @@
 <!-- TODO: Change class names (example...) -->
 <!-- TODO: Make desktop sidenav open -->
 <mat-sidenav-container class="example-container" autosize>
-  <mat-sidenav [opened]="opened || !mobileQuery.matches" class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
+  <mat-sidenav [opened]="opened || !mobileQuery.matches && authService.isLogginIn()" class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
               position="end"
               [fixedInViewport]="true"
               fixedTopGap="0"
@@ -23,7 +23,7 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content autosize>
     <app-toolbar *ngIf="authService.isLogginIn()" [title]="'Clases'" (onMenuButtonClick)="showMenu()"
                   [isMobileSize]="!mobileQuery.matches">
     </app-toolbar>
