@@ -1,20 +1,5 @@
 <div class="container">
-  <div class="classes"> <!-- TODO: Delete this button when implement it on menu -->
-    <button (click)="logout()" mat-button>Log out man</button>
-  </div>
-  <!-- TODO: Add spinner -->
   <div class="classes">
-    <!-- <ng-template #error>
-      <h1>No se han podido cargar las clases.</h1>
-      <p>Ha ocurrido un error y no se han podido cargar las clases.</p>
-      <button (click)="getClasses(date)" type="button">Volver a cargar</button>
-    </ng-template>
-
-    <ng-template #loading>
-      <mat-spinner class="loading-spinner"></mat-spinner>
-    </ng-template> -->
-
-    <!-- TODO: Improve this -->
     <ng-template #loadingOrError>
       <div class="errorMessage" *ngIf="thereIsAnError$ | async; else loading">
         <h1>No se han podido cargar las clases</h1>

@@ -13,19 +13,7 @@
     <h1 class="username">{{username}}</h1>
 
     <mat-nav-list>
-      <mat-list-item>
-        <div class="sidenav-option">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Cerrar sesión</span>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="sidenav-option">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Cerrar sesión</span>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="logout()">
         <div class="sidenav-option">
           <mat-icon>exit_to_app</mat-icon>
           <span>Cerrar sesión</span>
@@ -36,7 +24,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-toolbar [title]="'Clases'" (onMenuButtonClick)="showMenu()"
+    <app-toolbar *ngIf="isUserLoggedIn" [title]="'Clases'" (onMenuButtonClick)="showMenu()"
                   [isMobileSize]="!mobileQuery.matches">
     </app-toolbar>
     <router-outlet></router-outlet>

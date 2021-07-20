@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
 import { of } from 'rxjs';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener!: () => void;
 
   username!: string;
+  isUserLoggedIn!: boolean;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private authService: AuthService,
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 640px)');
     this._mobileQueryListener = () => {
       // Close mwnu when change from desktop to mobile
@@ -32,11 +38,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isUserLoggedIn = this.authService.isLogginIn();
     this.username = "Usuario";
   }
 
   showMenu(): void {
     this.opened = true;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    window.location.reload();
   }
 
   ngOnDestroy(): void {
