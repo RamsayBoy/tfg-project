@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Paul Irish box-sizing */
+/* html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+} */
+
 html,
 body {
   height: 100%;

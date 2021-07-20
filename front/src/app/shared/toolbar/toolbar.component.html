@@ -2,10 +2,10 @@
 <!-- <mat-toolbar [style.position]="fixed" color="primary"> -->
 <mat-toolbar [ngStyle]="{'width': isMobileSize ? 'calc(100% - 20rem)' : '100%'}" color="primary">
   <mat-toolbar-row>
-    <span class="spacer"></span>
+    <span *ngIf="!isMobileSize" class="spacer"></span>
     <span class="toolbar-title">{{title}}</span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon *ngIf="!isMobileSize" (click)="showMenu()">menu</mat-icon>
+    <button *ngIf="!isMobileSize" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon (click)="showMenu()">menu</mat-icon>
     </button>
   </mat-toolbar-row>
 
