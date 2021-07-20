@@ -12,7 +12,7 @@ import { HttpErrorInterceptor } from './shared/interceptors/http-error.intercept
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './shared/shared.module';
 
 
@@ -27,8 +27,8 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     MatDialogModule,
     MatSidenavModule,
-    SharedModule
-
+    SharedModule,
+    MatListModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: MondayAsFirstDay },

@@ -1,4 +1,4 @@
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
@@ -9,10 +9,12 @@ import { of } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   opened = false;
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
+
+  username!: string;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 640px)');
@@ -27,6 +29,10 @@ export class AppComponent implements OnDestroy {
       return changeDetectorRef.detectChanges();
     }
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.username = "Usuario";
   }
 
   showMenu(): void {
