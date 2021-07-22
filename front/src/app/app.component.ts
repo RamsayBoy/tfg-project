@@ -2,8 +2,9 @@ import { OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { AuthService } from './auth/services/auth.service';
+import User from 'src/interfaces/User.interface';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  username!: string;
+  userInfoSubscription!: Subscription;
+  user!: User | null;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -37,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.username = this.authService.username;
+    this.userInfoSubscription = this.authService.userInfo.subscribe(user => this.user = user);
   }
 
   showMenu(): void {
@@ -51,5 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.userInfoSubscription.unsubscribe();
   }
 }

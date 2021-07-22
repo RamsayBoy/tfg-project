@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import User from 'src/interfaces/User.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   public readonly redirectUrl: string = "/classes";
   public readonly authUrl: string = "/auth/login";
 
-  public username: string = "Usuario";
+  private userSource = new BehaviorSubject<User | null>(null);
+  userInfo = this.userSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -32,7 +34,10 @@ export class AuthService {
     // TODO: Ask Enrique if I can share interfaces between angular and node (routes references in .env?)
     return this.http.post<any>(this.loginUrl, loginFormData)
       .pipe(
-        tap(response => this.setTokenInLocalStorage(response.data.token)),
+        tap(response => {
+          this.updateUserInfo(response.data.user);
+          this.setTokenInLocalStorage(response.data.token);
+        }),
       );
   }
 
@@ -78,5 +83,26 @@ export class AuthService {
     const expirationTime: number = payload.exp;
 
     return expirationTime;
+  }
+
+  updateUserInfo(user: User) {
+    this.userSource.next(user);
+  }
+
+  // TODO: User had to be a class. This method would belong it
+  getDisplayableName(user: User) {
+    let displayableName: string = '';
+
+    if (user.name) {
+      displayableName = user.name;
+      if (user.lastName) {
+        displayableName += " " + user.lastName;
+      }
+    }
+    else {
+      displayableName = user.email;
+    }
+
+    return displayableName;
   }
 }

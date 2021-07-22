@@ -24,7 +24,7 @@ export const TokenValidation = async (request: Request, response: Response, next
     response.locals.userId = tokenInfo.payload.id;
     response.locals.userRole = tokenInfo.payload.role;
     response.locals.teacherId = tokenInfo.payload.teacherId;
-    
+
     // If the user is a teacher, it has not have teacherId because he is the teacher
     // Add temporary teacherId as it own id for some stuff like get the classes
     // TODO: improve this: Make an enumeration or just improve the way it is does

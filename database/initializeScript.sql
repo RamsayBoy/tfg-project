@@ -19,6 +19,8 @@ CREATE TABLE `role`(
 
 CREATE TABLE `user`(
 	id			INT UNSIGNED	AUTO_INCREMENT,
+    `name`      VARCHAR(16),
+    `lastName`      VARCHAR(32),
     email		VARCHAR(256)	NOT NULL UNIQUE,
     `password`  VARCHAR(64)     NOT NULL,        -- TODO: Check size (use 64 max. in the client due to limitations in certain hashing algorithms)
     `roleId`    INT UNSIGNED,
@@ -68,11 +70,11 @@ VALUES
     (1, 'user'),
     (2, 'admin');
 
-INSERT INTO `user`(id, email, `password`, `roleId`)
+INSERT INTO `user`(id, `name`, lastName, email, `password`, `roleId`)
 VALUES
-    (1, 'admin1@tfg.es', 'admin1pass', 2),
-    (2, 'user1@tfg.es', 'user1pass', 1),
-    (3, 'user2@tfg.es', 'user2pass', 1);
+    (1, 'Enrique', 'Pastor', 'admin1@tfg.es', 'admin1pass', 2),
+    (2, 'Pablo', 'Mira García', 'user1@tfg.es', 'user1pass', 1),
+    (3, 'Susana', 'Fuertes','user2@tfg.es', 'user2pass', 1);
     
 INSERT INTO `client`(id, teacherId)
 VALUES

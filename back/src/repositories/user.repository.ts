@@ -6,9 +6,10 @@ export default class UserRepository {
     async getByEmailAndPassword(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
             const query = `
-                SELECT u.id, email, r.name as role
+                SELECT u.id, u.name, u.lastName, email, r.name as role, teacherId
                 FROM user u
                 INNER JOIN role r ON r.id = u.roleId
+                LEFT JOIN client c ON c.id = u.id
                 WHERE email = '${email}' AND
                     password = '${password}';
             `;
