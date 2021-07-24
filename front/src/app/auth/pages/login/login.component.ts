@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       ]],
       password: ['', [
         Validators.required,
-        Validators.minLength(6),
+        //Validators.minLength(6),
         // TODO: Use Validators.pattern('SOME_PATTERN') for security reasons
       ]]
     });

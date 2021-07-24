@@ -54,8 +54,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    this.opened = false;
     this.authService.logout();
-    window.location.reload();
   }
 
   ngOnDestroy(): void {

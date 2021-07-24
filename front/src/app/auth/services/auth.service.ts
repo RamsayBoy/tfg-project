@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
@@ -25,6 +26,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
   ) { }
 
   register(): void {
@@ -95,6 +97,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem(this.tokenKeySessionStorage);
     this.updateCurrentLoggedInValue(false);
+    this.router.navigateByUrl(this.authUrl);
   }
 
   isLogginIn(): boolean {
