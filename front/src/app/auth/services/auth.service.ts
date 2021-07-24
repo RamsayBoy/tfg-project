@@ -38,6 +38,7 @@ export class AuthService {
       .pipe(
         tap(response => {
           this.setTokenInLocalStorage(response.data.token);
+          this.updateCurrentLoggedInValue(true);
         }),
       );
   }
@@ -93,6 +94,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(this.tokenKeySessionStorage);
+    this.updateCurrentLoggedInValue(false);
   }
 
   isLogginIn(): boolean {

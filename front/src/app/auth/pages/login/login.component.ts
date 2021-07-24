@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value)
       .subscribe(
         _ => {
-          this.router.navigate([this.authService.redirectUrl])
-            .finally(() => this.authService.updateCurrentLoggedInValue(true));
+          this.router.navigate([this.authService.redirectUrl]);
         },
         error => {
           // TODO: Create a handler that shows a pop up
