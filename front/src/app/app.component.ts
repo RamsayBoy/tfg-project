@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener!: () => void;
 
   username$: Observable<string> = of("Usuario");
-  isUserLoggedIn!: boolean;
+  isUserLoggedIn: boolean = false;
   isUserLoggedInSubscription!: Subscription;
 
   constructor(
