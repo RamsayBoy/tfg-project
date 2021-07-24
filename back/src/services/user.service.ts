@@ -3,6 +3,10 @@ import User from '../interfaces/User.interface';
 
 // TODO: Dependency injection
 export default class UserService {
+    async getById(id: number): Promise<User> {
+        return await userRepository.getById(id);
+    }
+
     async getByEmailAndPassword(email: string, password: string): Promise<User|null> {
         const user: User = await userRepository.getByEmailAndPassword(email, password);
 

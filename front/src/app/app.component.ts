@@ -2,7 +2,7 @@ import { OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { of, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { AuthService } from './auth/services/auth.service';
 import User from 'src/interfaces/User.interface';
 
@@ -16,17 +16,17 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  userInfoSubscription!: Subscription;
-  user!: User | null;
+  username$: Observable<string> = of("Usuario");
+  isUserLoggedIn!: boolean;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public authService: AuthService,
+    private authService: AuthService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 640px)');
     this._mobileQueryListener = () => {
-      // Close mwnu when change from desktop to mobile
+      // Close menu when change from desktop to mobile
       if (this.mobileQuery.matches) {
         this.opened = false;
       }
@@ -39,7 +39,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userInfoSubscription = this.authService.userInfo.subscribe(user => this.user = user);
+    this.username$ = this.authService.getUsername();
+
+    this.isUserLoggedIn = this.authService.isLogginIn();
   }
 
   showMenu(): void {
@@ -53,6 +55,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
-    this.userInfoSubscription.unsubscribe();
   }
 }

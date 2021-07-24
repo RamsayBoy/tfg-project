@@ -1,7 +1,7 @@
 <!-- TODO: Change class names (example...) -->
 <!-- TODO: Make desktop sidenav open -->
 <mat-sidenav-container class="example-container" autosize>
-  <mat-sidenav [opened]="opened || !mobileQuery.matches && authService.isLogginIn()" class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
+  <mat-sidenav [opened]="opened || !mobileQuery.matches && isUserLoggedIn" class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
               position="end"
               [fixedInViewport]="true"
               fixedTopGap="0"
@@ -10,7 +10,7 @@
     <div class="user-avatar">
       <div>No image</div>
     </div>
-    <h1 class="username">{{user ? authService.getDisplayableName(user) : "Invitado"}}</h1>
+    <h1 class="username">{{username$ | async}}</h1>
 
     <mat-nav-list>
       <mat-list-item (click)="logout()">
@@ -24,7 +24,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content autosize>
-    <app-toolbar *ngIf="authService.isLogginIn()" [title]="'Clases'" (onMenuButtonClick)="showMenu()"
+    <app-toolbar *ngIf="isUserLoggedIn" [title]="'Clases'" (onMenuButtonClick)="showMenu()"
                   [isMobileSize]="!mobileQuery.matches">
     </app-toolbar>
     <router-outlet></router-outlet>

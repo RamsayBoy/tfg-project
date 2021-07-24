@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
+import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 import User from 'src/interfaces/User.interface';
 
 @Injectable({
@@ -12,14 +13,12 @@ export class AuthService {
   // TODO: Change hardcode url
   private registerUrl: string = "http://localhost:3000/api/v0/auth/register";
   private loginUrl: string = "http://localhost:3000/api/v0/auth/login";
+  private BaseUrl: string = "http://localhost:3000/api/v0";
 
   private tokenKeySessionStorage: string = "jwt-token";
 
   public readonly redirectUrl: string = "/classes";
   public readonly authUrl: string = "/auth/login";
-
-  private userSource = new BehaviorSubject<User | null>(null);
-  userInfo = this.userSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -35,7 +34,6 @@ export class AuthService {
     return this.http.post<any>(this.loginUrl, loginFormData)
       .pipe(
         tap(response => {
-          this.updateUserInfo(response.data.user);
           this.setTokenInLocalStorage(response.data.token);
         }),
       );
@@ -43,6 +41,36 @@ export class AuthService {
 
   private setTokenInLocalStorage(token: string): void {
     localStorage.setItem(this.tokenKeySessionStorage, token);
+  }
+
+  getUserInfo(): Observable<User> {
+    return this.http.get<ResponseWrapped>(this.BaseUrl + "/users/getUser")
+      .pipe(
+        map(response => {
+          const user: User = response.data.user;
+          return user;
+        }),
+      );
+  }
+
+  getUsername(): Observable<string> {
+    return this.http.get<ResponseWrapped>(this.BaseUrl + "/users/getUser")
+      .pipe(
+        map(response => {
+          const user: User = response.data.user;
+          let username: string;
+
+          if (user.name) {
+            username = user.name;
+            if (user.lastName) username += " " + user.lastName;
+          }
+          else {
+            username = user.email;
+          }
+
+          return username;
+        }),
+      );
   }
 
   // TODO: It is better to put this method in an object called TokenManager or so
@@ -83,26 +111,5 @@ export class AuthService {
     const expirationTime: number = payload.exp;
 
     return expirationTime;
-  }
-
-  updateUserInfo(user: User) {
-    this.userSource.next(user);
-  }
-
-  // TODO: User had to be a class. This method would belong it
-  getDisplayableName(user: User) {
-    let displayableName: string = '';
-
-    if (user.name) {
-      displayableName = user.name;
-      if (user.lastName) {
-        displayableName += " " + user.lastName;
-      }
-    }
-    else {
-      displayableName = user.email;
-    }
-
-    return displayableName;
   }
 }

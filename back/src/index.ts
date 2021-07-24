@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import authRoutes from './routes/auth.route';
 import classesRoutes from './routes/class.route';
+import usersRoutes from './routes/user.route';
 
 const app: Express = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 // Routes
 app.use(`${config.api.BASE_URL}/auth`, authRoutes);
+app.use(`${config.api.BASE_URL}/users`, usersRoutes);
 app.use(`${config.api.BASE_URL}/classes`, classesRoutes);
 
 app.listen(config.api.PORT, config.api.HOST, (): void => {
