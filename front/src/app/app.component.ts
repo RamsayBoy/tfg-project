@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   username$: Observable<string> = of("Usuario");
   isUserLoggedIn!: boolean;
+  isUserLoggedInSubscription!: Subscription;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -39,9 +40,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.username$ = this.authService.getUsername();
-
-    this.isUserLoggedIn = this.authService.isLogginIn();
+    this.isUserLoggedInSubscription = this.authService.isUserLoggingInCurrentValue.subscribe(
+      loggedIn => {
+        this.isUserLoggedIn = loggedIn;
+        if (loggedIn) {
+          this.username$ = this.authService.getUsername();
+        }
+      });
   }
 
   showMenu(): void {
@@ -55,5 +60,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.isUserLoggedInSubscription.unsubscribe();
   }
 }

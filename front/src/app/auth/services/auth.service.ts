@@ -20,6 +20,9 @@ export class AuthService {
   public readonly redirectUrl: string = "/classes";
   public readonly authUrl: string = "/auth/login";
 
+  private isUserLoggingInSource = new BehaviorSubject<boolean>(false);
+  isUserLoggingInCurrentValue = this.isUserLoggingInSource.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -102,7 +105,14 @@ export class AuthService {
     const currentTime: number = (Math.floor((new Date).getTime() / 1000));
     const expirationTime: number = this.getExpirationTime(token);
 
-    return expirationTime >= currentTime;
+    const isTimeExpired: boolean = !(expirationTime >= currentTime);
+
+    this.updateCurrentLoggedInValue(!isTimeExpired);
+    return !isTimeExpired;
+  }
+
+  updateCurrentLoggedInValue(isLoggedIn: boolean) {
+    this.isUserLoggingInSource.next(isLoggedIn);
   }
 
   private getExpirationTime(token: string): number {
