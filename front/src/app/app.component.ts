@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener!: () => void;
 
   username$: Observable<string> = of("Usuario");
+  profileImg: string = "/assets/default-profile-img.png";
   isUserLoggedIn: boolean = false;
   isUserLoggedInSubscription!: Subscription;
 
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isUserLoggedIn = loggedIn;
         if (loggedIn) {
           this.username$ = this.authService.getUsername();
+          // TODO: Get the profile image
         }
       });
   }

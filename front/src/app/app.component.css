@@ -16,9 +16,12 @@ mat-sidenav {
   height: 0;
   padding-bottom: var(--avatar-size);
   margin: 0 auto;
-  background-color: gray;
   border-radius: 50%;
+  border: 1px solid lightgray;
   margin-top: 1rem;
+
+  background: url("/assets/default-profile-img.png") no-repeat center;
+  background-size: cover;
 }
 @media (max-width: 600px) {
   .user-avatar {
