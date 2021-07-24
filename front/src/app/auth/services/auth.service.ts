@@ -60,23 +60,22 @@ export class AuthService {
   }
 
   getUsername(): Observable<string> {
-    return this.http.get<ResponseWrapped>(this.BaseUrl + "/users/getUser")
-      .pipe(
-        map(response => {
-          const user: User = response.data.user;
-          let username: string;
+    return this.getUserInfo().pipe(
+      map(response => {
+        const user: User = response;
+        let username: string;
 
-          if (user.name) {
-            username = user.name;
-            if (user.lastName) username += " " + user.lastName;
-          }
-          else {
-            username = user.email;
-          }
+        if (user.name) {
+          username = user.name;
+          if (user.lastName) username += " " + user.lastName;
+        }
+        else {
+          username = user.email;
+        }
 
-          return username;
-        }),
-      );
+        return username;
+      }),
+    );
   }
 
   // TODO: It is better to put this method in an object called TokenManager or so
