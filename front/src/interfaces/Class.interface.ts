@@ -5,4 +5,5 @@ export default interface Class {
     duration: string,
     numMaxClients: number,
     teacherId: number,
+    hasUserJoined: boolean,
 }

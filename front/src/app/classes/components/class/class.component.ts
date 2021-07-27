@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import Class from 'src/interfaces/Class.interface';
+import { ClassService } from '../../services/class.service';
 
 @Component({
   selector: 'app-class',
@@ -11,7 +13,10 @@ export class ClassComponent implements OnInit {
   @Input('class') public class!: Class;
   public durationPeriod!: string;
 
-  constructor() { }
+  constructor(
+    private classService: ClassService,
+    private dialogService: DialogService,
+  ) { }
 
   ngOnInit(): void {
     // Done here for avoiding errors
@@ -43,5 +48,12 @@ export class ClassComponent implements OnInit {
   getSecondsFromTime(time: string) {
     let parts = time.split(':');
     return (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
+  }
+
+  joinClass() {
+    this.classService.joinClass(this.class.id).subscribe({
+      next: () => this.class.hasUserJoined = true,
+      error: (error) => this.dialogService.open('Error', error),
+    });
   }
 }

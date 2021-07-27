@@ -27,6 +27,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = error.error.message;
           } else {
             // server-side error
+            console.log(error)
             if (error.status === 0) {
               errorMessage = "Ha habido un error de conexión."
             }

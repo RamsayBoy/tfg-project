@@ -18,6 +18,26 @@ export default class ClassRepository {
             });
         });
     }
+
+    async joinClass(userId: number, classId: number): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                INSERT INTO client_class (
+                    client_id,
+                    class_id
+                )
+                VALUES (
+                    ${userId},
+                    ${classId}
+                )
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
 }
 
 // TODO: Remove when dependency injection

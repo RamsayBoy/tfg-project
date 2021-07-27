@@ -35,3 +35,47 @@ export const getClasses = async (request: Request, response: Response): Promise<
         return response.status(500).json(responseWrapped);
     }
 };
+
+export const joinClass = async (request: Request, response: Response): Promise<Response> => {
+    const classId: number = request.body;
+    const userId: number = response.locals.userId;
+
+    try {
+        const success = await classService.joinClass(userId, classId);
+        let responseWrapped: ResponseWrapped;
+
+        if (success) {
+            responseWrapped = {
+                status: 201,
+                statusText: 'Created',
+                message: `El usuario ha sido apuntado a la clase con éxito`,
+            };
+        }
+        else {
+            responseWrapped = {
+                status: 400,
+                statusText: 'Bad Request',
+                message: `Ha habido un error al intentar apuntar al usuario en la clase`,
+                error: {
+                    code: 'BAD REQUEST',
+                    message: 'Ha habido un error al intentar apuntar al usuario en la clase',
+                }
+            };
+        }
+
+        return response.status(200).json(responseWrapped);
+    }
+    catch (exception) {
+        const responseWrapped: ResponseWrapped = {
+            status: 500,
+            statusText: 'Internal error',
+            message: 'Se ha producido un error al cargar las clases',
+            error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Se ha producido un error en el servidor',
+            }
+        }
+
+        return response.status(500).json(responseWrapped);
+    }
+};

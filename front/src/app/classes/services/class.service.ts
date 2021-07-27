@@ -35,6 +35,10 @@ export class ClassService {
       );
   }
 
+  joinClass(classId: number): Observable<ResponseWrapped> {
+    return this.http.put<ResponseWrapped>(this.url + "/join", classId);
+  }
+
   updateDate(date: Date) {
     this.dateSource.next(date);
   }
