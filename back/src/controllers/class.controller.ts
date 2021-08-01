@@ -37,7 +37,7 @@ export const getClasses = async (request: Request, response: Response): Promise<
 };
 
 export const joinClass = async (request: Request, response: Response): Promise<Response> => {
-    const classId: number = request.body;
+    const classId: number = request.body.classId;
     const userId: number = response.locals.userId;
 
     try {
