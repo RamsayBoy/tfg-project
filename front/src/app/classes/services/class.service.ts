@@ -37,7 +37,12 @@ export class ClassService {
 
   joinClass(classId: number): Observable<ResponseWrapped> {
     // There is an error if classId is sent as a number. It must be sent as an object.
-    return this.http.put<ResponseWrapped>(this.url + "/join", {classId});
+    return this.http.post<ResponseWrapped>(this.url + "/join", {classId});
+  }
+
+  removeFromClass(classId: number): Observable<ResponseWrapped> {
+    // There is an error if classId is sent as a number. It must be sent as an object.
+    return this.http.delete<ResponseWrapped>(this.url + `/join/${classId}`);
   }
 
   updateDate(date: Date) {

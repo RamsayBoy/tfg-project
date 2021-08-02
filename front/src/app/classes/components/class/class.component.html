@@ -9,7 +9,8 @@
     </p>
   </mat-card-content>
   <mat-card-actions class="button-to-left">
-    <button *ngIf="!class.hasUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">Apuntarme <mat-icon>person_add</mat-icon></button>
-    <button *ngIf="class.hasUserJoined" type="button" mat-flat-button color="warn">Desapuntarme <mat-icon>person_remove</mat-icon></button>
+    <button *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">Apuntarme <mat-icon>person_add</mat-icon></button>
+    <!-- TODO: Make button green and change the text -->
+    <button *ngIf="class.isUserJoined" (click)="removeFromClass()" type="button" mat-flat-button color="warn">Desapuntarme <mat-icon>person_remove</mat-icon></button>
   </mat-card-actions>
 </mat-card>

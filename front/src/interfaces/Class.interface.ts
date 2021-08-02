@@ -1,3 +1,5 @@
+import User from "./User.interface";
+
 // TODO: Change Class.type.ts to User.interface.ts and change to another folder
 export default interface Class {
     id: number,
@@ -5,5 +7,6 @@ export default interface Class {
     duration: string,
     numMaxClients: number,
     teacherId: number,
-    hasUserJoined: boolean,
+    usersJoined: User[],
+    isUserJoined: boolean,
 }

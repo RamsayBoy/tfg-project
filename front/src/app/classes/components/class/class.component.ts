@@ -52,7 +52,14 @@ export class ClassComponent implements OnInit {
 
   joinClass() {
     this.classService.joinClass(this.class.id).subscribe({
-      next: () => this.class.hasUserJoined = true,
+      next: () => this.class.isUserJoined = true,
+      error: (error) => this.dialogService.open('Error', error),
+    });
+  }
+
+  removeFromClass() {
+    this.classService.removeFromClass(this.class.id).subscribe({
+      next: () => this.class.isUserJoined = false,
       error: (error) => this.dialogService.open('Error', error),
     });
   }
