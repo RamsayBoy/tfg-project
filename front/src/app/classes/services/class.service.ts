@@ -41,7 +41,6 @@ export class ClassService {
   }
 
   removeFromClass(classId: number): Observable<ResponseWrapped> {
-    // There is an error if classId is sent as a number. It must be sent as an object.
     return this.http.delete<ResponseWrapped>(this.url + `/join/${classId}`);
   }
 

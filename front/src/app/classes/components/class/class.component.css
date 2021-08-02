@@ -9,3 +9,7 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.joined {
+  background-color: green;
+}

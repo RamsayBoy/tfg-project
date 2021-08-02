@@ -1,5 +1,4 @@
 import Class from "../interfaces/Class.interface";
-import User from "../interfaces/User.interface";
 import { classRepository } from "../repositories/class.repository";
 
 // TODO: Dependency injection
