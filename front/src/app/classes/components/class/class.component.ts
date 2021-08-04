@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import Class from 'src/interfaces/Class.interface';
 import { ClassService } from '../../services/class.service';
 
@@ -16,6 +17,7 @@ export class ClassComponent implements OnInit {
   constructor(
     private classService: ClassService,
     private dialogService: DialogService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -51,16 +53,32 @@ export class ClassComponent implements OnInit {
   }
 
   joinClass() {
+    this.loaderService.setLoader(true);
     this.classService.joinClass(this.class.id).subscribe({
-      next: () => this.class.isUserJoined = true,
-      error: (error) => this.dialogService.open('Error', error),
+      next: () => {
+        this.class.isUserJoined = true;
+      },
+      error: (error) => {
+        this.dialogService.open('Error', error)
+      },
+      complete: () => {
+        this.loaderService.setLoader(false);
+      },
     });
   }
 
   removeFromClass() {
+    this.loaderService.setLoader(true);
     this.classService.removeFromClass(this.class.id).subscribe({
-      next: () => this.class.isUserJoined = false,
-      error: (error) => this.dialogService.open('Error', error),
+      next: () => {
+        this.class.isUserJoined = false;
+      },
+      error: (error) => {
+        this.dialogService.open('Error', error)
+      },
+      complete: () => {
+        this.loaderService.setLoader(false);
+      }
     });
   }
 }

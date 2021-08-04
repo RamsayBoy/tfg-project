@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 
 @Component({
@@ -7,19 +7,23 @@ import { LoaderService } from './services/loader.service';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css']
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent implements OnInit, OnDestroy {
 
-  private isLoadingSource = new BehaviorSubject<boolean>(false);
-  isLoading = this.isLoadingSource.asObservable();
+  isLoading!: boolean;
+  loading!: Subscription;
 
   constructor(
     private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = false;
+    this.loading = this.loaderService.isLoading.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
   }
 
-  setLoader(value: boolean): void {
-    this.isLoadingSource.next(value);
+  ngOnDestroy(): void{
+    this.loading.unsubscribe();
   }
 }

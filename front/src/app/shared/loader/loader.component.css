@@ -14,9 +14,11 @@
 
 .loading-spinner {
   text-align: center;
-  background-color: #ffffff5f;
+  background-color: #ffffffc7;
   border-radius: 5px;
   padding: 2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .loading-spinner .spinner {
