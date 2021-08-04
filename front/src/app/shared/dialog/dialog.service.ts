@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DialogService {
 
+  // TODO: Remove this and return the value on openConfirm
   private confirmDialog = new BehaviorSubject<boolean>(false);
   confirmed = this.confirmDialog.asObservable();
 

@@ -66,15 +66,21 @@ export class ClassComponent implements OnInit {
   }
 
   removeFromClass() {
-    this.loaderService.setLoader(true);
-    this.classService.removeFromClass(this.class.id).subscribe({
-      next: () => {
-        this.class.isUserJoined = false;
-        this.loaderService.setLoader(false);
-      },
-      error: (error) => {
-        this.dialogService.open('Error', error)
-      },
-    });
+    this.dialogService.openConfirm(
+      "Desapuntarse de la clase",
+      "¿Desea desapuntarse de la clase?",
+      "No",
+      "Sí"
+    )
+    // this.loaderService.setLoader(true);
+    // this.classService.removeFromClass(this.class.id).subscribe({
+    //   next: () => {
+    //     this.class.isUserJoined = false;
+    //     this.loaderService.setLoader(false);
+    //   },
+    //   error: (error) => {
+    //     this.dialogService.open('Error', error)
+    //   },
+    // });
   }
 }
