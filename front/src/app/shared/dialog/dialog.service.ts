@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DialogComponent } from './components/dialog.component'
+import { DialogComponent } from './components/dialog/dialog.component';
+import { ConfirmDialogComponent } from './components/confirmDialog/confirm-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class DialogService {
         text: text,
       }
     });
+  }
+
+  openConfirm() {
+    // TODO
   }
 }

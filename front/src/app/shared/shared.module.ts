@@ -14,8 +14,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule } from '@angular/forms';
-import { DialogComponent } from './dialog/components/dialog.component';
+import { DialogComponent } from './dialog/components/dialog/dialog.component';
 import { LoaderComponent } from './loader/loader.component';
+import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confirm-dialog.component';
 
 
 
@@ -24,6 +25,7 @@ import { LoaderComponent } from './loader/loader.component';
     ToolbarComponent,
     DialogComponent,
     LoaderComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
