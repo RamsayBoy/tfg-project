@@ -1,0 +1,30 @@
+/* https://www.freakyjolly.com/http-global-loader-progress-bar-using-angular-interceptors/ */
+.loader {
+  background-color: #0000005f;
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  z-index: 3;
+}
+
+.loading-spinner {
+  text-align: center;
+  background-color: #ffffff5f;
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+.loading-spinner .spinner {
+  /* align-self: end; */
+  margin: 0 auto;
+}
+
+.loading-message {
+  align-self: start;
+  text-transform: uppercase;
+}

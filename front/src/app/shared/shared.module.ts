@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule } from '@angular/forms';
 import { DialogComponent } from './dialog/components/dialog.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -22,6 +23,7 @@ import { DialogComponent } from './dialog/components/dialog.component';
   declarations: [
     ToolbarComponent,
     DialogComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { DialogComponent } from './dialog/components/dialog.component';
     MatDatepickerModule,
     ToolbarComponent,
     DialogComponent,
+    LoaderComponent,
   ],
 })
 export class SharedModule { }
