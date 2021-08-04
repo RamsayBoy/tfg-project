@@ -1,6 +1,6 @@
 <!-- TODO: El toolbar tiene un tamaño de 56. Poniendo top 56 quedaría bien el div de abajo -->
 <!-- <mat-toolbar [style.position]="fixed" color="primary"> -->
-<mat-toolbar [ngStyle]="{'width': isMobileSize ? 'calc(100% - 16rem)' : '100%'}" color="primary">
+<mat-toolbar [ngClass]="{'desktop-style': isMobileSize ? true : false}" color="primary">
   <mat-toolbar-row>
     <span *ngIf="!isMobileSize" class="spacer"></span>
     <span class="toolbar-title">{{title}}</span>
