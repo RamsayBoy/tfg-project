@@ -57,12 +57,10 @@ export class ClassComponent implements OnInit {
     this.classService.joinClass(this.class.id).subscribe({
       next: () => {
         this.class.isUserJoined = true;
+        this.loaderService.setLoader(false);
       },
       error: (error) => {
         this.dialogService.open('Error', error)
-      },
-      complete: () => {
-        this.loaderService.setLoader(false);
       },
     });
   }
@@ -72,13 +70,11 @@ export class ClassComponent implements OnInit {
     this.classService.removeFromClass(this.class.id).subscribe({
       next: () => {
         this.class.isUserJoined = false;
+        this.loaderService.setLoader(false);
       },
       error: (error) => {
         this.dialogService.open('Error', error)
       },
-      complete: () => {
-        this.loaderService.setLoader(false);
-      }
     });
   }
 }

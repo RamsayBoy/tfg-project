@@ -8,11 +8,14 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { LoaderService } from '../loader/services/loader.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private loaderService: LoaderService,
+  ) {}
 
   // TODO: Add here the popup or error notification
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,7 +30,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = error.error.message;
           } else {
             // server-side error
-            console.log(error)
             if (error.status === 0) {
               errorMessage = "Ha habido un error de conexión."
             }
@@ -35,6 +37,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               errorMessage = error.error.message;
             }
           }
+
+          this.loaderService.setLoader(false);
 
           return throwError(errorMessage);
         })
