@@ -15,13 +15,3 @@
   display: block;
   text-transform: uppercase;
 }
-
-.classes {
-  padding-top: 9rem;
-}
-
-@media (max-width: 600px) {
-  .classes {
-    padding-top: 9em;
-  }
-}

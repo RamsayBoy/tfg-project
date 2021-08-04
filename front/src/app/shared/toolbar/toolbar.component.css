@@ -4,6 +4,12 @@ mat-toolbar {
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.35);
 }
 
+.fixed-space {
+  position: inherit;
+  box-shadow: none;
+  margin-bottom: 1.2rem;
+}
+
 .spacer {
   width: 40px;
 }
