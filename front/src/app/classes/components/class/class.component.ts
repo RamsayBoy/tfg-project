@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import Class from 'src/interfaces/Class.interface';
@@ -18,6 +19,7 @@ export class ClassComponent implements OnInit {
     private classService: ClassService,
     private dialogService: DialogService,
     private loaderService: LoaderService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -65,22 +67,31 @@ export class ClassComponent implements OnInit {
     });
   }
 
-  removeFromClass() {
+  removeFromClassDialog() {
     this.dialogService.openConfirm(
       "Desapuntarse de la clase",
       "¿Desea desapuntarse de la clase?",
       "No",
       "Sí"
     )
-    // this.loaderService.setLoader(true);
-    // this.classService.removeFromClass(this.class.id).subscribe({
-    //   next: () => {
-    //     this.class.isUserJoined = false;
-    //     this.loaderService.setLoader(false);
-    //   },
-    //   error: (error) => {
-    //     this.dialogService.open('Error', error)
-    //   },
-    // });
+    .afterClosed()
+    .subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.removeFromClass();
+      }
+    });
+  }
+
+  removeFromClass() {
+    this.loaderService.setLoader(true);
+    this.classService.removeFromClass(this.class.id).subscribe({
+      next: () => {
+        this.class.isUserJoined = false;
+        this.loaderService.setLoader(false);
+      },
+      error: (error) => {
+        this.dialogService.open('Error', error)
+      },
+    });
   }
 }

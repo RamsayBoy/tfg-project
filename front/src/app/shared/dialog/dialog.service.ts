@@ -9,10 +9,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DialogService {
 
-  // TODO: Remove this and return the value on openConfirm
-  private confirmDialog = new BehaviorSubject<boolean>(false);
-  confirmed = this.confirmDialog.asObservable();
-
   constructor(
     public dialog: MatDialog
   ) { }
@@ -27,7 +23,7 @@ export class DialogService {
   }
 
   openConfirm(title: string, text: string, cancelText: string, acceptText: string) {
-    this.dialog
+    return this.dialog
       .open(ConfirmDialogComponent, {
         data: {
           title: title,
@@ -35,14 +31,6 @@ export class DialogService {
           cancelText: cancelText,
           acceptText: acceptText,
         }
-      })
-      .afterClosed()
-      .subscribe((confirmed: boolean) => {
-        this.setConfirmDialogOption(confirmed);
       });
-  }
-
-  setConfirmDialogOption(optionSelected: boolean) {
-    this.confirmDialog.next(optionSelected);
   }
 }

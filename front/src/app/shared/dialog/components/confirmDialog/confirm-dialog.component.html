@@ -3,6 +3,6 @@
   {{data.text}}
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button (click)="cancel()" mat-button mat-dialog-close color="warn">{{data.cancelText}}</button>
-  <button (click)="accept()" mat-button mat-dialog-close>{{data.acceptText}}</button>
+  <button [mat-dialog-close]="false" type="button" mat-button mat-dialog-close color="warn" cdkFocusInitial>{{data.cancelText}}</button>
+  <button [mat-dialog-close]="true" type="button" mat-button mat-dialog-close>{{data.acceptText}}</button>
 </mat-dialog-actions>
