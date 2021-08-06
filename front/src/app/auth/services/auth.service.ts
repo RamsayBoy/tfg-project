@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, concat, Observable } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
+import TokenInfo from 'src/interfaces/Payload.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 import User from 'src/interfaces/User.interface';
 
@@ -76,6 +77,20 @@ export class AuthService {
         return username;
       }),
     );
+  }
+
+  getUserRole(): string {
+    const defaultRole = 'user';
+    const token = this.getToken();
+
+    if (token) {
+      const payload: TokenInfo = this.getPayload(token) as any;
+      const role: string = payload.payload.role ? payload.payload.role : defaultRole;
+
+      return role;
+    }
+
+    return defaultRole;
   }
 
   // TODO: It is better to put this method in an object called TokenManager or so

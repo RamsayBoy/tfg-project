@@ -8,8 +8,11 @@
       here it goes the images with the people...
     </p>
   </mat-card-content>
-  <mat-card-actions class="button-to-left">
+  <mat-card-actions *ifRole="'user'" class="button-to-left">
     <button *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">Apuntarme <mat-icon>person_add</mat-icon></button>
     <button *ngIf="class.isUserJoined" (click)="removeFromClassDialog()" type="button" mat-flat-button color="warn" class="joined">Apuntado <mat-icon>person_remove</mat-icon></button>
+  </mat-card-actions>
+  <mat-card-actions *ifRole="'admin'" class="button-to-left">
+    <button type="button" mat-flat-button>I'm the fucking ADMIN</button>
   </mat-card-actions>
 </mat-card>

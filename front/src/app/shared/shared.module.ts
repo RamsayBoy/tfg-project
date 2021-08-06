@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogComponent } from './dialog/components/dialog/dialog.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confirm-dialog.component';
+import { IfRoleDirective } from './directives/if-role.directive';
 
 
 
@@ -26,6 +27,7 @@ import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confir
     DialogComponent,
     LoaderComponent,
     ConfirmDialogComponent,
+    IfRoleDirective,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confir
     ToolbarComponent,
     DialogComponent,
     LoaderComponent,
+    IfRoleDirective,
   ],
 })
 export class SharedModule { }
