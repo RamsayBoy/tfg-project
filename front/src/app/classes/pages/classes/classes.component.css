@@ -1,15 +1,45 @@
 .container {
   max-width: 45rem;
   margin: 0 auto;
+  margin-bottom: 8rem;
 }
 
 .add-class-button {
-  width: auto;
-  border-radius: 8px;
+  display: block;
   padding: 0 0.8rem;
   margin: 0 auto;
-  display: block;
   bottom: 1.8rem;
+}
+@media (min-width: 640px) {
+  .add-class-button {
+    display: flex;
+    align-items: center;
+    width: auto;
+    border-radius: 8px;
+  }
+}
+@media (max-width: 640px) {
+  .add-class-button {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+.add-class-button mat-icon {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+.add-class-button div {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 1.1rem;
+}
+@media (max-width: 640px) {
+  .add-class-button div {
+    display: none;
+  }
 }
 
 .errorMessage h1,
