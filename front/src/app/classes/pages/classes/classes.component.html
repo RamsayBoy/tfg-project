@@ -14,5 +14,10 @@
       <app-class *ngFor="let class of classes" [class]="class"></app-class>
       <h1 *ngIf="classes.length === 0" class="infoMessage">No hay clases para este día</h1>
     </ng-container>
+
   </div>
+</div>
+
+<div class="add-button-div">
+  <button class="add-class-button" mat-fab color="primary" type="button">Añadir clase</button>
 </div>

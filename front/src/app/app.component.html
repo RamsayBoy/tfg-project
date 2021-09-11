@@ -23,8 +23,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content autosize>
-    <app-toolbar *ngIf="isUserLoggedIn" [title]="'Clases'" (onMenuButtonClick)="showMenu()"
-                  [isMobileSize]="!mobileQuery.matches">
+    <app-toolbar *ngIf="isUserLoggedIn" [title]="'Clases'" (onMenuButtonClick)="showMenu()">
     </app-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

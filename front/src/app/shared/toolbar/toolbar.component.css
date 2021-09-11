@@ -5,6 +5,17 @@ mat-toolbar {
   transition: width 400ms;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+@media (min-width: 640px) {
+  mat-toolbar {
+    width: calc(100% - 16rem);
+    transition: width 400ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .menu-icon {
+    display: none;
+  }
+}
 
 .fixed-space {
   position: inherit;
@@ -14,6 +25,11 @@ mat-toolbar {
 
 .spacer {
   width: 40px;
+}
+@media (min-width: 640px) {
+  .spacer {
+    display: none;
+  }
 }
 
 .toolbar-title {

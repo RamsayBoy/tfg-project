@@ -16,7 +16,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   date!: Date;
   @Input('showDateControls') showDateControls: boolean = true;
   @Output() onMenuButtonClick: EventEmitter<any> = new EventEmitter();
-  @Input() isMobileSize!: boolean;
 
   dateSubscription!: Subscription;
 
