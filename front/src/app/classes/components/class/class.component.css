@@ -13,3 +13,8 @@
 .joined {
   background-color: green;
 }
+
+mat-card-actions button div {
+  display: inline-block;
+  margin-right: 8px;
+}
