@@ -10,6 +10,7 @@ export const register = async (request: Request, response: Response): Promise<Re
 };
 
 export const login = async (request: Request, response: Response): Promise<Response> => {
+    console.log(request.body)
     const { email, password }: User = request.body;
 
     try {

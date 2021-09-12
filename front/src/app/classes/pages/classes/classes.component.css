@@ -4,7 +4,7 @@
 }
 
 .space-for-add-class-button {
-  margin-bottom: 8rem;
+  margin-bottom: 7rem;
 }
 
 .add-class-button {
@@ -18,20 +18,21 @@
     display: flex;
     align-items: center;
     width: auto;
-    border-radius: 8px;
+    border-radius: 30px;
   }
 }
 @media (max-width: 640px) {
   .add-class-button {
-    height: 5rem;
-    width: 5rem;
+    height: 3.5rem;
+    width: 3.5rem;
   }
 }
 
 .add-class-button mat-icon {
-  font-size: 2rem;
+  /* font-size: 2rem;
   height: 2rem;
-  width: 2rem;
+  width: 2rem; */
+  margin-top: -1px;
 }
 
 .add-class-button div {
