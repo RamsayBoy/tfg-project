@@ -124,3 +124,47 @@ export const removeUserFromClass = async (request: Request, response: Response):
         return response.status(500).json(responseWrapped);
     }
 };
+
+export const removeClass = async (request: Request, response: Response): Promise<Response> => {
+    const classId: number = parseInt(request.params.classId);
+    const teacherId: number = response.locals.teacherId;
+
+    try {
+        const success = await classService.removeClass(teacherId, classId);
+        let responseWrapped: ResponseWrapped;
+
+        if (success) {
+            responseWrapped = {
+                status: 204,
+                statusText: 'No Content',
+                message: `La clase ha sido eliminada con éxito`,
+            };
+        }
+        else {
+            responseWrapped = {
+                status: 400,
+                statusText: 'Bad Request',
+                message: `Ha habido un error al intentar borrar la clase`,
+                error: {
+                    code: 'BAD REQUEST',
+                    message: 'Ha habido un error al intentar borrar la clase',
+                }
+            };
+        }
+
+        return response.status(200).json(responseWrapped);
+    }
+    catch (exception) {
+        const responseWrapped: ResponseWrapped = {
+            status: 500,
+            statusText: 'Internal error',
+            message: 'Ha habido un error al intentar borrar la clase',
+            error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Ha habido un error al intentar borrar la clase',
+            }
+        }
+
+        return response.status(500).json(responseWrapped);
+    }
+};

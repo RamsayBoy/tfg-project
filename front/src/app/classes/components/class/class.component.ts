@@ -94,4 +94,32 @@ export class ClassComponent implements OnInit {
       },
     });
   }
+
+  deleteClassDialog() {
+    this.dialogService.openConfirm(
+      "¿Desea eliminar la clase?",
+      "Si borra la clase todos los alumnos apuntados dejarán de estarlo.",
+      "No",
+      "Sí"
+    )
+    .afterClosed()
+    .subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteClass();
+      }
+    });
+  }
+
+  deleteClass(): void {
+    this.loaderService.setLoader(true);
+    this.classService.removeClass(this.class.id).subscribe({
+      next: () => {
+        // TODO: Remove component from the view if all it is OK
+        this.loaderService.setLoader(false);
+      },
+      error: (error) => {
+        this.dialogService.open('Error', error)
+      },
+    });
+  }
 }

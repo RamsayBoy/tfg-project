@@ -84,6 +84,21 @@ export default class ClassRepository {
             });
         });
     }
+
+    async removeClass(teacherId: number, classId: number): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                DELETE FROM class
+                WHERE teacherId = ${teacherId}
+                    AND id = ${classId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
 }
 
 // TODO: Remove when dependency injection

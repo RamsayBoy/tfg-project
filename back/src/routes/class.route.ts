@@ -5,6 +5,7 @@ import { TokenValidation } from '../middlewares/verifyToken.middleware';
 const router = express.Router();
 
 router.get('/', TokenValidation, classController.getClasses);
+router.delete('/:classId', TokenValidation, classController.removeClass);
 router.post('/join', TokenValidation, classController.joinClass);
 router.delete('/join/:classId', TokenValidation, classController.removeUserFromClass);
 

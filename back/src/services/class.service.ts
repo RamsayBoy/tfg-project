@@ -20,6 +20,10 @@ export default class ClassService {
     async removeUserFromClass(userId: number, classId: number): Promise<boolean> {
         return await classRepository.removeUserFromClass(userId, classId);
     }
+
+    async removeClass(teacherId: number, classId: number): Promise<boolean> {
+        return await classRepository.removeClass(teacherId, classId);
+    }
 }
 
 // TODO: Remove when dependency injection
