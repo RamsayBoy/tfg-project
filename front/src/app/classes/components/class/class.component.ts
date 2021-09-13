@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
@@ -14,6 +14,8 @@ export class ClassComponent implements OnInit {
 
   @Input('class') public class!: Class;
   public durationPeriod!: string;
+
+  @Output() classDeleted: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private classService: ClassService,
@@ -114,7 +116,7 @@ export class ClassComponent implements OnInit {
     this.loaderService.setLoader(true);
     this.classService.removeClass(this.class.id).subscribe({
       next: () => {
-        // TODO: Remove component from the view if all it is OK
+        this.classDeleted.emit(this.class.id);
         this.loaderService.setLoader(false);
       },
       error: (error) => {

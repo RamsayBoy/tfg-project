@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import Class from 'src/interfaces/Class.interface';
@@ -58,6 +58,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.thereIsAnError$.next(true);
         this.dialogService.open('Error', error);
       }
+    );
+  }
+
+  removeClass(classId: number) {
+    this.classes$ = this.classes$.pipe(
+      map(classes => classes.filter(currentClass => currentClass.id !== classId)),
     );
   }
 
