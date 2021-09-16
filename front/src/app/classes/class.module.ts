@@ -5,6 +5,7 @@ import { ClassesComponent } from './pages/classes/classes.component';
 import { ClassRoutingModule } from './class-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClassComponent } from './components/class/class.component';
+import { AddClassComponent } from './pages/add-class/add-class.component';
 
 
 
@@ -12,6 +13,7 @@ import { ClassComponent } from './components/class/class.component';
   declarations: [
     ClassesComponent,
     ClassComponent,
+    AddClassComponent,
   ],
   imports: [
     CommonModule,
