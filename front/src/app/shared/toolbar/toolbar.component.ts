@@ -1,4 +1,4 @@
-import { OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, SimpleChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
@@ -25,18 +25,24 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     private classService: ClassService,
     private toolbarService: ToolbarService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
+    this.changeDetectorRef.detach();
     this.dateControlsSubscription = this.toolbarService.areDateControlsShown.subscribe(areShown => {
       this.showDateControls = areShown;
+      this.changeDetectorRef.detectChanges();
     });
     this.titleSubscription = this.toolbarService.currentTitle.subscribe(title => {
       this.title = title;
+      this.changeDetectorRef.detectChanges();
     });
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
       this.date = date;
+      this.changeDetectorRef.detectChanges();
     });
+    this.changeDetectorRef.reattach();
   }
 
   onDatePick(event: MatDatepickerInputEvent<any, any>): void {

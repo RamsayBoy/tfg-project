@@ -6,6 +6,8 @@ import { ClassRoutingModule } from './class-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClassComponent } from './components/class/class.component';
 import { AddClassComponent } from './pages/add-class/add-class.component';
+import { TextMaskModule } from 'angular2-text-mask';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,9 +18,11 @@ import { AddClassComponent } from './pages/add-class/add-class.component';
     AddClassComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     ClassRoutingModule,
     SharedModule,
+    TextMaskModule,
   ]
 })
 export class ClassModule { }

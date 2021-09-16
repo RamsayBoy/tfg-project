@@ -72,6 +72,10 @@ export class ClassesComponent implements OnInit, OnDestroy {
     );
   }
 
+  navToAddClassPage() {
+    this.router.navigateByUrl('classes/add');
+  }
+
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
   }

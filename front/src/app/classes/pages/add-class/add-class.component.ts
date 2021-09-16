@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 
 @Component({
   selector: 'app-add-class',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddClassComponent implements OnInit {
 
-  constructor() { }
+  public model = '0000';
+  public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
+
+  constructor(
+    private toolbar: ToolbarService,
+  ) { }
 
   ngOnInit(): void {
+    this.toolbar.updateTitle("Añadir clase");
+    this.toolbar.showDateControls(false);
   }
 
 }
