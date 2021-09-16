@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 import { ClassService } from 'src/app/classes/services/class.service';
+import { ToolbarService } from './services/toolbar.service';
 
 // TODO: Move to shared/components/toolbar folder
 @Component({
@@ -18,12 +19,21 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @Output() onMenuButtonClick: EventEmitter<any> = new EventEmitter();
 
   dateSubscription!: Subscription;
+  titleSubscription!: Subscription;
+  dateControlsSubscription!: Subscription;
 
   constructor(
-    private classService: ClassService
+    private classService: ClassService,
+    private toolbarService: ToolbarService,
   ) { }
 
   ngOnInit(): void {
+    this.dateControlsSubscription = this.toolbarService.areDateControlsShown.subscribe(areShown => {
+      this.showDateControls = areShown;
+    });
+    this.titleSubscription = this.toolbarService.currentTitle.subscribe(title => {
+      this.title = title;
+    });
     this.dateSubscription = this.classService.currentDate.subscribe(date => {
       this.date = date;
     });
@@ -55,5 +65,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
+    this.dateControlsSubscription.unsubscribe();
+    this.titleSubscription.unsubscribe();
   }
 }

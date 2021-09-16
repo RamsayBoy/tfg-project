@@ -1,4 +1,4 @@
-import { Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
+import { Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Class from 'src/interfaces/Class.interface';
 import { ClassService } from '../../services/class.service';
 
@@ -21,7 +22,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   @Input() public date!: Date;
   // TODO: Make interfaces shared between the backend and the frontend
   classes$!: Observable<Class[]>;
-  thereIsAnError$: Subject<boolean> = new Subject<boolean>();
+  thereIsAnError$: Subject<boolean> = new Subject<boolean>();;
 
   dateSubscription!: Subscription;
 
@@ -29,7 +30,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private classService: ClassService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private toolbarService: ToolbarService,
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
       this.date = date;
       this.getClasses(this.date);
     });
+
+    this.toolbarService.updateTitle("Clases");
+    this.toolbarService.showDateControls(true);
   }
 
   logout(): void {

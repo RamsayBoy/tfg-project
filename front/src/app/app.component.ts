@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit } from '@angular/core';
+import { Input, OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
@@ -20,6 +20,9 @@ export class AppComponent implements OnInit, OnDestroy {
   profileImg: string = "/assets/default-profile-img.png";
   isUserLoggedIn: boolean = false;
   isUserLoggedInSubscription!: Subscription;
+
+  @Input() toolbarTitle: string = "";
+  @Input() showToolbarDateControls: boolean = false;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
