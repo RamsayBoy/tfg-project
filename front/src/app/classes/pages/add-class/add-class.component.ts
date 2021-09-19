@@ -52,6 +52,7 @@ export class AddClassComponent implements OnInit {
       ]],
       numClientsMax: [0, [
         Validators.required,
+        Validators.pattern("^[1-9][0-9]*$"),  // Min 1 person
       ]],
     });
   }

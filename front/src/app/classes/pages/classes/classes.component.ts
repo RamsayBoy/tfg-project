@@ -75,7 +75,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     );
   }
 
-  addClass() {
+  addClassDialog() {
     this.dialog.open(AddClassComponent, {
       width: '21rem',
       data: {
@@ -88,14 +88,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
           usersJoined: [],
           isUserJoined: false
         },
-      }
-    })
-    .afterClosed()
-    .subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        // TODO: call to add class
-        // this.addClass();
-        console.log("Add class");
       }
     });
   }
