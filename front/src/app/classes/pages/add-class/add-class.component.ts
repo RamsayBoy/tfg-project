@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Class from 'src/interfaces/Class.interface';
 import { ClassService } from '../../services/class.service';
@@ -29,6 +31,8 @@ export class AddClassComponent implements OnInit {
     private formBuilder: FormBuilder,
     private classService: ClassService,
     private dialogRef: MatDialogRef<AddClassComponent>,
+    private dialogService: DialogService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +80,22 @@ export class AddClassComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.dialogRef.close();
+    this.loaderService.setLoader(true);
+
+    let classToPost: Class = this.addClassForm.value;
+
+    this.classService.addOrEditClass(classToPost)
+      .subscribe({
+        next: () => {
+          this.dialogRef.close();
+        },
+        error: (error) => {
+          this.dialogService.open('Error', error);
+        },
+      })
+      .add(() => {
+        this.loaderService.setLoader(false)
+      });
   }
 
 }

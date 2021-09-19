@@ -35,6 +35,27 @@ export class ClassService {
       );
   }
 
+  addOrEditClass(classToPost: Class): Observable<ResponseWrapped> {
+    let observable: Observable<ResponseWrapped>;
+
+    if (classToPost.id < 1) {
+      observable = this.addClass(classToPost);
+    }
+    else {
+      observable = this.editClass(classToPost);
+    }
+
+    return observable;
+  }
+
+  addClass(classToAdd: Class): Observable<ResponseWrapped> {
+    return this.http.post<ResponseWrapped>(this.url + `/add`, classToAdd);
+  }
+
+  editClass(classToEdit: Class): Observable<ResponseWrapped> {
+    return this.http.post<ResponseWrapped>(this.url + `/${classToEdit.id}`, classToEdit);
+  }
+
   removeClass(classId: number): Observable<ResponseWrapped> {
     return this.http.delete<ResponseWrapped>(this.url + `/${classId}`);
   }
