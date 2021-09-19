@@ -1,6 +1,7 @@
 import { Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -11,6 +12,7 @@ import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Class from 'src/interfaces/Class.interface';
 import { ClassService } from '../../services/class.service';
+import { AddClassComponent } from '../add-class/add-class.component';
 
 @Component({
   selector: 'app-classes',
@@ -31,6 +33,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     private router: Router,
     private classService: ClassService,
     private dialogService: DialogService,
+    public dialog: MatDialog,
     private toolbarService: ToolbarService,
   ) { }
 
@@ -72,8 +75,22 @@ export class ClassesComponent implements OnInit, OnDestroy {
     );
   }
 
-  navToAddClassPage() {
-    this.router.navigateByUrl('classes/add');
+  addClass() {
+    let newClass: Class = {
+      id: -1,
+      date: this.date,
+      duration: '',
+      numMaxClients: 0,
+      teacherId: 0,
+      usersJoined: [],
+      isUserJoined: false
+    }
+
+    this.dialog.open(AddClassComponent, {
+      data: {
+        class: newClass,
+      }
+    })
   }
 
   ngOnDestroy(): void {

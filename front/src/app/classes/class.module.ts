@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ClassComponent } from './components/class/class.component';
 import { AddClassComponent } from './pages/add-class/add-class.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     ClassRoutingModule,
     SharedModule,
     TextMaskModule,
+    ReactiveFormsModule,
   ]
 })
 export class ClassModule { }
