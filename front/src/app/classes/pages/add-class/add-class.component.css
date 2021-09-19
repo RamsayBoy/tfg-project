@@ -1,4 +1,9 @@
 mat-form-field {
   display: block;
   width: 100%;
+  font-size: 1.05rem;
+}
+
+mat-dialog-container {
+  width: 21rem !important;
 }

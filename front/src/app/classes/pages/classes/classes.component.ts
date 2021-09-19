@@ -77,6 +77,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   addClass() {
     this.dialog.open(AddClassComponent, {
+      width: '21rem',
       data: {
         class: {
           id: -1,
