@@ -4,6 +4,15 @@ mat-form-field {
   font-size: 1.05rem;
 }
 
-mat-dialog-container {
-  width: 21rem !important;
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+}
+
+.clock-time {
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0 10px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
 }

@@ -16,7 +16,7 @@ export class AddClassComponent implements OnInit {
   public title!: string;
   public confirmBtnText!: string;
 
-  public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
+  // public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
 
   public addClassForm: FormGroup = new FormGroup({});
 
@@ -47,7 +47,7 @@ export class AddClassComponent implements OnInit {
       date: [this.data.class.date, [
         Validators.required,
       ]],
-      numClientsMax: ['', [
+      numClientsMax: [0, [
         Validators.required,
       ]],
     });
