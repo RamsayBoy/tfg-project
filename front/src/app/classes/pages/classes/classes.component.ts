@@ -76,21 +76,27 @@ export class ClassesComponent implements OnInit, OnDestroy {
   }
 
   addClass() {
-    let newClass: Class = {
-      id: -1,
-      date: this.date,
-      duration: '',
-      numMaxClients: 0,
-      teacherId: 0,
-      usersJoined: [],
-      isUserJoined: false
-    }
-
     this.dialog.open(AddClassComponent, {
       data: {
-        class: newClass,
+        class: {
+          id: -1,
+          date: this.date,
+          duration: '',
+          numMaxClients: 0,
+          teacherId: 0,
+          usersJoined: [],
+          isUserJoined: false
+        },
       }
     })
+    .afterClosed()
+    .subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        // TODO: call to add class
+        // this.addClass();
+        console.log("Add class");
+      }
+    });
   }
 
   ngOnDestroy(): void {

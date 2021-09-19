@@ -8,6 +8,7 @@ import { ClassComponent } from './components/class/class.component';
 import { AddClassComponent } from './pages/add-class/add-class.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     TextMaskModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ]
 })
 export class ClassModule { }

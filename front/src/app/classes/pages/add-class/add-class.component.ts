@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Class from 'src/interfaces/Class.interface';
@@ -11,8 +11,10 @@ import Class from 'src/interfaces/Class.interface';
 })
 export class AddClassComponent implements OnInit {
 
-  public title!: string;
   private isEditMode: boolean = false;
+
+  public title!: string;
+  public confirmBtnText!: string;
 
   public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
 
@@ -23,6 +25,7 @@ export class AddClassComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {
       class: Class,
     },
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +37,18 @@ export class AddClassComponent implements OnInit {
     //  and set them into time input
 
     this.isEditMode = this.data.class.id > 0;
+    this.title = this.isEditMode ? "Editar clase" : "Añadir clase";
+    this.confirmBtnText = this.isEditMode ? "Actualizar" : "Añadir"
 
-    if (this.isEditMode) {
-      this.title = "Editar clase";
-    }
-    else {
-      this.title = "Añadir clase";
-    }
+    this.addClassForm = this.formBuilder.group({
+      duration: ['', [
+        Validators.required,
+      ]],
+    });
+  }
+
+  get duration() {
+    return this.addClassForm.get('duration');
   }
 
   onSubmit(): void {
