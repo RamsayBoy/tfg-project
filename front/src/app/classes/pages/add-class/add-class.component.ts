@@ -46,7 +46,10 @@ export class AddClassComponent implements OnInit {
       ]],
       date: [this.data.class.date, [
         Validators.required,
-      ]]
+      ]],
+      numClientsMax: ['', [
+        Validators.required,
+      ]],
     });
   }
 
@@ -58,6 +61,14 @@ export class AddClassComponent implements OnInit {
 
   get duration() {
     return this.addClassForm.get('duration');
+  }
+
+  get date() {
+    return this.addClassForm.get('date');
+  }
+
+  get numClientsMax() {
+    return this.addClassForm.get('numClientsMax');
   }
 
   onSubmit(): void {
