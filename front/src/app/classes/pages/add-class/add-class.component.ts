@@ -44,6 +44,9 @@ export class AddClassComponent implements OnInit {
       duration: [this.getHoursAndMinutes(this.data.class.duration), [
         Validators.required,
       ]],
+      date: [this.data.class.date, [
+        Validators.required,
+      ]]
     });
   }
 
