@@ -16,7 +16,7 @@ export class AddClassComponent implements OnInit {
   public title!: string;
   public confirmBtnText!: string;
 
-  // public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
+  public timemask = [/\d/, /\d/, ':', /\d/, /\d/];
 
   public addClassForm: FormGroup = new FormGroup({});
 
