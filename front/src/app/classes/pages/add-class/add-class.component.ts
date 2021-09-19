@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Class from 'src/interfaces/Class.interface';
+import { ClassService } from '../../services/class.service';
 
 @Component({
   selector: 'app-add-class',
@@ -26,6 +27,8 @@ export class AddClassComponent implements OnInit {
       class: Class,
     },
     private formBuilder: FormBuilder,
+    private classService: ClassService,
+    private dialogRef: MatDialogRef<AddClassComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -72,18 +75,7 @@ export class AddClassComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // this.isLoggingIn = true;
-    // this.authService.login(this.loginForm.value)
-    //   .subscribe(
-    //     _ => {
-    //       this.router.navigate([this.authService.redirectUrl]);
-    //     },
-    //     error => {
-    //       // TODO: Create a handler that shows a pop up
-    //       this.loginErrorMessage = error;
-    //     },
-    //   )
-    //   .add(() => this.isLoggingIn = false);
+    this.dialogRef.close();
   }
 
 }
