@@ -38,13 +38,19 @@ export class AddClassComponent implements OnInit {
 
     this.isEditMode = this.data.class.id > 0;
     this.title = this.isEditMode ? "Editar clase" : "Añadir clase";
-    this.confirmBtnText = this.isEditMode ? "Actualizar" : "Añadir"
+    this.confirmBtnText = this.isEditMode ? "Actualizar" : "Añadir";
 
     this.addClassForm = this.formBuilder.group({
-      duration: ['', [
+      duration: [this.getHoursAndMinutes(this.data.class.duration), [
         Validators.required,
       ]],
     });
+  }
+
+  getHoursAndMinutes(time: string): string {
+    let splitedTime = time.split(":");
+    const hoursAndMinutes = splitedTime[1] + ":" + splitedTime[2];
+    return hoursAndMinutes;
   }
 
   get duration() {

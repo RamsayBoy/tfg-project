@@ -81,7 +81,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         class: {
           id: -1,
           date: this.date,
-          duration: '',
+          duration: '00:00:00',
           numMaxClients: 0,
           teacherId: 0,
           usersJoined: [],
