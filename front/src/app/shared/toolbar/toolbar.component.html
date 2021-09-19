@@ -26,9 +26,9 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <!-- Space for toolbar (fix the fixed position problem) -->
-<mat-toolbar [ngClass]="{'zero-height':!showDateControls}" class="fixed-space">
+<mat-toolbar class="fixed-space">
   <mat-toolbar-row>
   </mat-toolbar-row>
-  <mat-toolbar-row>
+  <mat-toolbar-row *ngIf="showDateControls">
   </mat-toolbar-row>
 </mat-toolbar>
