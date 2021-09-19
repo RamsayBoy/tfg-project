@@ -82,7 +82,15 @@ export class AddClassComponent implements OnInit {
   onSubmit(): void {
     this.loaderService.setLoader(true);
 
-    let classToPost: Class = this.addClassForm.value;
+    let classToPost: Class = {
+      id: this.data.class.id,
+      date: this.addClassForm.value.date,
+      duration: "00:" + this.addClassForm.value.duration,
+      numMaxClients: this.addClassForm.value.numMaxClients,
+      teacherId: this.data.class.teacherId,
+      usersJoined: [],
+      isUserJoined: false
+    };
 
     this.classService.addOrEditClass(classToPost)
       .subscribe({
