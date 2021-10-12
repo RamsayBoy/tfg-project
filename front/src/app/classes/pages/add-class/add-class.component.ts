@@ -48,6 +48,9 @@ export class AddClassComponent implements OnInit {
     this.confirmBtnText = this.isEditMode ? "Actualizar" : "Añadir";
 
     this.addClassForm = this.formBuilder.group({
+      startTime: ['00:00', [
+        Validators.required,
+      ]],
       duration: [this.getHoursAndMinutes(this.data.class.duration), [
         Validators.required,
       ]],
@@ -67,6 +70,10 @@ export class AddClassComponent implements OnInit {
     return hoursAndMinutes;
   }
 
+  get startTime() {
+    return this.addClassForm.get('startTime');
+  }
+
   get duration() {
     return this.addClassForm.get('duration');
   }
@@ -84,13 +91,30 @@ export class AddClassComponent implements OnInit {
 
     let classToPost: Class = {
       id: this.data.class.id,
-      date: this.addClassForm.value.date,
+      date: new Date(this.addClassForm.value.date),
       duration: this.addClassForm.value.duration + ":00",
       numMaxClients: this.addClassForm.value.numClientsMax,
       teacherId: this.data.class.teacherId,
       usersJoined: [],
       isUserJoined: false
     };
+
+    // Set start time to date (in database is a datetime)
+    const startTime: string = this.addClassForm.value.startTime + ":00";
+    const startTimeParts: string[] = startTime.split(":");
+
+    console.log('startTime: ', startTime)
+    console.log('startTimeParts: ', startTimeParts)
+
+    console.log('Date before: ', classToPost.date)
+
+    classToPost.date.setHours(Number(startTimeParts[0]));
+    classToPost.date.setMinutes(Number(startTimeParts[1]));
+    classToPost.date.setMinutes(Number(startTimeParts[2]));
+
+    console.log('Date after: ', classToPost.date)
+
+    // TODO: Comprobar si la hora de inicio y la duración son coherentes
 
     this.classService.addOrEditClass(classToPost)
       .subscribe({

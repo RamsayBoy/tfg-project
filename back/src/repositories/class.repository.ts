@@ -91,7 +91,7 @@ export default class ClassRepository {
             INSERT INTO class
             (date, duration, numMaxClients, teacherId)
             VALUES
-            ('${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}',
+            ('${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}',
             '${classToAdd.duration}',
             ${classToAdd.numMaxClients},
             ${classToAdd.teacherId});

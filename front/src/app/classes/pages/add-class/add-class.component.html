@@ -15,6 +15,20 @@
   </mat-form-field>
 
   <mat-form-field clock-time appearance="standard">
+    <mat-label>Hora de inicio de la clase</mat-label>
+    <input class="clock" matInput formControlName="startTime" type="time" [textMask]="{mask: timemask}">
+    <mat-icon class="icon-mat clock-time" matSuffix>access_time</mat-icon>
+    <!-- <mat-hint>Hint</mat-hint> -->
+
+    <mat-error *ngIf="startTime!.hasError('startTime')">
+      La hora de inicio para la clase no es válida.
+    </mat-error>
+    <mat-error *ngIf="!startTime!.hasError('startTime') && startTime!.hasError('required')">
+      Es necesario introducir una hora de inicio para la clase.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field clock-time appearance="standard">
     <mat-label>Duración</mat-label>
     <input class="clock" matInput formControlName="duration" type="time" [textMask]="{mask: timemask}">
     <mat-icon class="icon-mat clock-time" matSuffix>access_time</mat-icon>
