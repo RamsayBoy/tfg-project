@@ -49,11 +49,11 @@ export class ClassService {
   }
 
   addClass(classToAdd: Class): Observable<ResponseWrapped> {
-    return this.http.post<ResponseWrapped>(this.url + `/add`, classToAdd);
+    return this.http.post<ResponseWrapped>(this.url + `/${classToAdd.id}`, classToAdd);
   }
 
   editClass(classToEdit: Class): Observable<ResponseWrapped> {
-    return this.http.post<ResponseWrapped>(this.url + `/${classToEdit.id}`, classToEdit);
+    return this.http.put<ResponseWrapped>(this.url + `/${classToEdit.id}`, classToEdit);
   }
 
   removeClass(classId: number): Observable<ResponseWrapped> {

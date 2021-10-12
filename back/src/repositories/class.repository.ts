@@ -85,6 +85,36 @@ export default class ClassRepository {
         });
     }
 
+    async addClass(classToAdd: Class): Promise<boolean> {
+
+        console.log(`
+            INSERT INTO class
+            (date, duration, numMaxClients, teacherId)
+            VALUES
+            ('${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}',
+            '${classToAdd.duration}',
+            ${classToAdd.numMaxClients},
+            ${classToAdd.teacherId});
+        `)
+
+        return new Promise((resolve, reject) => {
+            const query = `
+                INSERT INTO class
+                (date, duration, numMaxClients, teacherId)
+                VALUES
+                ('${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}',
+                 '${classToAdd.duration}',
+                 ${classToAdd.numMaxClients},
+                 ${classToAdd.teacherId});
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
+
     async removeClass(teacherId: number, classId: number): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const query = `

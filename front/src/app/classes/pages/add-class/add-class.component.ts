@@ -85,8 +85,8 @@ export class AddClassComponent implements OnInit {
     let classToPost: Class = {
       id: this.data.class.id,
       date: this.addClassForm.value.date,
-      duration: "00:" + this.addClassForm.value.duration,
-      numMaxClients: this.addClassForm.value.numMaxClients,
+      duration: this.addClassForm.value.duration + ":00",
+      numMaxClients: this.addClassForm.value.numClientsMax,
       teacherId: this.data.class.teacherId,
       usersJoined: [],
       isUserJoined: false

@@ -37,6 +37,48 @@ export const getClasses = async (request: Request, response: Response): Promise<
     }
 };
 
+export const addClass = async (request: Request, response: Response): Promise<Response> => {
+    const teacherId: number = response.locals.teacherId;
+    const classToAdd: Class = request.body;
+    
+    try {
+        const success: boolean = await classService.addClass(teacherId, classToAdd);
+        
+        let responseWrapped: ResponseWrapped = {
+            status: 400,
+            statusText: 'Bad Request',
+            message: `Ha habido un error al añadir la clase`,
+            error: {
+                code: 'BAD REQUEST',
+                message: `Ha habido un error al añadir la clase`,
+            }
+        };
+
+        if (success) {
+            responseWrapped = {
+                status: 204,
+                statusText: 'No Content',
+                message: `La clase ha sido añadida con éxito`,
+            };
+        }
+
+        return response.status(200).json(responseWrapped);
+    }
+    catch (exception) {
+        const responseWrapped: ResponseWrapped = {
+            status: 500,
+            statusText: 'Internal error',
+            message: 'Se ha producido un error al añadir la clase',
+            error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Se ha producido un error al añadir la clase',
+            }
+        }
+
+        return response.status(500).json(responseWrapped);
+    }
+};
+
 export const joinClass = async (request: Request, response: Response): Promise<Response> => {
     const classId: number = request.body.classId;
     const userId: number = response.locals.userId;

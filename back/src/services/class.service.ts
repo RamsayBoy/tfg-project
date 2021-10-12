@@ -21,6 +21,15 @@ export default class ClassService {
         return await classRepository.removeUserFromClass(userId, classId);
     }
 
+    async addClass(teacherId: number, classToAdd: Class): Promise<boolean> {
+        // Transform string date to Date object for using Date object methods
+        classToAdd.date = new Date(classToAdd.date);
+        // Add teacherId to the class so only classToAdd is passed to addClass function
+        classToAdd.teacherId = teacherId;
+        
+        return await classRepository.addClass(classToAdd);
+    }
+
     async removeClass(teacherId: number, classId: number): Promise<boolean> {
         return await classRepository.removeClass(teacherId, classId);
     }
