@@ -107,12 +107,21 @@ export class AddClassComponent implements OnInit {
     console.log('startTimeParts: ', startTimeParts)
 
     console.log('Date before: ', classToPost.date)
+    console.log('Date before (hours): ', classToPost.date.getHours())
+    console.log('Date before (minutes): ', classToPost.date.getMinutes())
+    console.log('Date before (seconds): ', classToPost.date.getSeconds())
 
     classToPost.date.setHours(Number(startTimeParts[0]));
     classToPost.date.setMinutes(Number(startTimeParts[1]));
     classToPost.date.setMinutes(Number(startTimeParts[2]));
 
     console.log('Date after: ', classToPost.date)
+    console.log('Date before (hours): ', classToPost.date.getHours())
+    console.log('Hours must be: ', Number(startTimeParts[0]))
+    console.log('Date before (minutes): ', classToPost.date.getMinutes())
+    console.log('Hours must be: ', Number(startTimeParts[1]))
+    console.log('Date before (seconds): ', classToPost.date.getSeconds())
+    console.log('Hours must be: ', Number(startTimeParts[2]))
 
     // TODO: Comprobar si la hora de inicio y la duración son coherentes
 
