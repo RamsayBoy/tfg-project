@@ -86,17 +86,6 @@ export default class ClassRepository {
     }
 
     async addClass(classToAdd: Class): Promise<boolean> {
-
-        console.log(`
-            INSERT INTO class
-            (date, duration, numMaxClients, teacherId)
-            VALUES
-            ('${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}',
-            '${classToAdd.duration}',
-            ${classToAdd.numMaxClients},
-            ${classToAdd.teacherId});
-        `)
-
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO class
