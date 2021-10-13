@@ -112,6 +112,9 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
+                // TODO: Check if results is not empty or it has a value
+                //  If has a value return true
+                //  Else return false
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -121,6 +124,9 @@ export default class ClassRepository {
     async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
         const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}`;
         const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
+
+        // TODO: Calculate the end time of the class to add
+        // StartTime + duration = end time
         
         return new Promise((resolve, reject) => {
 
@@ -134,6 +140,9 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
+                // TODO: Check if results is not empty or it has a value
+                //  If has a value return true
+                //  Else return false
                 if (error) return reject(false);
                 resolve(true);
             });

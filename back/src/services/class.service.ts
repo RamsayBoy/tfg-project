@@ -31,7 +31,7 @@ export default class ClassService {
         const isClassBetweenAnotherOne: Promise<boolean> = classRepository
             .isClassBetweenAnotherOne(classToAdd);
 
-        if (await hasClassAlreadyExists) {
+        if (!(await hasClassAlreadyExists)) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',
@@ -44,7 +44,7 @@ export default class ClassService {
 
             return responseWrapped;
         }
-        else if (await isClassBetweenAnotherOne) {
+        else if (!(await isClassBetweenAnotherOne)) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',
