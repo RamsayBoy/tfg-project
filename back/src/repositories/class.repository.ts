@@ -104,6 +104,42 @@ export default class ClassRepository {
         });
     }
 
+    async hasClassAlreadyExists(classToAdd: Class): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT 1 FROM class c
+                WHERE c.date = '${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}'
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
+
+    async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
+        const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}`;
+        const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
+        
+        return new Promise((resolve, reject) => {
+
+            const query = `
+                SELECT 1 FROM class c
+                WHERE
+                    -- Check for same day classes
+                    DATE(c.date) = ${classToAddDate}
+                    -- Check if there is no class being given where the class to add is going to be added
+                    AND TIME(c.date) BETWEEN ${classToAddStartTime} AND '20:50:33' -- Entre la hora de inicio y la hora de inicio + la duración
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
+
     async removeClass(teacherId: number, classId: number): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const query = `

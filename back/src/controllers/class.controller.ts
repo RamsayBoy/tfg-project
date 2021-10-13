@@ -42,6 +42,13 @@ export const addClass = async (request: Request, response: Response): Promise<Re
     const classToAdd: Class = request.body;
     
     try {
+        const errorResponse: ResponseWrapped | null = await classService
+            .isClassValid(teacherId, classToAdd);
+
+        if (errorResponse) {
+            return response.status(errorResponse.status).json(errorResponse);
+        }
+
         const success: boolean = await classService.addClass(teacherId, classToAdd);
         
         let responseWrapped: ResponseWrapped = {
