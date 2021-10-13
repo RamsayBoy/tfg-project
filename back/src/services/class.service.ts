@@ -25,13 +25,21 @@ export default class ClassService {
     async isClassValid(teacherId: number, classToAdd: Class): Promise<ResponseWrapped | null> {
         const classToValidate: Class = await this.addTeacherToClassAndFixDate(teacherId, classToAdd);
         
-        const hasClassAlreadyExists: Promise<boolean> = classRepository
-            .hasClassAlreadyExists(classToAdd);
+        // const hasClassAlreadyExists: Promise<boolean> = classRepository
+        //     .hasClassAlreadyExists(classToValidate);
         
-        const isClassBetweenAnotherOne: Promise<boolean> = classRepository
-            .isClassBetweenAnotherOne(classToAdd);
+        // const isClassBetweenAnotherOne: Promise<boolean> = classRepository
+        //     .isClassBetweenAnotherOne(classToValidate);
 
-        if (!(await hasClassAlreadyExists)) {
+        const classHasAlreadyExists: boolean = await classRepository
+            .hasClassAlreadyExists(classToValidate);
+        
+        const classIsBetweenAnother: boolean = await classRepository
+            .isClassBetweenAnotherOne(classToValidate);
+
+        console.log('Sont: ', classHasAlreadyExists, classIsBetweenAnother);
+
+        if (!classHasAlreadyExists) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',
@@ -44,7 +52,7 @@ export default class ClassService {
 
             return responseWrapped;
         }
-        else if (!(await isClassBetweenAnotherOne)) {
+        else if (!classIsBetweenAnother) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',

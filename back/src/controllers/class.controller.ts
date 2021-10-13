@@ -45,6 +45,8 @@ export const addClass = async (request: Request, response: Response): Promise<Re
         const errorResponse: ResponseWrapped | null = await classService
             .isClassValid(teacherId, classToAdd);
 
+        console.log('Controller: ErrorResponse: ', errorResponse);
+
         if (errorResponse) {
             return response.status(errorResponse.status).json(errorResponse);
         }

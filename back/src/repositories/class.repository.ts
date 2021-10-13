@@ -86,6 +86,7 @@ export default class ClassRepository {
     }
 
     async addClass(classToAdd: Class): Promise<boolean> {
+        console.log(classToAdd);
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO class
@@ -112,23 +113,20 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
-                // TODO: Check if results is not empty or it has a value
-                //  If has a value return true
-                //  Else return false
-                if (error) return reject(false);
+                console.log(error, results)
+                if (error || results === []) return reject(false);
                 resolve(true);
             });
         });
     }
 
     async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
-        const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}`;
+        const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}`;
         const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
-        
-        console.log(this.getEndTime(classToAdd));
+
+        // TODO: getEndTime get a incorrect value
 
         return new Promise((resolve, reject) => {
-
             const query = `
                 SELECT 1 FROM class c
                 WHERE
@@ -141,10 +139,8 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
-                // TODO: Check if results is not empty or it has a value
-                //  If has a value return true
-                //  Else return false
-                if (error) return reject(false);
+                console.log(error, results)
+                if (error || results === []) return reject(false);
                 resolve(true);
             });
         });
@@ -161,6 +157,9 @@ export default class ClassRepository {
 
         let endHour = endDate.getHours().toString();
         endHour = ("0" + endHour).slice(-2);
+
+        // Add 0 if there is only one digit
+        if (endHour.length === 1) endHour = '0' + endHour;
 
         let endMinutes = endDate.getMinutes().toString();
         endMinutes = ("0" + endMinutes).slice(-2);
