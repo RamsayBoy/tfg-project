@@ -48,11 +48,13 @@ export class AddClassComponent implements OnInit {
     this.confirmBtnText = this.isEditMode ? "Actualizar" : "Añadir";
 
     this.addClassForm = this.formBuilder.group({
+      // For editing the class, the '00:00' value must be edited and got
+      //  from this.data.class.date (getting the hours, minutes and seconds)
       startTime: ['00:00', [
         Validators.required,
       ]],
       duration: [this.getHoursAndMinutes(this.data.class.duration), [
-        Validators.required,
+      Validators.required,
       ]],
       date: [this.data.class.date, [
         Validators.required,
@@ -103,25 +105,16 @@ export class AddClassComponent implements OnInit {
     const startTime: string = this.addClassForm.value.startTime + ":00";
     const startTimeParts: string[] = startTime.split(":");
 
-    console.log('startTime: ', startTime)
-    console.log('startTimeParts: ', startTimeParts)
+    // If I do not use an auxiliary variable, minutes and seconds are not
+    //  set properly
+    let auxDate = classToPost.date;
 
-    console.log('Date before: ', classToPost.date)
-    console.log('Date before (hours): ', classToPost.date.getHours())
-    console.log('Date before (minutes): ', classToPost.date.getMinutes())
-    console.log('Date before (seconds): ', classToPost.date.getSeconds())
+    // Add class start time to the date
+    auxDate.setHours(Number(startTimeParts[0]));
+    auxDate.setMinutes(Number(startTimeParts[1]));
+    auxDate.setSeconds(Number(startTimeParts[2]));
 
-    classToPost.date.setHours(Number(startTimeParts[0]));
-    classToPost.date.setMinutes(Number(startTimeParts[1]));
-    classToPost.date.setMinutes(Number(startTimeParts[2]));
-
-    console.log('Date after: ', classToPost.date)
-    console.log('Date before (hours): ', classToPost.date.getHours())
-    console.log('Hours must be: ', Number(startTimeParts[0]))
-    console.log('Date before (minutes): ', classToPost.date.getMinutes())
-    console.log('Hours must be: ', Number(startTimeParts[1]))
-    console.log('Date before (seconds): ', classToPost.date.getSeconds())
-    console.log('Hours must be: ', Number(startTimeParts[2]))
+    classToPost.date = auxDate;
 
     // TODO: Comprobar si la hora de inicio y la duración son coherentes
 
