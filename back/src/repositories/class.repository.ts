@@ -124,10 +124,9 @@ export default class ClassRepository {
     async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
         const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}`;
         const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
-
-        // TODO: Calculate the end time of the class to add
-        // StartTime + duration = end time
         
+        console.log(this.getEndTime(classToAdd));
+
         return new Promise((resolve, reject) => {
 
             const query = `
@@ -136,7 +135,9 @@ export default class ClassRepository {
                     -- Check for same day classes
                     DATE(c.date) = ${classToAddDate}
                     -- Check if there is no class being given where the class to add is going to be added
-                    AND TIME(c.date) BETWEEN ${classToAddStartTime} AND '20:50:33' -- Entre la hora de inicio y la hora de inicio + la duración
+                    AND TIME(c.date) BETWEEN ${classToAddStartTime}
+                        -- StartTime + duration = getEndTime
+                        AND ${this.getEndTime(classToAdd)};
             `;
 
             database.query(query, (error, results) => {
@@ -147,6 +148,30 @@ export default class ClassRepository {
                 resolve(true);
             });
         });
+    }
+
+    // TODO: This method is used on angular too. Refactor creating a class for example
+    //  getDurationPeriod is the name in angular but it does almost the same
+    getEndTime(classToGetEndTime: Class): string {
+        const date = classToGetEndTime.date;
+        const secondsToEnd = this.getSecondsFromTime(classToGetEndTime.duration);
+        const endDate = date;
+
+        endDate.setSeconds(date.getSeconds() + secondsToEnd);
+
+        let endHour = endDate.getHours().toString();
+        endHour = ("0" + endHour).slice(-2);
+
+        let endMinutes = endDate.getMinutes().toString();
+        endMinutes = ("0" + endMinutes).slice(-2);
+
+        return `${endHour}:${endMinutes}:00`;
+    }
+
+    // TODO: This method is used on angular too. Refactor creating a class for example
+    getSecondsFromTime(time: string): number {
+        const parts = time.split(':');
+        return (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
     }
 
     async removeClass(teacherId: number, classId: number): Promise<boolean> {
