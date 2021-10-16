@@ -11,6 +11,7 @@ export default class ClassRepository {
                     FROM class
                     WHERE teacherId = ${teacherId}
                         AND DATE(date) = '${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}'
+                    ORDER BY date ASC
             `;
 
             database.query(query, (error, results) => {
