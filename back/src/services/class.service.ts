@@ -23,9 +23,6 @@ export default class ClassService {
     }
 
     async isClassValid(classToAdd: Class): Promise<ResponseWrapped | null> {  
-        console.log('isClassValid - class.date.hours: ', classToAdd.date);
-        console.log('isClassValid - class.date.hours: ', classToAdd.date.getHours());
-
         // const hasClassAlreadyExists: Promise<boolean> = classRepository
         //     .hasClassAlreadyExists(classToValidate);
         

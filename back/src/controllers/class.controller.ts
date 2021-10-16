@@ -42,7 +42,7 @@ export const addClass = async (request: Request, response: Response): Promise<Re
     let classToAdd: Class = request.body;
     
     classToAdd = await classService.addTeacherToClassAndFixDate(teacherId, classToAdd);
-    
+
     try {
         const errorResponse: ResponseWrapped | null = await classService
             .isClassValid(classToAdd);
@@ -50,9 +50,6 @@ export const addClass = async (request: Request, response: Response): Promise<Re
         if (errorResponse) {
             return response.status(errorResponse.status).json(errorResponse);
         }
-
-        console.log('Controller - class.date.hours: ', classToAdd.date);
-        console.log('Controller - class.date.hours: ', classToAdd.date.getHours());
 
         const success: boolean = await classService.addClass(classToAdd);
         
