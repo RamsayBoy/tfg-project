@@ -120,8 +120,13 @@ export default class ClassRepository {
 
     async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
         const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}`;
-        const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
+        let classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
 
+        // Check that there are 2 digits on hour part
+        if (classToAddStartTime.split(':')[0].length === 1) {
+            classToAddStartTime = '0' + classToAddStartTime;
+        }
+        
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT 1 FROM class c
@@ -129,14 +134,19 @@ export default class ClassRepository {
                     -- Check for same day classes
                     DATE(c.date) = '${classToAddDate}'
                     -- Check if there is no class being given where the class to add is going to be added
-                    AND TIME(c.date) BETWEEN '${classToAddStartTime}'
-                        -- StartTime + duration = getEndTime
-                        AND '${this.getEndTime(classToAdd)}';
+                    AND
+                    (
+                        -- Check if class start time is not between the start and end time of the new class
+                        TIME(c.date) BETWEEN '${classToAddStartTime}' AND '${this.getEndTime(classToAdd)}'
+                        -- Check if class end time is not between the start and end time of the new class
+                        OR SEC_TO_TIME((TIME_TO_SEC(TIME(date)) + TIME_TO_SEC(duration))) BETWEEN '${classToAddStartTime}' AND '${this.getEndTime(classToAdd)}'
+                    )
+                LIMIT 1;
             `;
 
             database.query(query, (error, results) => {
                 if (error || results === []) return reject(false);
-                resolve(true);
+                resolve(results.length !== 0);
             });
         });
     }

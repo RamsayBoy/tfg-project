@@ -22,34 +22,11 @@ export default class ClassService {
         return await classRepository.removeUserFromClass(userId, classId);
     }
 
-    async isClassValid(classToAdd: Class): Promise<ResponseWrapped | null> {  
-        // const hasClassAlreadyExists: Promise<boolean> = classRepository
-        //     .hasClassAlreadyExists(classToValidate);
-        
-        // const isClassBetweenAnotherOne: Promise<boolean> = classRepository
-        //     .isClassBetweenAnotherOne(classToValidate);
-
-        // Check if only need isClassBetweenAnotherOne because it cover this case
-        const classHasAlreadyExists: boolean = await classRepository
-            .hasClassAlreadyExists(classToAdd);
-        
+    async isClassValid(classToAdd: Class): Promise<ResponseWrapped | null> {          
         const classIsBetweenAnother: boolean = await classRepository
             .isClassBetweenAnotherOne(classToAdd);
 
-        if (!classHasAlreadyExists) {
-            const responseWrapped: ResponseWrapped = {
-                status: 409,
-                statusText: 'Conflict',
-                message: `La clase no se ha podido añadir porque ya existe una con la misma fecha y hora.`,
-                error: {
-                    code: 'CONFLICT',
-                    message: `La clase no se ha podido añadir porque ya existe una con la misma fecha y hora.`,
-                }
-            };
-
-            return responseWrapped;
-        }
-        else if (!classIsBetweenAnother) {
+        if (classIsBetweenAnother) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',
