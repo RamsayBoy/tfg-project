@@ -49,6 +49,10 @@ export class ClassService {
   }
 
   addClass(classToAdd: Class): Observable<ResponseWrapped> {
+    console.log(classToAdd.date)
+    console.log(classToAdd.date.getHours())
+    console.log(classToAdd.date.getMinutes())
+    console.log(classToAdd.date.getSeconds())
     return this.http.post<ResponseWrapped>(this.url + `/${classToAdd.id}`, classToAdd);
   }
 

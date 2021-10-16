@@ -39,19 +39,22 @@ export const getClasses = async (request: Request, response: Response): Promise<
 
 export const addClass = async (request: Request, response: Response): Promise<Response> => {
     const teacherId: number = response.locals.teacherId;
-    const classToAdd: Class = request.body;
+    let classToAdd: Class = request.body;
+    
+    classToAdd = await classService.addTeacherToClassAndFixDate(teacherId, classToAdd);
     
     try {
         const errorResponse: ResponseWrapped | null = await classService
-            .isClassValid(teacherId, classToAdd);
-
-        console.log('Controller: ErrorResponse: ', errorResponse);
+            .isClassValid(classToAdd);
 
         if (errorResponse) {
             return response.status(errorResponse.status).json(errorResponse);
         }
 
-        const success: boolean = await classService.addClass(teacherId, classToAdd);
+        console.log('Controller - class.date.hours: ', classToAdd.date);
+        console.log('Controller - class.date.hours: ', classToAdd.date.getHours());
+
+        const success: boolean = await classService.addClass(classToAdd);
         
         let responseWrapped: ResponseWrapped = {
             status: 400,

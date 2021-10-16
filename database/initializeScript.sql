@@ -62,6 +62,20 @@ CREATE TABLE class(
         ON DELETE CASCADE
 );
 
+CREATE TABLE client_class(
+	client_id	INT UNSIGNED,
+    class_id	INT UNSIGNED,
+    
+    PRIMARY KEY(client_id, class_id),
+    
+    FOREIGN KEY(client_id)	REFERENCES `client`(id)
+		ON UPDATE CASCADE
+        ON DELETE CASCADE,
+	FOREIGN KEY(class_id)	REFERENCES class(id)
+		ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 -- --------------------------------------------------------
 -- DATA
 -- --------------------------------------------------------

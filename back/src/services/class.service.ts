@@ -10,7 +10,7 @@ export default class ClassService {
         for(let i = 0; i < classes.length; i++){
             classes[i].isUserJoined = await classRepository.isUserJoinedToClass(userId, classes[i].id);
         }
-
+        
         return classes;
     }
 
@@ -22,22 +22,22 @@ export default class ClassService {
         return await classRepository.removeUserFromClass(userId, classId);
     }
 
-    async isClassValid(teacherId: number, classToAdd: Class): Promise<ResponseWrapped | null> {
-        const classToValidate: Class = await this.addTeacherToClassAndFixDate(teacherId, classToAdd);
-        
+    async isClassValid(classToAdd: Class): Promise<ResponseWrapped | null> {  
+        console.log('isClassValid - class.date.hours: ', classToAdd.date);
+        console.log('isClassValid - class.date.hours: ', classToAdd.date.getHours());
+
         // const hasClassAlreadyExists: Promise<boolean> = classRepository
         //     .hasClassAlreadyExists(classToValidate);
         
         // const isClassBetweenAnotherOne: Promise<boolean> = classRepository
         //     .isClassBetweenAnotherOne(classToValidate);
 
+        // Check if only need isClassBetweenAnotherOne because it cover this case
         const classHasAlreadyExists: boolean = await classRepository
-            .hasClassAlreadyExists(classToValidate);
+            .hasClassAlreadyExists(classToAdd);
         
         const classIsBetweenAnother: boolean = await classRepository
-            .isClassBetweenAnotherOne(classToValidate);
-
-        console.log('Sont: ', classHasAlreadyExists, classIsBetweenAnother);
+            .isClassBetweenAnotherOne(classToAdd);
 
         if (!classHasAlreadyExists) {
             const responseWrapped: ResponseWrapped = {
@@ -69,10 +69,8 @@ export default class ClassService {
         return null;
     }
 
-    async addClass(teacherId: number, classToAdd: Class): Promise<boolean> {
-        return await classRepository.addClass(
-            await this.addTeacherToClassAndFixDate(teacherId, classToAdd)
-        );
+    async addClass(classToAdd: Class): Promise<boolean> {        
+        return await classRepository.addClass(classToAdd);
     }
 
     async removeClass(teacherId: number, classId: number): Promise<boolean> {
@@ -81,6 +79,8 @@ export default class ClassService {
 
     async addTeacherToClassAndFixDate(teacherId: number, classToAdd: Class): Promise<Class> {
         // Transform string date to Date object for using Date object methods
+        // const auxDate = new Date(classToAdd.date);
+        // classToAdd.date = auxDate;
         classToAdd.date = new Date(classToAdd.date);
         // Add teacherId to the class so only classToAdd is passed to addClass function
         classToAdd.teacherId = teacherId;

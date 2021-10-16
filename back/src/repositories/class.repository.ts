@@ -86,7 +86,11 @@ export default class ClassRepository {
     }
 
     async addClass(classToAdd: Class): Promise<boolean> {
-        console.log(classToAdd);
+        console.log('Adding it...')
+        console.log(classToAdd.date)
+        console.log(`${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()} ${classToAdd.date.toLocaleTimeString()}`);
+        console.log(`${classToAdd.duration}`)
+        
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO class
@@ -113,7 +117,6 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
-                console.log(error, results)
                 if (error || results === []) return reject(false);
                 resolve(true);
             });
@@ -125,21 +128,27 @@ export default class ClassRepository {
         const classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
 
         // TODO: getEndTime get a incorrect value
+        // console.log('\n\n\n\n\n', '********', '\n\n\n\n\n')
+        // console.log(classToAddDate)
+        // console.log(`${classToAddStartTime} - ${this.getEndTime(classToAdd)}`)
+        // console.log('\n\n\n\n\n', '********', '\n\n\n\n\n')
 
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT 1 FROM class c
                 WHERE
                     -- Check for same day classes
-                    DATE(c.date) = ${classToAddDate}
+                    DATE(c.date) = '${classToAddDate}'
                     -- Check if there is no class being given where the class to add is going to be added
-                    AND TIME(c.date) BETWEEN ${classToAddStartTime}
+                    AND TIME(c.date) BETWEEN '${classToAddStartTime}'
                         -- StartTime + duration = getEndTime
-                        AND ${this.getEndTime(classToAdd)};
+                        AND '${this.getEndTime(classToAdd)}';
             `;
 
             database.query(query, (error, results) => {
-                console.log(error, results)
+                // console.log('\n\n\n\n\n', '-----', '\n\n\n\n\n')
+                // console.log(error, results)
+                // console.log('\n\n\n\n\n', '-----', '\n\n\n\n\n')
                 if (error || results === []) return reject(false);
                 resolve(true);
             });
