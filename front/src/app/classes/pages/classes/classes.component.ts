@@ -89,7 +89,15 @@ export class ClassesComponent implements OnInit, OnDestroy {
           isUserJoined: false
         },
       }
-    });
+    })
+    .afterClosed().subscribe(
+      data => {
+        // Update classes if button pressed was "Añadir" and not "Cancelar"
+        if(data === undefined) {
+          this.getClasses(this.date);
+        }
+      },
+    );
   }
 
   ngOnDestroy(): void {
