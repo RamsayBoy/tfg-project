@@ -86,8 +86,8 @@ VALUES
 
 INSERT INTO `user`(id, `name`, lastName, email, `password`, `roleId`)
 VALUES
-    (1, 'Enrique', 'Pastor', 'admin1@tfg.es', 'admin1pass', 2),
-    (2, 'Pablo', 'Mira García', 'user1@tfg.es', 'user1pass', 1),
+    (1, 'Pedro', 'Jiménez', 'admin1@tfg.es', 'admin1pass', 2),
+    (2, 'Leopoldo', 'Gallego Misca', 'user1@tfg.es', 'user1pass', 1),
     (3, 'Susana', 'Fuertes','user2@tfg.es', 'user2pass', 1);
     
 INSERT INTO `client`(id, teacherId)
