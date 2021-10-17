@@ -138,9 +138,10 @@ export default class ClassRepository {
                     AND
                     (
                         -- Check if class start time is not between the start and end time of the new class
-                        TIME(c.date) BETWEEN '${classToAddStartTime}' AND '${this.getEndTime(classToAdd)}'
+                        TIME(c.date) > '${classToAddStartTime}' AND TIME(c.date) < '${this.getEndTime(classToAdd)}'
                         -- Check if class end time is not between the start and end time of the new class
-                        OR SEC_TO_TIME((TIME_TO_SEC(TIME(date)) + TIME_TO_SEC(duration))) BETWEEN '${classToAddStartTime}' AND '${this.getEndTime(classToAdd)}'
+                        OR SEC_TO_TIME((TIME_TO_SEC(TIME(date)) + TIME_TO_SEC(duration))) > '${classToAddStartTime}'
+                           AND SEC_TO_TIME((TIME_TO_SEC(TIME(date)) + TIME_TO_SEC(duration))) < '${this.getEndTime(classToAdd)}'
                     )
                 LIMIT 1;
             `;
