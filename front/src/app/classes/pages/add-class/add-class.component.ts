@@ -91,6 +91,9 @@ export class AddClassComponent implements OnInit {
   onSubmit(): void {
     this.loaderService.setLoader(true);
 
+    // TODO: Check if duration is more than 8 hours for showing a warning
+    // TODO: Check if the initial and end hour are not between a reasonable time for showing a warning
+
     let classToPost: Class = {
       id: this.data.class.id,
       date: new Date(this.addClassForm.value.date),
@@ -115,8 +118,6 @@ export class AddClassComponent implements OnInit {
     auxDate.setSeconds(Number(startTimeParts[2]));
 
     classToPost.date = auxDate;
-
-    // TODO: Comprobar si la hora de inicio y la duración son coherentes
 
     this.classService.addOrEditClass(classToPost)
       .subscribe({
