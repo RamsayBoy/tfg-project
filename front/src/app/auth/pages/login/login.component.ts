@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         _ => {
           this.router.navigate([this.authService.redirectUrl]);
+          // window.location.reload();
         },
         error => {
           // TODO: Create a handler that shows a pop up

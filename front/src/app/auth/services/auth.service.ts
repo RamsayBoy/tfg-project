@@ -112,6 +112,7 @@ export class AuthService {
     localStorage.removeItem(this.tokenKeySessionStorage);
     this.updateCurrentLoggedInValue(false);
     this.router.navigateByUrl(this.authUrl);
+    // window.location.reload();
   }
 
   isLogginIn(): boolean {

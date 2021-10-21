@@ -1,0 +1,41 @@
+<!-- TODO: Change class names (example...) -->
+<!-- TODO: Make desktop sidenav open -->
+<mat-sidenav-container class="example-container" autosize>
+  <mat-sidenav [opened]="(opened || !mobileQuery.matches) && isUserLoggedIn" class="example-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
+              position="end"
+              [fixedInViewport]="true"
+              fixedTopGap="0"
+              (closed)="opened = false">
+
+    <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
+        class="user-avatar"></div>
+    <h1 class="username">{{username$ | async}}</h1>
+
+    <mat-nav-list>
+      <!-- TODO: It does work. Solve it. The component has to be refresh -->
+      <mat-list-item *ifRole="'admin'">
+        <div class="sidenav-option">
+          <mat-icon>settings</mat-icon>
+          <span>Administración</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item (click)="logout()">
+        <div class="sidenav-option">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar sesión</span>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content autosize>
+    <app-toolbar *ngIf="isUserLoggedIn"
+                 (onMenuButtonClick)="showMenu()">
+    </app-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<app-loader></app-loader>
