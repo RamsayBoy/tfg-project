@@ -12,7 +12,15 @@
     <h1 class="username">{{username$ | async}}</h1>
 
     <mat-nav-list>
-      <!-- TODO: It does work. Solve it. The component has to be refresh -->
+      <a routerLink="/classes">
+        <mat-list-item>
+          <div class="sidenav-option">
+            <mat-icon>date_range</mat-icon>
+            <span *ifRole="'admin'">Clases</span>
+            <span *ifRole="'user'">Mis clases</span>
+          </div>
+        </mat-list-item>
+      </a>
       <a routerLink="/administration" *ifRole="'admin'">
         <mat-list-item>
           <div class="sidenav-option">

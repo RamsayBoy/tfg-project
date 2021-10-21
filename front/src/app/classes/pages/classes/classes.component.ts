@@ -102,5 +102,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
+    this.toolbarService.updateTitle("Administration");
+    this.toolbarService.showDateControls(false);
   }
 }
