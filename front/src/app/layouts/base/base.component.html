@@ -13,12 +13,14 @@
 
     <mat-nav-list>
       <!-- TODO: It does work. Solve it. The component has to be refresh -->
-      <mat-list-item *ifRole="'admin'">
-        <div class="sidenav-option">
-          <mat-icon>settings</mat-icon>
-          <span>Administración</span>
-        </div>
-      </mat-list-item>
+      <a routerLink="/administration" *ifRole="'admin'">
+        <mat-list-item>
+          <div class="sidenav-option">
+            <mat-icon>settings</mat-icon>
+            <span>Administración</span>
+          </div>
+        </mat-list-item>
+      </a>
       <mat-list-item (click)="logout()">
         <div class="sidenav-option">
           <mat-icon>exit_to_app</mat-icon>

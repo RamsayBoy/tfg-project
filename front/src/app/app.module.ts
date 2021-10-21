@@ -14,7 +14,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './shared/shared.module';
-import { AdministrationComponent } from './administration/pages/administration/administration.component';
 import { BaseComponent } from './layouts/base/base.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 
@@ -22,7 +21,6 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 @NgModule({
   declarations: [
     AppComponent,
-    AdministrationComponent,
     BaseComponent,
     LoginLayoutComponent,
     // IfRoleDirective,
