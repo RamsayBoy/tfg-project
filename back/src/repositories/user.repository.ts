@@ -37,6 +37,23 @@ export default class UserRepository {
             });
         });
     }
+
+    async isAdmin(userId: number): Promise<boolean> {
+        console.log(userId)
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT r.name AS rol
+                FROM user
+                INNER JOIN role r ON r.id = user.roleId
+                WHERE user.id = ${userId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve(results[0].rol === 'admin' ? true : false);
+            });
+        });
+    }
 }
 
 // TODO: Remove when dependency injection

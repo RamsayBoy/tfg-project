@@ -6,6 +6,37 @@
 	},
 	"item": [
 		{
+			"name": "Iniciar sesión (admin)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin1@tfg.es\",\n    \"password\": \"admin1pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Iniciar sesión",
 			"request": {
 				"method": "POST",
@@ -31,6 +62,106 @@
 						"v0",
 						"auth",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJuYW1lIjoiUGVkcm8iLCJsYXN0TmFtZSI6IkppbcOpbmV6IiwiZW1haWwiOiJhZG1pbjFAdGZnLmVzIiwicm9sZSI6ImFkbWluIiwidGVhY2hlcklkIjpudWxsfSwiaWF0IjoxNjM1NDM3NjU4LCJleHAiOjE2MzU1MjQwNTh9.z4pAqOhshBMlet2fBgatgyRq2cmJWMjdEXLj9TFslnA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin1@tfg.es\",\n    \"password\": \"admin1pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clases",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJuYW1lIjoiRW5yaXF1ZSIsImxhc3ROYW1lIjoiUGFzdG9yIiwiZW1haWwiOiJhZG1pbjFAdGZnLmVzIiwicm9sZSI6ImFkbWluIiwidGVhY2hlcklkIjpudWxsfSwiaWF0IjoxNjI3ODE3ODYxLCJleHAiOjE2Mjc5MDQyNjF9.nunIPvmFnfLotogjt-ZjYHwNPurOLN2GROw_QwmLEao",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6ImFkbWluMUB0ZmcuZXMiLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjIyMjkwNTczLCJleHAiOjE2MjIzNzY5NzN9.DJMfPJMVXG6hLjVBR7Q-sWMI0EZlxiAT631QopXZx6g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin1@tfg.es\",\n    \"password\": \"admin1pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/classes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"classes"
 					]
 				}
 			},
@@ -64,6 +195,57 @@
 						"api",
 						"v0",
 						"classes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apuntarse a una clase",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "barear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJuYW1lIjoiUGFibG8iLCJsYXN0TmFtZSI6Ik1pcmEgR2FyY8OtYSIsImVtYWlsIjoidXNlcjFAdGZnLmVzIiwicm9sZSI6InVzZXIiLCJ0ZWFjaGVySWQiOjF9LCJpYXQiOjE2Mjc4MTgzOTUsImV4cCI6MTYyNzkwNDc5NX0.hhhOAzo4UEGtOBay3Uah1qklaRWY_oUKjMuGDJY_8_A",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"classId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v0/classes/join",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v0",
+						"classes",
+						"join"
 					]
 				}
 			},

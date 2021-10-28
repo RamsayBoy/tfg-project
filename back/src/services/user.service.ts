@@ -16,6 +16,12 @@ export default class UserService {
 
         return user;
     }
+
+    async isAdmin(userId: number): Promise<boolean> {
+        const isAdmin: boolean = await userRepository.isAdmin(userId);
+
+        return isAdmin;
+    }
 }
 
 // TODO: Remove when dependency injection
