@@ -39,7 +39,6 @@ export default class UserRepository {
     }
 
     async isAdmin(userId: number): Promise<boolean> {
-        console.log(userId)
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT r.name AS rol
