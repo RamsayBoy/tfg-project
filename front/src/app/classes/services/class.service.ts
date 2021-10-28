@@ -62,7 +62,6 @@ export class ClassService {
 
   joinClass(classId: number): Observable<ResponseWrapped> {
     // There is an error if classId is sent as a number. It must be sent as an object.
-    console.log(this.url + "/join");
     return this.http.post<ResponseWrapped>(this.url + "/join", {classId});
   }
 
