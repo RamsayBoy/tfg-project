@@ -6,7 +6,48 @@ import { authService } from '../services/auth.service';
 import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
 
 export const register = async (request: Request, response: Response): Promise<Response> => {
-    return response.json({'register':'OK'});
+    const email: string = request.body.email;
+
+    try {
+        const alreadyExists: boolean = await authService.isAlreadyRegistered(email);
+
+        if (alreadyExists) {
+            const responseWrapped: ResponseWrapped = {
+                status: 403,
+                statusText: 'Already exists',
+                message: `El usuario con email "${email}" ya está registrado`,
+                error: {
+                    code: 'ALREADY EXISTS',
+                    message: `El usuario con email "${email}" ya está registrado`,
+                }
+            };
+
+            return response.status(403).json(responseWrapped);
+        }
+
+        await authService.register(email);
+
+        const responseWrapped = {
+            status: 200,
+            statusText: 'OK',
+            message: `El usuario con email "${email}" ha sido registrado`,
+        };
+
+        return response.status(200).json(responseWrapped);
+    }
+    catch (exception) {
+        const responseWrapped: ResponseWrapped = {
+            status: 500,
+            statusText: 'Internal error',
+            message: 'Se ha producido un error al registrar el usuario',
+            error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Se ha producido un error en el servidor',
+            }
+        }
+
+        return response.status(500).json(responseWrapped);
+    }
 };
 
 export const login = async (request: Request, response: Response): Promise<Response> => {

@@ -1,6 +1,7 @@
 import config from "../config";
 import { JwtToken } from "../types/Token.type";
 import jwt from 'jsonwebtoken';
+import { userRepository } from "../repositories/user.repository";
 
 // TODO: Dependency injection
 export default class AuthService {
@@ -9,6 +10,17 @@ export default class AuthService {
             expiresIn: expirateInTime,
         });
         return token;
+    }
+    
+    async isAlreadyRegistered(email: string): Promise<boolean> {
+        return await userRepository.isAlreadyRegistered(email);
+    }
+    
+    async register(email: string): Promise<void> {
+        // TODO: Generate random password
+        const password: string = email.substring(0, 3) + 'pass';
+        console.log(password);
+        await userRepository.register(email, password);
     }
 }
 

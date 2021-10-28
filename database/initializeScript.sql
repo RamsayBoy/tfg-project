@@ -20,7 +20,7 @@ CREATE TABLE `role`(
 CREATE TABLE `user`(
 	id			INT UNSIGNED	AUTO_INCREMENT,
     `name`      VARCHAR(16),
-    `lastName`      VARCHAR(32),
+    `lastName`  VARCHAR(32),
     email		VARCHAR(256)	NOT NULL UNIQUE,
     `password`  VARCHAR(64)     NOT NULL,        -- TODO: Check size (use 64 max. in the client due to limitations in certain hashing algorithms)
     `roleId`    INT UNSIGNED,

@@ -53,6 +53,39 @@ export default class UserRepository {
             });
         });
     }
+
+    async isAlreadyRegistered(email: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT email
+                FROM user
+                WHERE email = '${email}';
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve(results.length !== 0 ? true : false);
+            });
+        });
+    }
+
+    async register(email: string, password: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                INSERT INTO user(
+                    email,
+                    password,
+                    roleId)
+                VALUES
+                    ('${email}', '${password}', 1); -- 1 is 'user' role
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve();
+            });
+        });
+    }
 }
 
 // TODO: Remove when dependency injection
