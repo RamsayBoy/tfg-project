@@ -92,8 +92,6 @@ export const joinClass = async (request: Request, response: Response): Promise<R
     const classId: number = request.body.classId;
     const userId: number = response.locals.userId;
 
-    console.log('Join class')
-
     try {
         const success = await classService.joinClass(userId, classId);
         let responseWrapped: ResponseWrapped;
