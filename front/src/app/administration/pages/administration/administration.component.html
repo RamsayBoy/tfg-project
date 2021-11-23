@@ -23,35 +23,41 @@
             </mat-option>
           </mat-autocomplete> -->
         </mat-form-field>
+        <mat-card-actions class="action-buttons">
+          <!-- TODO: Add action -->
+          <button mat-stroked-button type="button" color="warn">Dar de baja</button>
+        </mat-card-actions>
       </form>
-      <mat-card-actions class="action-buttons">
-        <!-- TODO: Add action -->
-        <button mat-stroked-button type="button" color="warn">Dar de baja</button>
-      </mat-card-actions>
     </mat-card>
+
     <mat-card class="card">
       <mat-card-title>Registrar nuevo alumno</mat-card-title>
-      <form class="myClientsForm form">
+      <form [formGroup]="newClientForm" (ngSubmit)="onSubmitRegister()" class="newClientForm form">
         <mat-form-field appearance="outline">
           <mat-label>Email del nuevo alumno</mat-label>
-          <input type="text" placeholder="Ej: manoloeldelbombo@gmail.com" matInput>
+          <input formControlName="email" type="email" placeholder="Ej: manoloeldelbombo@gmail.com" matInput>
         </mat-form-field>
+        <mat-card-actions class="action-buttons">
+          <button mat-flat-button type="submit" [disabled]="newClientForm.invalid" color="primary">Registrar alumno</button>
+        </mat-card-actions>
       </form>
-      <mat-card-actions class="action-buttons">
-        <button mat-flat-button type="button" color="primary">Registrar alumno</button>
-      </mat-card-actions>
     </mat-card>
   </section>
 
+
   <div class="section-title">
-    <h1>Configuraciones</h1>
+    <h1>Otras opciones</h1>
     <mat-icon>expand_more</mat-icon>
   </div>
   <section class="section">
     <mat-card class="card">
       <mat-card-title>Número de alumnos por clase</mat-card-title>
-      <mat-card-subtitle>Máximo número de alumnos por defecto</mat-card-subtitle>
-      <p>Something here...</p>
+      <form class="configurationsForm form">
+        <mat-form-field appearance="outline">
+          <mat-label>Máximo número de alumnos por defecto</mat-label>
+          <input type="number" matInput>
+        </mat-form-field>
+      </form>
     </mat-card>
   </section>
 </div>

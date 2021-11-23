@@ -44,6 +44,7 @@
   width: 85%;
   margin: 0 auto;
   margin-bottom: 0.8rem;
+  padding-bottom: 0;
 }
 
 .card mat-card-title {
@@ -66,3 +67,13 @@
 .action-buttons button {
   margin: 0 0.5rem 0.5rem 0 !important;
 }
+
+/* .action-buttons {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 0;
+}
+
+.action-buttons button {
+  margin: 0 0.5rem 0 0 !important;
+} */
