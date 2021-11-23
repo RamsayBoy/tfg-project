@@ -32,3 +32,20 @@
 .card mat-card-title {
   font-size: 18px;
 }
+
+.form {
+  margin-top: 0.7rem;
+}
+
+.form mat-form-field {
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.action-buttons button {
+  margin: 0 0.5rem 0.5rem 0 !important;
+}
