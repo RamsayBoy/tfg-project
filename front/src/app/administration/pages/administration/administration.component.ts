@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 
 @Component({
   selector: 'app-administration',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private toolbarService: ToolbarService,
+  ) { }
 
   ngOnInit(): void {
+    this.toolbarService.updateTitle("Administración");
   }
 
 }
