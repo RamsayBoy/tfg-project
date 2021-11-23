@@ -16,6 +16,23 @@
   border-bottom-left-radius: 5px;
   padding: 3px;
   padding-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title h1,
+.section-title mat-icon {
+  font-size: 18px;
+  font-weight: 500;
+  display: inline-block;
+  margin: 0;
+}
+
+.section-title mat-icon {
+  margin-right: 1rem;
+  font-size: 22px;
+  font-weight: 900;
 }
 
 .section {

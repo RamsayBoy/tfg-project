@@ -1,5 +1,10 @@
 <div class="container">
-  <h1 class="section-title">Alumnos</h1>
+  <!-- TODO: Add icon for minimize the configurations -->
+  <div class="section-title">
+    <h1>Alumnos</h1>
+    <!-- TODO: Add functionality -->
+    <mat-icon>expand_more</mat-icon>
+  </div>
   <section class="section">
     <mat-card class="card">
       <mat-card-title>Mis alumnos</mat-card-title>
@@ -32,10 +37,16 @@
           <input type="text" placeholder="Ej: manoloeldelbombo@gmail.com" matInput>
         </mat-form-field>
       </form>
+      <mat-card-actions class="action-buttons">
+        <button mat-flat-button type="button" color="primary">Registrar alumno</button>
+      </mat-card-actions>
     </mat-card>
   </section>
 
-  <h1 class="section-title">Otras configuraciones</h1>
+  <div class="section-title">
+    <h1>Configuraciones</h1>
+    <mat-icon>expand_more</mat-icon>
+  </div>
   <section class="section">
     <mat-card class="card">
       <mat-card-title>Número de alumnos por clase</mat-card-title>
