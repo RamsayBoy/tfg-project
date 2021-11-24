@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 
 @Component({
@@ -16,6 +19,9 @@ export class AdministrationComponent implements OnInit {
   constructor(
     private toolbarService: ToolbarService,
     private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private dialogService: DialogService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +40,23 @@ export class AdministrationComponent implements OnInit {
   }
 
   onSubmitRegister(): void {
-    if (this.newClientForm.value.email) {
-      console.log(this.newClientForm.value)
+    const email: string = this.newClientForm.value.email;
+
+    if (email) {
+      this.loaderService.setLoader(true);
+
+      this.authService.register(email)
+        .subscribe({
+          next: (data) => {
+            this.dialogService.open('Usuario registrado', data.message);
+          },
+          error: (error) => {
+            this.dialogService.open('Error', error);
+          },
+        })
+        .add(() => {
+          this.loaderService.setLoader(false);
+        });
     }
   }
 

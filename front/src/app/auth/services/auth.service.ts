@@ -30,8 +30,8 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  register(): void {
-    // TODO
+  register(email: string): Observable<ResponseWrapped> {
+    return this.http.post<ResponseWrapped>(this.registerUrl, { email });
   }
 
   // TODO: Change any to the type ResponseWrapped
