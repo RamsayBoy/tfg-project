@@ -39,6 +39,10 @@
   margin-bottom: 2rem;
 }
 
+.section:last-of-type {
+  margin-bottom: 8em;
+}
+
 .card {
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
   width: 85%;
@@ -59,21 +63,22 @@
   width: 100%;
 }
 
+.emailText,
+.emailText:first-of-type {
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.emailText {
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
 .action-buttons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .action-buttons button {
   margin: 0 0.5rem 0.5rem 0 !important;
 }
-
-/* .action-buttons {
-  display: flex;
-  justify-content: end;
-  margin-bottom: 0;
-}
-
-.action-buttons button {
-  margin: 0 0.5rem 0 0 !important;
-} */

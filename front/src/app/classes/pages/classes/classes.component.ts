@@ -92,6 +92,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
     })
     .afterClosed().subscribe(
       data => {
+        // TODO: If modal is closed by clicking outside, data is also undefined
+        //  and classes are reloaded
         // Update classes if button pressed was "Añadir" and not "Cancelar"
         if(data === undefined) {
           this.getClasses(this.date);
