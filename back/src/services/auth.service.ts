@@ -16,11 +16,10 @@ export default class AuthService {
         return await userRepository.isAlreadyRegistered(email);
     }
     
-    async register(email: string): Promise<void> {
+    async register(email: string, teacherId: number): Promise<void> {
         // TODO: Generate random password
         const password: string = email.substring(0, 3) + 'pass';
-        console.log(password);
-        await userRepository.register(email, password);
+        await userRepository.register(email, password, teacherId);
     }
 }
 

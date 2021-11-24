@@ -7,6 +7,7 @@ import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
 
 export const register = async (request: Request, response: Response): Promise<Response> => {
     const email: string = request.body.email;
+    const teacherId: number = response.locals.teacherId;
 
     try {
         const alreadyExists: boolean = await authService.isAlreadyRegistered(email);
@@ -25,7 +26,7 @@ export const register = async (request: Request, response: Response): Promise<Re
             return response.status(403).json(responseWrapped);
         }
 
-        await authService.register(email);
+        await authService.register(email, teacherId);
 
         const responseWrapped = {
             status: 200,
