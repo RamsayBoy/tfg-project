@@ -7,6 +7,19 @@
   </div>
   <section class="section">
     <mat-card class="card">
+      <mat-card-title>Registrar nuevo alumno</mat-card-title>
+      <form [formGroup]="newClientForm" (ngSubmit)="onSubmitRegister()" class="newClientForm form">
+        <mat-form-field appearance="outline">
+          <mat-label>Email del nuevo alumno</mat-label>
+          <input formControlName="email" type="email" placeholder="Ej: manoloeldelbombo@gmail.com" matInput>
+        </mat-form-field>
+        <mat-card-actions class="action-buttons">
+          <button mat-flat-button type="submit" [disabled]="newClientForm.invalid" color="primary">Registrar alumno</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+
+    <mat-card class="card">
       <mat-card-title>Mis alumnos</mat-card-title>
       <form class="myClientsForm form">
         <mat-form-field appearance="outline">
@@ -28,19 +41,6 @@
         <mat-card-actions class="action-buttons">
           <!-- TODO: Add action -->
           <button mat-stroked-button type="button" color="warn">Dar de baja</button>
-        </mat-card-actions>
-      </form>
-    </mat-card>
-
-    <mat-card class="card">
-      <mat-card-title>Registrar nuevo alumno</mat-card-title>
-      <form [formGroup]="newClientForm" (ngSubmit)="onSubmitRegister()" class="newClientForm form">
-        <mat-form-field appearance="outline">
-          <mat-label>Email del nuevo alumno</mat-label>
-          <input formControlName="email" type="email" placeholder="Ej: manoloeldelbombo@gmail.com" matInput>
-        </mat-form-field>
-        <mat-card-actions class="action-buttons">
-          <button mat-flat-button type="submit" [disabled]="newClientForm.invalid" color="primary">Registrar alumno</button>
         </mat-card-actions>
       </form>
     </mat-card>

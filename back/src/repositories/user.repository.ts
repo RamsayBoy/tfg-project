@@ -72,15 +72,11 @@ export default class UserRepository {
     async register(email: string, password: string, teacherId: number): Promise<void> {
         return new Promise((resolve, reject) => {
             const query = `
-                INSERT INTO user(
-                    email,
-                    password,
-                    roleId)
-                VALUES
-                    ('${email}', '${password}', 1); -- 1 is 'user' role
+                CALL sp_registerUser('${email}', '${password}', ${teacherId});
             `;
 
             database.query(query, (error, results) => {
+                console.log(error)
                 if (error) return reject(error);
                 resolve();
             });

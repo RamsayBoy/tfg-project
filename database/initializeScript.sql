@@ -169,3 +169,36 @@ VALUES
         8,
         1
     );
+
+
+-- Stored procedures
+DELIMITER $$
+
+CREATE PROCEDURE `sp_registerUser`(
+    IN email        VARCHAR(256),
+    IN `password`   VARCHAR(64),
+    IN teacherId    INT
+)
+BEGIN
+    DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+    
+    START TRANSACTION;
+        INSERT INTO user(
+            email,
+            `password`,
+            roleId)
+        VALUES
+            (email, `password`, 1); -- 1 is 'user' role
+        
+        INSERT INTO client(id, teacherId)
+        VALUES(LAST_INSERT_ID(), teacherId);
+        
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END $$
+
+DELIMITER ;

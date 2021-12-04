@@ -52,3 +52,7 @@ mat-sidenav-content {
 .example-sidenav-content {
   width: 100%;
 }
+
+.username {
+  overflow-wrap: break-word;
+}
