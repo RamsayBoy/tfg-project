@@ -63,6 +63,26 @@
   width: 100%;
 }
 
+.version-warning {
+  margin-left: 3rem;
+}
+
+@media (max-width: 640px) {
+  .version-warning {
+    margin-left: 1rem;
+  }
+}
+
+.card .version-warning {
+  margin-left: initial;
+  padding-bottom: 1rem;
+}
+
+.version-warning,
+.card .version-warning {
+  color: rgb(190, 30, 30);
+}
+
 .emailText,
 .emailText:first-of-type {
   margin-top: 0.5rem;

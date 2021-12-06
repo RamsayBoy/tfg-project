@@ -54,12 +54,21 @@
   <section class="section">
     <mat-card class="card">
       <mat-card-title>Número de alumnos por clase</mat-card-title>
+      <mat-card-subtitle>Valor por defecto. Se puede cambiar para las clases que se quiera.</mat-card-subtitle>
       <form class="configurationsForm form">
         <mat-form-field appearance="outline">
-          <mat-label>Máximo número de alumnos por defecto</mat-label>
-          <input type="number" matInput>
+          <mat-label>Número máximo de alumnos por clase</mat-label>
+          <input disabled type="number" matInput>
         </mat-form-field>
       </form>
+      <p class="version-warning">* Esta opción no está disponible en la versión actual.</p>
     </mat-card>
   </section>
+
+  <div class="section-title">
+    <h1>Horarios</h1>
+    <mat-icon>expand_more</mat-icon>
+  </div>
+  <p class="version-warning">* Esta opción no está disponible en la versión actual.</p>
+  <section class="section"></section>
 </div>
