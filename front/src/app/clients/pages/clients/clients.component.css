@@ -28,6 +28,8 @@
 
   background: url("/assets/default-profile-img.png") no-repeat center;
   background-size: cover;
+
+  margin: 0 auto;
 }
 
 .user-name {
@@ -44,4 +46,9 @@
 
 .actions {
   margin: 0 auto;
+}
+
+.user-separator {
+  border-top: 1px solid rgba(0, 0, 0, 0.055);
+  margin: 1rem auto;
 }
