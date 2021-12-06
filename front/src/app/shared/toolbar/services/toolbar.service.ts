@@ -12,6 +12,9 @@ export class ToolbarService {
   private showDateControlsSource = new BehaviorSubject<boolean>(false);
   areDateControlsShown = this.showDateControlsSource.asObservable();
 
+  private showClientsTabsSource = new BehaviorSubject<boolean>(false);
+  areClientsTabsShown = this.showClientsTabsSource.asObservable();
+
   constructor() { }
 
   updateTitle(title: string) {
@@ -20,5 +23,9 @@ export class ToolbarService {
 
   showDateControls(areControlsShown: boolean) {
     this.showDateControlsSource.next(areControlsShown);
+  }
+
+  showClientsTabs(isShown: boolean) {
+    this.showClientsTabsSource.next(isShown);
   }
 }

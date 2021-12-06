@@ -18,6 +18,7 @@ import { DialogComponent } from './dialog/components/dialog/dialog.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confirm-dialog.component';
 import { IfRoleDirective } from './directives/if-role.directive';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -44,6 +45,7 @@ import { IfRoleDirective } from './directives/if-role.directive';
     MatToolbarModule,
     FormsModule,
     MatDialogModule,
+    MatTabsModule,
   ],
   exports: [
     MatCardModule,
@@ -60,6 +62,7 @@ import { IfRoleDirective } from './directives/if-role.directive';
     DialogComponent,
     LoaderComponent,
     IfRoleDirective,
+    MatTabsModule,
   ],
 })
 export class SharedModule { }

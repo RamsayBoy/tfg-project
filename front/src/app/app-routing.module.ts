@@ -18,12 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./clients/client.module').then(module => module.ClientModule),
     canActivate: [AuthGuard, IsAdminGuard]
   },
-  {
-    path: 'administration',
-    loadChildren: () => import('./administration/administration.module').then(module => module.AdministrationModule),
-    /* TODO: Add an AdminGuard (only admin can get access) */
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'administration',
+  //   loadChildren: () => import('./administration/administration.module').then(module => module.AdministrationModule),
+  //   canActivate: [AuthGuard, IsAdminGuard]
+  // },
   {
     // TODO: Not found page
     path: '**',

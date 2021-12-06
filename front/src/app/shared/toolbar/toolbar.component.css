@@ -47,6 +47,30 @@ mat-toolbar {
   max-width: 45rem;
 }
 
+.tabs {
+  align-items: end;
+  display: flex;
+  justify-content: center;
+}
+
+.tabs button {
+  text-transform: uppercase;
+}
+
+.activeTab {
+  color: white;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 3px solid white;
+  margin-bottom: 0px;
+}
+
+.inactiveTab {
+  padding-bottom: 8px;
+  color: rgb(175, 175, 175);
+}
+
 .desktop-style {
   width: calc(100% - 16rem);
   transition: width 400ms;

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, OnDestroy, SimpleChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ClassService } from 'src/app/classes/services/class.service';
 import { ToolbarService } from './services/toolbar.service';
@@ -16,16 +17,21 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @Input() title: string = "";
   date!: Date;
   @Input('showDateControls') showDateControls: boolean = true;
+  @Input('showClientsTabs') showClientsTabs: boolean = false;
   @Output() onMenuButtonClick: EventEmitter<any> = new EventEmitter();
 
   dateSubscription!: Subscription;
   titleSubscription!: Subscription;
   dateControlsSubscription!: Subscription;
+  clientsTabsSubscription!: Subscription;
+
+  tabActive: number = 0;
 
   constructor(
     private classService: ClassService,
     private toolbarService: ToolbarService,
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +40,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.showDateControls = areShown;
       this.changeDetectorRef.detectChanges();
     });
+    this.clientsTabsSubscription = this.toolbarService.areClientsTabsShown.subscribe(areShown => {
+      this.showClientsTabs = areShown;
+
+      if (this.router.url === '/clients/register') {
+        this.tabActive = 1;
+      }
+
+      this.changeDetectorRef.detectChanges();
+    });
+
     this.titleSubscription = this.toolbarService.currentTitle.subscribe(title => {
       this.title = title;
       this.changeDetectorRef.detectChanges();
@@ -69,9 +85,24 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.onMenuButtonClick.emit(null);
   }
 
+  activeTab(tabNumber: number): void {
+    this.tabActive = tabNumber;
+
+    console.log(tabNumber)
+
+    if (tabNumber === 0) {
+      this.router.navigate(['clients'])
+    }
+
+    if (tabNumber === 1) {
+      this.router.navigate(['clients/register'])
+    }
+  }
+
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
     this.dateControlsSubscription.unsubscribe();
+    this.clientsTabsSubscription.unsubscribe();
     this.titleSubscription.unsubscribe();
   }
 }

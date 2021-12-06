@@ -21,14 +21,22 @@
           </div>
         </mat-list-item>
       </a>
-      <a routerLink="/administration" *ifRole="'admin'">
+      <a routerLink="/clients" *ifRole="'admin'">
+        <mat-list-item>
+          <div class="sidenav-option">
+            <mat-icon>group</mat-icon>
+            <span>Alumnos</span>
+          </div>
+        </mat-list-item>
+      </a>
+      <!-- <a routerLink="/administration" *ifRole="'admin'">
         <mat-list-item>
           <div class="sidenav-option">
             <mat-icon>settings</mat-icon>
             <span>Administración</span>
           </div>
         </mat-list-item>
-      </a>
+      </a> -->
       <mat-list-item (click)="logout()">
         <div class="sidenav-option">
           <mat-icon>exit_to_app</mat-icon>

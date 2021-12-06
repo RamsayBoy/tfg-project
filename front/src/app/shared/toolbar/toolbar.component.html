@@ -24,11 +24,18 @@
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </mat-toolbar-row>
+
+  <mat-toolbar-row class="tabs" *ngIf="showClientsTabs">
+    <button (click)="activeTab(0)" [ngClass]="tabActive === 0 ? 'activeTab' : 'inactiveTab'" [disableRipple]="true" mat-button type="button">Mis alumnos</button>
+    <button (click)="activeTab(1)" [ngClass]="tabActive === 1 ? 'activeTab' : 'inactiveTab'" [disableRipple]="true" mat-button type="button">Registrar alumno</button>
+  </mat-toolbar-row>
 </mat-toolbar>
 <!-- Space for toolbar (fix the fixed position problem) -->
 <mat-toolbar class="fixed-space">
   <mat-toolbar-row>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="showDateControls">
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="showClientsTabs">
   </mat-toolbar-row>
 </mat-toolbar>

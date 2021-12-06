@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  selector: 'app-clients-register',
+  templateUrl: './clients-register.component.html',
+  styleUrls: ['./clients-register.component.css']
 })
-export class ClientsComponent implements OnInit, OnDestroy {
+export class ClientsRegisterComponent implements OnInit {
 
   constructor(
     private toolbarService: ToolbarService,
