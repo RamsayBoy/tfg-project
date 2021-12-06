@@ -19,6 +19,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { ConfirmDialogComponent } from './dialog/components/confirmDialog/confirm-dialog.component';
 import { IfRoleDirective } from './directives/if-role.directive';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -63,6 +64,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     LoaderComponent,
     IfRoleDirective,
     MatTabsModule,
+    MatMenuModule,
   ],
 })
 export class SharedModule { }
