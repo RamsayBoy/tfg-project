@@ -88,8 +88,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   activeTab(tabNumber: number): void {
     this.tabActive = tabNumber;
 
-    console.log(tabNumber)
-
     if (tabNumber === 0) {
       this.router.navigate(['clients'])
     }
