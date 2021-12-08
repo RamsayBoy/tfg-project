@@ -1,6 +1,7 @@
 .container {
   max-width: 35rem;
   margin: 0 auto;
+  margin-top: -10px;
 }
 
 .tabs {
@@ -51,5 +52,5 @@ div.user:nth-child(even) {
 }
 
 .actions {
-  margin: 0 auto;
+  margin: 0px 0px 0px auto;
 }

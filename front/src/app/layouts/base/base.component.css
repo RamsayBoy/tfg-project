@@ -45,6 +45,11 @@ mat-sidenav {
   padding: 0.5rem 0 0.5rem 0;
 }
 
+a.active mat-list-item {
+  color: #3f51b5;
+  font-weight: bold;
+}
+
 mat-sidenav-content {
   min-height: 100vh;
 }
