@@ -11,7 +11,6 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
   constructor(
     private toolbarService: ToolbarService,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
