@@ -24,7 +24,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   @Input() public date!: Date;
   // TODO: Make interfaces shared between the backend and the frontend
   classes$!: Observable<Class[]>;
-  thereIsAnError$: Subject<boolean> = new Subject<boolean>();;
+  thereIsAnError$: Subject<boolean> = new Subject<boolean>();
 
   dateSubscription!: Subscription;
 
