@@ -1,5 +1,6 @@
 import {userRepository} from '../repositories/user.repository';
 import User from '../interfaces/User.interface';
+import Client from '../interfaces/Clients.interface';
 
 // TODO: Dependency injection
 export default class UserService {
@@ -21,6 +22,12 @@ export default class UserService {
         const isAdmin: boolean = await userRepository.isAdmin(userId);
 
         return isAdmin;
+    }
+
+    async getClients(teacherId: number): Promise<Client[]> {
+        const clients: Client[] = await userRepository.getClients(teacherId);
+
+        return clients;
     }
 }
 

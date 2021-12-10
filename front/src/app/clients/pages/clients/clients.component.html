@@ -1,65 +1,30 @@
 <div class="container">
-  <div class="user">
-    <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
-          class="user-avatar"></div> -->
-    <div class="user-avatar"></div>
-    <div class="user-info">
-      <div class="user-name">Manolo Eltaño</div>
-      <div class="user-email">manolo@gmail.com</div>
+  <ng-template #loadingOrError>
+    <div class="errorMessage" *ngIf="thereIsAnError$ | async; else loading">
+      <h1>No se han podido cargar los alumnos</h1>
+      <button (click)="getClients()" type="button" color="primary" mat-raised-button>Volver a intentar</button>
     </div>
-    <div class="actions">
-      <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Dar de baja</button>
-      </mat-menu>
-    </div>
-  </div>
+    <ng-template #loading>
+      <mat-spinner class="loading-spinner"></mat-spinner>
+    </ng-template>
+  </ng-template>
 
-
-
-  <div class="user">
-    <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
-          class="user-avatar"></div> -->
-    <div class="user-avatar"></div>
-    <div class="user-info">
-      <div class="user-name">Manolo Eltaño</div>
-      <div class="user-email">manolo@gmail.com</div>
+  <ng-container *ngIf="clients$ | async as clients; else loadingOrError">
+    <div *ngFor="let client of clients" class="user">
+      <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
+            class="user-avatar"></div> -->
+      <div class="user-avatar"></div>
+      <div class="user-info">
+        <div class="user-name">{{client.name}} {{client.lastName}}</div>
+        <div class="user-email">{{client.email}}</div>
+      </div>
+      <div class="actions">
+        <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Dar de baja</button>
+        </mat-menu>
+      </div>
     </div>
-    <div class="actions">
-      <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Dar de baja</button>
-      </mat-menu>
-    </div>
-  </div>
-  <div class="user">
-    <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
-          class="user-avatar"></div> -->
-    <div class="user-avatar"></div>
-    <div class="user-info">
-      <div class="user-name">Manolo Eltaño</div>
-      <div class="user-email">manolo@gmail.com</div>
-    </div>
-    <div class="actions">
-      <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Dar de baja</button>
-      </mat-menu>
-    </div>
-  </div>
-  <div class="user">
-    <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
-          class="user-avatar"></div> -->
-    <div class="user-avatar"></div>
-    <div class="user-info">
-      <div class="user-name">Manolo Eltaño</div>
-      <div class="user-email">manolo@gmail.com</div>
-    </div>
-    <div class="actions">
-      <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Dar de baja</button>
-      </mat-menu>
-    </div>
-  </div>
+    <h1 *ngIf="clients.length === 0" class="infoMessage">No hay ningún alumno registrado.</h1>
+  </ng-container>
 </div>

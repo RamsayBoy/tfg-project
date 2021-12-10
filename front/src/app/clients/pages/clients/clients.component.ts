@@ -24,26 +24,24 @@ export class ClientsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.toolbarService.updateTitle("Alumnos");
     this.toolbarService.showClientsTabs(true);
+
+    this.getClients();
   }
 
   getClients(): void {
     window.scroll(0, 0);
 
-    // TODO: Uncomment when api part is done
-    // this.clients$ = this.clientsService.getClients();
+    this.clients$ = this.clientsService.getClients();
 
-    // this.clients$.subscribe(
-    //   data => {
-    //     //this.areErrors = false;
-    //     this.thereIsAnError$.next(false);
-    //   },
-    //   error => {
-    //     // Set the date to the previous date if there is an error
-    //     //this.areErrors = true;
-    //     this.thereIsAnError$.next(true);
-    //     this.dialogService.open('Error', error);
-    //   }
-    // );
+    this.clients$.subscribe(
+      data => {
+        this.thereIsAnError$.next(false);
+      },
+      error => {
+        this.thereIsAnError$.next(true);
+        this.dialogService.open('Error', error);
+      }
+    );
   }
 
   ngOnDestroy(): void {

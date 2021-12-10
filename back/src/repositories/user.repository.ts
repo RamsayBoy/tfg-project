@@ -1,5 +1,6 @@
 import database from '../mysql';
 import User from '../interfaces/User.interface';
+import Client from '../interfaces/Clients.interface';
 
 // TODO: Dependency injection
 export default class UserRepository {
@@ -76,9 +77,30 @@ export default class UserRepository {
             `;
 
             database.query(query, (error, results) => {
-                console.log(error)
                 if (error) return reject(error);
                 resolve();
+            });
+        });
+    }
+
+    async getClients(teacherId: number): Promise<Client[]> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT  c.id,
+                        u.name,
+                        u.lastName,
+                        u.email,
+                        r.name 'role'
+                FROM client c
+                LEFT JOIN user u ON u.id = c.id
+                INNER JOIN role r ON r.id = u.roleId
+                WHERE teacherId = ${teacherId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                console.log(results);
+                resolve(results);
             });
         });
     }

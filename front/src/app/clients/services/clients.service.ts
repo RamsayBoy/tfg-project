@@ -18,17 +18,11 @@ export class ClientsService {
   ) { }
 
   getClients(): Observable<Client[]> {
-    // TODO: Uncomment when api part is done
-    // return this.http.get<ResponseWrapped>(`${this.url}/getClients`)
-    //   .pipe(
-    //     map(response => {
-    //       response.data.classes.forEach((element: Client) => {
-    //         element.date = new Date(element.date);
-    //       });
-    //       return response.data.classes;
-    //     })
-    //   );
-    // TODO: Delete when api part is done
-    return new Observable<Client[]>();
+    return this.http.get<ResponseWrapped>(`${this.url}/getClients`)
+      .pipe(
+        map(response => {
+          return response.data.clients;
+        })
+      );
   }
 }

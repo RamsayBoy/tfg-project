@@ -4,6 +4,10 @@
   margin-top: -10px;
 }
 
+.errorMessage {
+  text-align: center;
+}
+
 .tabs {
   margin-top: -1.2rem;
   z-index: 100;
