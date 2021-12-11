@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import Class from 'src/interfaces/Class.interface';
+import Client from 'src/interfaces/Clients.interface';
 import { ClassService } from '../../services/class.service';
 
 @Component({
@@ -61,6 +62,9 @@ export class ClassComponent implements OnInit {
     this.classService.joinClass(this.class.id).subscribe({
       next: () => {
         this.class.isUserJoined = true;
+
+        // TODO: Make a singleton for contain the user info and added here.
+        // this.class.usersJoined.push();
         this.loaderService.setLoader(false);
       },
       error: (error) => {
@@ -89,6 +93,8 @@ export class ClassComponent implements OnInit {
     this.classService.removeFromClass(this.class.id).subscribe({
       next: () => {
         this.class.isUserJoined = false;
+        // TODO: Make a singleton for contain the user info and remove here.
+        // this.class.usersJoined.pop();
         this.loaderService.setLoader(false);
       },
       error: (error) => {

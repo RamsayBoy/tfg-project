@@ -5,6 +5,10 @@
   margin-bottom: 0.8rem;
 }
 
+mat-card-content {
+  margin-bottom: 0;
+}
+
 .user-avatar {
   border-radius: 50%;
 
