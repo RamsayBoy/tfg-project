@@ -93,6 +93,13 @@ export const joinClass = async (request: Request, response: Response): Promise<R
     const userId: number = response.locals.userId;
 
     try {
+        const errorResponse: ResponseWrapped | null = await classService
+            .isClassAvailable(classId);
+
+        if (errorResponse) {
+            return response.status(errorResponse.status).json(errorResponse);
+        }
+
         const success = await classService.joinClass(userId, classId);
         let responseWrapped: ResponseWrapped;
 

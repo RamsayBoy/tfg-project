@@ -1,4 +1,5 @@
 import Class from '../interfaces/Class.interface';
+import Client from '../interfaces/Clients.interface';
 import User from '../interfaces/User.interface';
 import database from '../mysql';
 
@@ -191,6 +192,50 @@ export default class ClassRepository {
             database.query(query, (error, results) => {
                 if (error) return reject(false);
                 resolve(true);
+            });
+        });
+    }
+
+    async getUsersJoined(classId: number): Promise<Client[]> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT c.id, u.name, lastName, email, r.name 'role'
+                FROM client c
+                INNER JOIN client_class cc ON cc.client_id = c.id
+                INNER JOIN user u ON u.id = c.id
+                INNER JOIN role r ON r.id = u.roleId
+                WHERE class_id = ${classId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(results);
+            });
+        });
+    }
+
+    async get(classId: number): Promise<Class> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT id, date, duration, numMaxClients, teacherId
+                FROM class
+                WHERE id = ${classId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                
+                const returnedClass: Class = {
+                    id: results[0].id,
+                    date: new Date(results[0].date),
+                    duration: results[0].duration,
+                    isUserJoined: false,
+                    numMaxClients: results[0].numMaxClients,
+                    teacherId: results[0].teacherId,
+                    usersJoined: []
+                }
+
+                resolve(returnedClass);
             });
         });
     }

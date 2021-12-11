@@ -1,4 +1,5 @@
 import Class from "../interfaces/Class.interface";
+import Client from "../interfaces/Clients.interface";
 import ResponseWrapped from "../interfaces/ResponseWrapped.interface";
 import { classRepository } from "../repositories/class.repository";
 
@@ -9,6 +10,7 @@ export default class ClassService {
 
         for(let i = 0; i < classes.length; i++){
             classes[i].isUserJoined = await classRepository.isUserJoinedToClass(userId, classes[i].id);
+            classes[i].usersJoined = await classRepository.getUsersJoined(classes[i].id);
         }
         
         return classes;
@@ -60,6 +62,27 @@ export default class ClassService {
         classToAdd.teacherId = teacherId;
 
         return classToAdd;
+    }
+
+    async isClassAvailable(classId: number): Promise<ResponseWrapped | null> {
+        const classInfo: Class = await classRepository.get(classId);
+        const classUsers: Client[] = await classRepository.getUsersJoined(classId);
+        
+        if (classInfo.numMaxClients === classUsers.length) {
+            const responseWrapped: ResponseWrapped = {
+                status: 409,
+                statusText: 'Conflict',
+                message: `No se ha podido unir a la clase porque están todas las plazas ocupadas.`,
+                error: {
+                    code: 'CONFLICT',
+                    message: `No se ha podido unir a la clase porque están todas las plazas ocupadas.`,
+                }
+            };
+
+            return responseWrapped;
+        }
+
+        return null;
     }
 }
 

@@ -27,6 +27,8 @@ export class ClassComponent implements OnInit {
   ngOnInit(): void {
     // Done here for avoiding errors
     this.durationPeriod = this.getDurationPeriod();
+    console.log(this.class)
+    console.log(this.class.usersJoined.length)
   }
 
   getDurationPeriod() {
