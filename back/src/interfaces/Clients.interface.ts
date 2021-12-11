@@ -1,7 +1,6 @@
 import User from "./User.interface";
 
-type Image = string | null;
-
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export default interface Client extends User {
-  profileImage: Image,
+  
 }

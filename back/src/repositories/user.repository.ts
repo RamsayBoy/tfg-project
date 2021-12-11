@@ -104,6 +104,28 @@ export default class UserRepository {
             });
         });
     }
+
+    // async getClient(userId: number): Promise<Client> {
+    //     return new Promise((resolve, reject) => {
+    //         const query = `
+    //             SELECT  c.id,
+    //                     u.name,
+    //                     u.lastName,
+    //                     u.email,
+    //                     r.name 'role'
+    //             FROM client c
+    //             LEFT JOIN user u ON u.id = c.id
+    //             INNER JOIN role r ON r.id = u.roleId
+    //             WHERE clientId = ${userId};
+    //         `;
+
+    //         database.query(query, (error, results) => {
+    //             if (error) return reject(error);
+    //             console.log(results);
+    //             resolve(results);
+    //         });
+    //     });
+    // }
 }
 
 // TODO: Remove when dependency injection

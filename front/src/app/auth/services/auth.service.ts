@@ -25,6 +25,8 @@ export class AuthService {
   private isUserLoggingInSource = new BehaviorSubject<boolean>(false);
   isUserLoggingInCurrentValue = this.isUserLoggingInSource.asObservable();
 
+  public currentUser!: User;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -55,6 +57,11 @@ export class AuthService {
       .pipe(
         map(response => {
           const user: User = response.data.user;
+
+          if (!this.currentUser) {
+            this.currentUser = user;
+          }
+
           return user;
         }),
       );

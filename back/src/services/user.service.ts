@@ -5,7 +5,11 @@ import Client from '../interfaces/Clients.interface';
 // TODO: Dependency injection
 export default class UserService {
     async getById(id: number): Promise<User> {
-        return await userRepository.getById(id);
+        let user: User = await userRepository.getById(id);
+
+        user = this.setDefaultProfileImage(user);
+        
+        return user;
     }
 
     async getByEmailAndPassword(email: string, password: string): Promise<User|null> {
@@ -36,14 +40,27 @@ export default class UserService {
         return clients;
     }
 
+    // async getClient(userId: number): Promise<Client> {
+    //     let client: Client = await userRepository.getClient(userId);
+
+    //     client = this.setDefaultProfileImageToClient(client);
+
+    //     return client;
+    // }
+
     async setDefaultProfileImageToClientsWithoutIt(clients: Client[]): Promise<Client[]> {
         clients.forEach(user => {
             if(!user.profileImage) {
-                user.profileImage = "/assets/default-profile-img.png";
+                user = this.setDefaultProfileImage(user);
             }
         });
 
         return clients;
+    }
+
+    setDefaultProfileImage(client: User | Client): Client {
+        client.profileImage = "/assets/default-profile-img.png";
+        return client;
     }
 }
 

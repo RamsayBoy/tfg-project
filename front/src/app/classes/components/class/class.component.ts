@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import Class from 'src/interfaces/Class.interface';
@@ -23,6 +24,7 @@ export class ClassComponent implements OnInit {
     private dialogService: DialogService,
     private loaderService: LoaderService,
     public dialog: MatDialog,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +66,7 @@ export class ClassComponent implements OnInit {
         this.class.isUserJoined = true;
 
         // TODO: Make a singleton for contain the user info and added here.
-        // this.class.usersJoined.push();
+        this.class.usersJoined.push(this.authService.currentUser);
         this.loaderService.setLoader(false);
       },
       error: (error) => {
@@ -93,8 +95,12 @@ export class ClassComponent implements OnInit {
     this.classService.removeFromClass(this.class.id).subscribe({
       next: () => {
         this.class.isUserJoined = false;
-        // TODO: Make a singleton for contain the user info and remove here.
-        // this.class.usersJoined.pop();
+
+        const userIndex = this.class.usersJoined
+          .findIndex(user => user.id === this.authService.currentUser.id);
+
+        this.class.usersJoined.splice(userIndex, 1);
+
         this.loaderService.setLoader(false);
       },
       error: (error) => {
