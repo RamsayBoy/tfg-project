@@ -11,9 +11,8 @@
 
   <ng-container *ngIf="clients$ | async as clients; else loadingOrError">
     <div *ngFor="let client of clients" class="user">
-      <!-- <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
-            class="user-avatar"></div> -->
-      <div class="user-avatar"></div>
+      <div [ngStyle]="{'background-image': 'url(' + client.profileImage + ')'}"
+            class="user-avatar"></div>
       <div class="user-info">
         <div class="user-name">{{client.name}} {{client.lastName}}</div>
         <div class="user-email">{{client.email}}</div>

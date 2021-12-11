@@ -21,7 +21,16 @@ export class ClientsService {
     return this.http.get<ResponseWrapped>(`${this.url}/getClients`)
       .pipe(
         map(response => {
-          return response.data.clients;
+          let clients: Client[] = response.data.clients;
+
+          clients.forEach(client => {
+            // If client has no image, add default image
+            if (!client.profileImage) {
+              client.profileImage = "/assets/default-profile-img.png";
+            }
+          });
+
+          return clients;
         })
       );
   }
