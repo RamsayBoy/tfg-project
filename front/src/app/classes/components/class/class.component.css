@@ -5,6 +5,19 @@
   margin-bottom: 0.8rem;
 }
 
+.user-avatar {
+  border-radius: 50%;
+
+  width: 30px;
+  height: 30px;
+
+  background: url("/assets/default-profile-img.png") no-repeat center;
+  background-size: cover;
+
+  display: inline-block;
+  margin-left: 3px;
+}
+
 .button-to-left {
   display: flex;
   justify-content: flex-end;

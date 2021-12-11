@@ -22,14 +22,6 @@ export class ClientsService {
       .pipe(
         map(response => {
           let clients: Client[] = response.data.clients;
-
-          clients.forEach(client => {
-            // If client has no image, add default image
-            if (!client.profileImage) {
-              client.profileImage = "/assets/default-profile-img.png";
-            }
-          });
-
           return clients;
         })
       );

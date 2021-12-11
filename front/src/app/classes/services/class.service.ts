@@ -30,6 +30,7 @@ export class ClassService {
           response.data.classes.forEach((element: Class) => {
             element.date = new Date(element.date);
           });
+
           return response.data.classes;
         })
       );

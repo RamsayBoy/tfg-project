@@ -27,6 +27,22 @@ export default class UserService {
     async getClients(teacherId: number): Promise<Client[]> {
         const clients: Client[] = await userRepository.getClients(teacherId);
 
+        clients.forEach(user => {
+            if(!user.profileImage) {
+                user.profileImage = "/assets/default-profile-img.png";
+            }
+        });
+
+        return clients;
+    }
+
+    async setDefaultProfileImageToClientsWithoutIt(clients: Client[]): Promise<Client[]> {
+        clients.forEach(user => {
+            if(!user.profileImage) {
+                user.profileImage = "/assets/default-profile-img.png";
+            }
+        });
+
         return clients;
     }
 }

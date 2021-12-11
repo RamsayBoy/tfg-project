@@ -1,12 +1,14 @@
 <mat-card class="class">
   <mat-card-header>
     <mat-card-title>{{durationPeriod}}</mat-card-title>
-    <mat-card-subtitle>{{class.numMaxClients}} plazas disponibles</mat-card-subtitle>
+    <mat-card-subtitle>{{class.numMaxClients - class.usersJoined.length}} plazas disponibles</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>
-      here it goes the images with the people...
-    </p>
+    <ng-container *ngIf="class.usersJoined as clients">
+      <div *ngFor="let client of clients"
+           [ngStyle]="{'background-image': 'url(' + client.profileImage + ')'}"
+           class="user-avatar"></div>
+    </ng-container>
   </mat-card-content>
   <mat-card-actions *ifRole="'user'" class="button-to-left">
     <button [disabled]="class.usersJoined!.length >= class!.numMaxClients ? '' : null" *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">

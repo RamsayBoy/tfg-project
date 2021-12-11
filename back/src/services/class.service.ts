@@ -2,6 +2,7 @@ import Class from "../interfaces/Class.interface";
 import Client from "../interfaces/Clients.interface";
 import ResponseWrapped from "../interfaces/ResponseWrapped.interface";
 import { classRepository } from "../repositories/class.repository";
+import { userService } from "./user.service";
 
 // TODO: Dependency injection
 export default class ClassService {
@@ -10,10 +11,17 @@ export default class ClassService {
 
         for(let i = 0; i < classes.length; i++){
             classes[i].isUserJoined = await classRepository.isUserJoinedToClass(userId, classes[i].id);
-            classes[i].usersJoined = await classRepository.getUsersJoined(classes[i].id);
+            classes[i].usersJoined = await this.getUsersJoined(classes[i].id);
         }
         
         return classes;
+    }
+
+    async getUsersJoined(classId: number): Promise<Client[]> {
+        let clients: Client[] = await classRepository.getUsersJoined(classId);
+        clients = await userService.setDefaultProfileImageToClientsWithoutIt(clients);
+
+        return clients;
     }
 
     async joinClass(userId: number, classId: number): Promise<boolean> {
@@ -65,8 +73,8 @@ export default class ClassService {
     }
 
     async isClassAvailable(classId: number): Promise<ResponseWrapped | null> {
-        const classInfo: Class = await classRepository.get(classId);
-        const classUsers: Client[] = await classRepository.getUsersJoined(classId);
+        const classInfo: Class = await this.getById(classId);
+        const classUsers: Client[] = await this.getUsersJoined(classId);
         
         if (classInfo.numMaxClients === classUsers.length) {
             const responseWrapped: ResponseWrapped = {
@@ -83,6 +91,10 @@ export default class ClassService {
         }
 
         return null;
+    }
+
+    async getById(classId: number): Promise<Class> {
+        return await classRepository.get(classId);
     }
 }
 
