@@ -9,8 +9,7 @@
     </p>
   </mat-card-content>
   <mat-card-actions *ifRole="'user'" class="button-to-left">
-    <!-- <button [disabled]="class.usersJoined!.length >= class!.numMaxClients ? '' : null" *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary"> -->
-    <button *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">
+    <button [disabled]="class.usersJoined!.length >= class!.numMaxClients ? '' : null" *ngIf="!class.isUserJoined" (click)="joinClass()" type="button" mat-flat-button color="primary">
       <div>Apuntarme</div>
       <mat-icon>person_add</mat-icon>
     </button>
