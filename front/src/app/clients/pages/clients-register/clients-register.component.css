@@ -1,0 +1,51 @@
+.container {
+  max-width: 35rem;
+  margin: 0 auto;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  border: 1px solid lightgray;
+
+  width: 5rem;
+  height: 5rem;
+
+  background: url("/assets/default-profile-img.png") no-repeat center;
+  background-size: cover;
+
+  margin: 0 auto;
+}
+
+h1 {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+form {
+  margin-top: 1rem !important;
+  width: 80%;
+  margin: 0 auto;
+}
+
+form mat-form-field {
+  width: 100%;
+}
+
+#client-name-input {
+  width: 35%;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+#client-lastname-input {
+  width: calc(65% - 1rem);
+}
+
+button[type="submit"] {
+  float: right;
+  /* display: block;
+  margin: 0 auto;
+  font-weight: normal;
+  font-size: 1.2rem;
+  padding: 5px 20px; */
+}

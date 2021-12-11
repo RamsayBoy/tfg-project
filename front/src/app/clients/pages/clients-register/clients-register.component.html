@@ -1,1 +1,22 @@
-<p>clients-register works!</p>
+<div class="container">
+  <div class="user-avatar"></div>
+  <h1>Datos del nuevo alumno</h1>
+  <form>
+    <mat-form-field id="client-name-input" appearance="outline">
+      <mat-label>Nombre del alumno</mat-label>
+      <input formControlName="name" type="text" placeholder="" matInput>
+    </mat-form-field>
+    <mat-form-field id="client-lastname-input" appearance="outline">
+      <mat-label>Apellidos del alumno</mat-label>
+      <input formControlName="lastName" type="text" placeholder="" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email del alumno*</mat-label>
+      <input formControlName="email" type="email" placeholder="" matInput>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" color="primary">Registrar alumno</button>
+    <div style="clear: both;"></div>
+  </form>
+</div>
