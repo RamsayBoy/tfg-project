@@ -4,6 +4,10 @@
   margin-top: -10px;
 }
 
+.error-loading-clients {
+  padding-top: 1rem;
+}
+
 .errorMessage {
   text-align: center;
 }

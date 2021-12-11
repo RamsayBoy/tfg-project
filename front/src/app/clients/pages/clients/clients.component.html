@@ -1,7 +1,7 @@
 <div class="container">
   <ng-template #loadingOrError>
     <div class="errorMessage" *ngIf="thereIsAnError$ | async; else loading">
-      <h1>No se han podido cargar los alumnos</h1>
+      <h1 class="error-loading-clients">No se han podido cargar los alumnos</h1>
       <button (click)="getClients()" type="button" color="primary" mat-raised-button>Volver a intentar</button>
     </div>
     <ng-template #loading>
