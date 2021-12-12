@@ -6,7 +6,6 @@ import { AdministrationComponent } from './pages/administration/administration.c
 const routes: Routes = [
   {
     path: '',
-    component: BaseComponent,
     children: [
       { path: '', component: AdministrationComponent },
       // TODO: See if this gives me problem when create a not found page

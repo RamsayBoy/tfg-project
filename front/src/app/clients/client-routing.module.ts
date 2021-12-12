@@ -7,7 +7,6 @@ import { ClientsComponent } from './pages/clients/clients.component';
 const routes: Routes = [
   {
     path: '',
-    component: BaseComponent,
     children: [
       { path: '', component: ClientsComponent },
       { path: 'register', component: ClientsRegisterComponent },

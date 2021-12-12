@@ -6,7 +6,6 @@ import { ClassesComponent } from './pages/classes/classes.component';
 const routes: Routes = [
   {
     path: '',
-    component: BaseComponent,
     children: [
       { path: '', component: ClassesComponent },
       // TODO: See if this gives me problem when create a not found page
