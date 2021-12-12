@@ -22,9 +22,6 @@ export class AuthService {
   public readonly redirectUrl: string = "/classes";
   public readonly authUrl: string = "/auth/login";
 
-  private isUserLoggingInSource = new BehaviorSubject<boolean>(false);
-  isUserLoggingInCurrentValue = this.isUserLoggingInSource.asObservable();
-
   public currentUser!: User;
 
   constructor(
@@ -43,7 +40,6 @@ export class AuthService {
       .pipe(
         tap(response => {
           this.setTokenInLocalStorage(response.data.token);
-          this.updateCurrentLoggedInValue(true);
         }),
       );
   }
@@ -133,12 +129,7 @@ export class AuthService {
 
     const isTimeExpired: boolean = !(expirationTime >= currentTime);
 
-    this.updateCurrentLoggedInValue(!isTimeExpired);
     return !isTimeExpired;
-  }
-
-  updateCurrentLoggedInValue(isLoggedIn: boolean) {
-    this.isUserLoggingInSource.next(isLoggedIn);
   }
 
   private getExpirationTime(token: string): number {

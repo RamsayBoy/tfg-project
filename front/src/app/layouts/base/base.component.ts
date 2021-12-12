@@ -2,6 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import User from 'src/interfaces/User.interface';
 
 @Component({
   selector: 'app-base',
@@ -13,10 +14,10 @@ export class BaseComponent implements OnInit {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  username$: Observable<string> = of("Usuario");
+  username: string = "Usuario";
   profileImg: string = "/assets/default-profile-img.png";
-  isUserLoggedIn: boolean = false;
-  isUserLoggedInSubscription!: Subscription;
+
+  currentUser!: User;
 
   @Input() toolbarTitle: string = "";
   @Input() showToolbarDateControls: boolean = false;
@@ -41,13 +42,23 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isUserLoggedInSubscription = this.authService.isUserLoggingInCurrentValue.subscribe(
-      loggedIn => {
-        this.isUserLoggedIn = loggedIn;
-        if (loggedIn) {
-          this.username$ = this.authService.getUsername();
-          // TODO: Get the profile image
-        }
+    this.authService.getUserInfo()
+      .subscribe({
+        next: (userInfo) => {
+          if (userInfo.name) {
+            this.username = userInfo.name;
+
+            if (userInfo.email) {
+              this.username += ' ' + userInfo.lastName;
+            }
+          }
+          else {
+            this.username = userInfo.email;
+          }
+        },
+        error: (error) => {
+          this.username = 'Usuario';
+        },
       });
   }
 
@@ -60,8 +71,12 @@ export class BaseComponent implements OnInit {
     this.authService.logout();
   }
 
+  getUsernameToDisplay(): string {
+    let nameToDisplay: string = 'Usuario';
+    return nameToDisplay;
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
-    this.isUserLoggedInSubscription.unsubscribe();
   }
 }

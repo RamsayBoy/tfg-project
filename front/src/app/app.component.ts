@@ -18,8 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   username$: Observable<string> = of("Usuario");
   profileImg: string = "/assets/default-profile-img.png";
-  isUserLoggedIn: boolean = false;
-  isUserLoggedInSubscription!: Subscription;
 
   @Input() toolbarTitle: string = "";
   @Input() showToolbarDateControls: boolean = false;
@@ -44,14 +42,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isUserLoggedInSubscription = this.authService.isUserLoggingInCurrentValue.subscribe(
-      loggedIn => {
-        this.isUserLoggedIn = loggedIn;
-        if (loggedIn) {
-          this.username$ = this.authService.getUsername();
-          // TODO: Get the profile image
-        }
-      });
   }
 
   showMenu(): void {
@@ -65,6 +55,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
-    this.isUserLoggedInSubscription.unsubscribe();
   }
 }
