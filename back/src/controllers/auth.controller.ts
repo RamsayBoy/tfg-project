@@ -89,9 +89,6 @@ export const login = async (request: Request, response: Response): Promise<Respo
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
-        console.log('validpass: ', validPassword)
-        console.log('password: ', password)
-        console.log('User password: ', user.password)
 
         if (!validPassword) {
             const responseWrapped: ResponseWrapped = {

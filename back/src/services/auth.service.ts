@@ -21,11 +21,11 @@ export default class AuthService {
     async register(name: string, lastName: string, email: string, teacherId: number): Promise<void> {
         // Generate random password
         let password: string = passGenerator.generate({length: 10, numbers: true});
+        // TODO: Remove console log when password can be know it
         console.log('password generated: ', password);
         
         // Hash the password
         password = await bcrypt.hash(password, 10);
-        console.log('password hashed: ', password, password.length);
 
         await userRepository.register(name, lastName, email, password, teacherId);
     }
