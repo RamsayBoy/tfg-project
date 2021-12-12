@@ -29,8 +29,8 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  register(email: string): Observable<ResponseWrapped> {
-    return this.http.post<ResponseWrapped>(this.registerUrl, { email });
+  register(formData: any): Observable<ResponseWrapped> {
+    return this.http.post<ResponseWrapped>(this.registerUrl, formData);
   }
 
   // TODO: Change any to the type ResponseWrapped

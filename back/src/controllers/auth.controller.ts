@@ -6,6 +6,8 @@ import { authService } from '../services/auth.service';
 import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
 
 export const register = async (request: Request, response: Response): Promise<Response> => {
+    const name: string = request.body.name;
+    const lastName: string = request.body.lastName;
     const email: string = request.body.email;
     const teacherId: number = response.locals.teacherId;
 
@@ -26,12 +28,26 @@ export const register = async (request: Request, response: Response): Promise<Re
             return response.status(403).json(responseWrapped);
         }
 
-        await authService.register(email, teacherId);
+        if (!email) {
+            const responseWrapped: ResponseWrapped = {
+                status: 403,
+                statusText: 'Already exists',
+                message: `El email introducido no es válido.`,
+                error: {
+                    code: 'ALREADY EXISTS',
+                    message: `El email introducido no es válido.`,
+                }
+            };
+
+            return response.status(403).json(responseWrapped);
+        }
+
+        await authService.register(name, lastName, email, teacherId);
 
         const responseWrapped = {
             status: 200,
             statusText: 'OK',
-            message: `El usuario con email "${email}" ha sido registrado`,
+            message: `El usuario ha sido registrado`,
         };
 
         return response.status(200).json(responseWrapped);

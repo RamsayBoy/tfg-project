@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClientRoutingModule } from './client-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClientsRegisterComponent } from './pages/clients-register/clients-register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ClientsRegisterComponent } from './pages/clients-register/clients-regis
     CommonModule,
     ClientRoutingModule,
     SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientModule { }

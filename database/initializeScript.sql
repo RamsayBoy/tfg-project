@@ -46,7 +46,7 @@ CREATE TABLE `client`(
         ON DELETE CASCADE
 );
 
--- CREATE TABLE teacher => only when teacher has to have columns teacher only has (and not the clients)
+-- CREATE TABLE teacher => only when teacher has to have columns teacher only has (and not the clients)namelastName
 
 CREATE TABLE class(
     id              INT UNSIGNED    AUTO_INCREMENT,
@@ -175,6 +175,8 @@ VALUES
 DELIMITER $$
 
 CREATE PROCEDURE `sp_registerUser`(
+    IN `name`       VARCHAR(16),
+    IN lastName     VARCHAR(32),
     IN email        VARCHAR(256),
     IN `password`   VARCHAR(64),
     IN teacherId    INT
@@ -185,11 +187,13 @@ BEGIN
     
     START TRANSACTION;
         INSERT INTO user(
+            `name`,
+            lastName,
             email,
             `password`,
             roleId)
         VALUES
-            (email, `password`, 1); -- 1 is 'user' role
+            (`name`, lastName, email, `password`, 1); -- 1 is 'user' role
         
         INSERT INTO client(id, teacherId)
         VALUES(LAST_INSERT_ID(), teacherId);

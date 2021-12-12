@@ -70,10 +70,10 @@ export default class UserRepository {
         });
     }
 
-    async register(email: string, password: string, teacherId: number): Promise<void> {
+    async register(name:string, lastName: string, email: string, password: string, teacherId: number): Promise<void> {
         return new Promise((resolve, reject) => {
             const query = `
-                CALL sp_registerUser('${email}', '${password}', ${teacherId});
+                CALL sp_registerUser('${name}', '${lastName}', '${email}', '${password}', ${teacherId});
             `;
 
             database.query(query, (error, results) => {

@@ -14,8 +14,8 @@
       <div [ngStyle]="{'background-image': 'url(' + client.profileImage + ')'}"
             class="user-avatar"></div>
       <div class="user-info">
-        <div class="user-name">{{client.name}} {{client.lastName}}</div>
-        <div class="user-email">{{client.email}}</div>
+        <div class="user-name">{{client.name ? (client.name + ' ' + client.lastName) : client.email}}</div>
+        <div *ngIf="client.name" class="user-email">{{client.email}}</div>
       </div>
       <div class="actions">
         <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="user-avatar"></div>
   <h1>Datos del nuevo alumno</h1>
-  <form>
+  <form [formGroup]="registerUserFormGroup" (ngSubmit)="onSubmit()">
     <mat-form-field id="client-name-input" appearance="outline">
       <mat-label>Nombre del alumno</mat-label>
       <input formControlName="name" type="text" placeholder="" matInput>
@@ -17,9 +17,15 @@
       <mat-label>Email del alumno</mat-label>
       <input formControlName="email" type="email" placeholder="" matInput>
       <mat-hint>Este campo es obligatorio</mat-hint>
+      <mat-error *ngIf="email!.hasError('email')">
+        El email no tiene un formato válido
+      </mat-error>
+      <mat-error *ngIf="!email!.hasError('email') && email!.invalid">
+        El email introducido no es válido
+      </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button type="submit" color="primary">Registrar alumno</button>
+    <button [disabled]="registerUserFormGroup.invalid" mat-flat-button type="submit" color="primary">Registrar alumno</button>
 
     <div style="clear: both;"></div>
   </form>
