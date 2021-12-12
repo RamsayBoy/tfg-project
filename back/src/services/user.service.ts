@@ -12,6 +12,16 @@ export default class UserService {
         return user;
     }
 
+    async getByEmail(email: string): Promise<User|null> {
+        const user: User = await userRepository.getByEmail(email);
+
+        if (!user) {
+            return null;
+        }
+
+        return user;
+    }
+
     async getByEmailAndPassword(email: string, password: string): Promise<User|null> {
         const user: User = await userRepository.getByEmailAndPassword(email, password);
 

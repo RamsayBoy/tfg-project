@@ -4,6 +4,7 @@ import { JwtToken } from '../types/Token.type';
 import User from '../interfaces/User.interface';
 import { authService } from '../services/auth.service';
 import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
+import bcrypt from 'bcrypt';
 
 export const register = async (request: Request, response: Response): Promise<Response> => {
     const name: string = request.body.name;
@@ -71,16 +72,35 @@ export const login = async (request: Request, response: Response): Promise<Respo
     const { email, password }: User = request.body;
 
     try {
-        const user: User | null = await userService.getByEmailAndPassword(email, password);
+        const user: User | null = await userService.getByEmail(email);
 
         if (!user) {
             const responseWrapped: ResponseWrapped = {
                 status: 401,
                 statusText: 'Unauthorized',
-                message: 'El email o la contraseña son incorrectos',
+                message: `No existe el usuario con email ${email}`,
                 error: {
                     code: 'UNAUTHORIZED',
-                    message: 'El email o la contraseña son incorrectos',
+                    message: `No existe el usuario con email ${email}`,
+                }
+            };
+
+            return response.status(401).json(responseWrapped);
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
+        console.log('validpass: ', validPassword)
+        console.log('password: ', password)
+        console.log('User password: ', user.password)
+
+        if (!validPassword) {
+            const responseWrapped: ResponseWrapped = {
+                status: 401,
+                statusText: 'Unauthorized',
+                message: `La contraseña introducida no es correcta.`,
+                error: {
+                    code: 'UNAUTHORIZED',
+                    message: `La contraseña introducida no es correcta.`,
                 }
             };
 

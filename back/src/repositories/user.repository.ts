@@ -21,6 +21,23 @@ export default class UserRepository {
         });
     }
 
+    async getByEmail(email: string): Promise<User> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT u.id, u.name, u.lastName, email, password, r.name as role, teacherId
+                FROM user u
+                INNER JOIN role r ON r.id = u.roleId
+                LEFT JOIN client c ON c.id = u.id
+                WHERE email = '${email}';
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve(results[0]);
+            });
+        });
+    }
+
     async getByEmailAndPassword(email: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
             const query = `
@@ -99,7 +116,6 @@ export default class UserRepository {
 
             database.query(query, (error, results) => {
                 if (error) return reject(error);
-                console.log(results);
                 resolve(results);
             });
         });

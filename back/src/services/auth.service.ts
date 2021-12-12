@@ -2,6 +2,8 @@ import config from "../config";
 import { JwtToken } from "../types/Token.type";
 import jwt from 'jsonwebtoken';
 import { userRepository } from "../repositories/user.repository";
+import passGenerator from 'generate-password';
+import bcrypt from 'bcrypt';
 
 // TODO: Dependency injection
 export default class AuthService {
@@ -17,8 +19,14 @@ export default class AuthService {
     }
     
     async register(name: string, lastName: string, email: string, teacherId: number): Promise<void> {
-        // TODO: Generate random password
-        const password: string = email.substring(0, 3) + 'pass';
+        // Generate random password
+        let password: string = passGenerator.generate({length: 10, numbers: true});
+        console.log('password generated: ', password);
+        
+        // Hash the password
+        password = await bcrypt.hash(password, 10);
+        console.log('password hashed: ', password, password.length);
+
         await userRepository.register(name, lastName, email, password, teacherId);
     }
 }
