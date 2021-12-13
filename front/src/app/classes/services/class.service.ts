@@ -73,4 +73,16 @@ export class ClassService {
   updateDate(date: Date) {
     this.dateSource.next(date);
   }
+
+  isClassAvailable(classObject: Class) {
+    const currentTime: number = (Math.floor((new Date).getTime() / 1000));
+    const classTime: number = (Math.floor((classObject.date).getTime() / 1000)) + this.getSecondsFromTime(classObject.duration);
+
+    return currentTime > classTime;
+  }
+
+  getSecondsFromTime(time: string) {
+    let parts = time.split(':');
+    return (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
+  }
 }

@@ -73,17 +73,26 @@ export default class ClassService {
     }
 
     async isClassAvailable(classId: number): Promise<ResponseWrapped | null> {
+        let errorMessage = '';
+        
         const classInfo: Class = await this.getById(classId);
         const classUsers: Client[] = await this.getUsersJoined(classId);
         
         if (classInfo.numMaxClients === classUsers.length) {
+            errorMessage = `No se ha podido unir a la clase porque están todas las plazas ocupadas.`;
+        }
+        else if(await this.isAPastClass(classInfo)) {
+            errorMessage = `No se puede unir a una clase que ya ha pasado.`;
+        }
+
+        if (errorMessage) {
             const responseWrapped: ResponseWrapped = {
                 status: 409,
                 statusText: 'Conflict',
-                message: `No se ha podido unir a la clase porque están todas las plazas ocupadas.`,
+                message: errorMessage,
                 error: {
                     code: 'CONFLICT',
-                    message: `No se ha podido unir a la clase porque están todas las plazas ocupadas.`,
+                    message: errorMessage,
                 }
             };
 
@@ -91,6 +100,18 @@ export default class ClassService {
         }
 
         return null;
+    }
+
+    async isAPastClass(classObject: Class): Promise<boolean> {
+        const currentTime: number = (Math.floor((new Date).getTime() / 1000));
+        const classTime: number = (Math.floor((classObject.date).getTime() / 1000)) + await this.getSecondsFromTime(classObject.duration);
+    
+        return currentTime > classTime;
+      }
+
+    async getSecondsFromTime(time: string): Promise<number> {
+        const parts = time.split(':');
+        return (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
     }
 
     async getById(classId: number): Promise<Class> {

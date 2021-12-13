@@ -65,7 +65,6 @@ export class ClassComponent implements OnInit {
       next: () => {
         this.class.isUserJoined = true;
 
-        // TODO: Make a singleton for contain the user info and added here.
         this.class.usersJoined.push(this.authService.currentUser);
         this.loaderService.setLoader(false);
       },
@@ -73,6 +72,10 @@ export class ClassComponent implements OnInit {
         this.dialogService.open('Error', error)
       },
     });
+  }
+
+  isClassAvailable(classObject: Class): boolean {
+    return this.classService.isClassAvailable(classObject);
   }
 
   removeFromClassDialog() {
