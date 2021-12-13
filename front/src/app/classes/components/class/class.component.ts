@@ -136,4 +136,24 @@ export class ClassComponent implements OnInit {
       },
     });
   }
+
+  getClientDisplayableName(component: ClassComponent, clientId: number): string {
+    const client: Client | undefined = component.class.usersJoined.find(user => user.id === clientId);
+    let name: string = 'Usuario';
+
+    if (client) {
+      if (client.name) {
+        name = client.name;
+
+        if (client.lastName) {
+          name += ' ' + client.lastName;
+        }
+      }
+      else {
+        name = client.email;
+      }
+    }
+
+    return name;
+  }
 }

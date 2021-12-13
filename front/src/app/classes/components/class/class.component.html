@@ -6,6 +6,7 @@
   <mat-card-content>
     <ng-container *ngIf="class.usersJoined as clients">
       <div *ngFor="let client of clients"
+           matTooltip="{{getClientDisplayableName(this, client.id)}}"
            [ngStyle]="{'background-image': 'url(' + client.profileImage + ')'}"
            class="user-avatar"></div>
     </ng-container>
