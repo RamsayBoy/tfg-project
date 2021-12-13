@@ -20,7 +20,7 @@
       <div class="actions">
         <button mat-icon-button type="button" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Dar de baja</button>
+          <button mat-menu-item (click)="deleteUserRegisteredDialog(client)">Dar de baja</button>
         </mat-menu>
       </div>
     </div>

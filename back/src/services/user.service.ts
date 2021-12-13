@@ -72,6 +72,10 @@ export default class UserService {
         client.profileImage = "/assets/default-profile-img.png";
         return client;
     }
+
+    async removeClient(clientId: number): Promise<boolean> {
+        return await userRepository.removeClient(clientId);
+    }
 }
 
 // TODO: Remove when dependency injection

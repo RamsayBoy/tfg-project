@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import Client from 'src/interfaces/Clients.interface';
 import { ClientsService } from '../../services/clients.service';
@@ -19,6 +21,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
     private toolbarService: ToolbarService,
     private clientsService: ClientsService,
     private dialogService: DialogService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +45,38 @@ export class ClientsComponent implements OnInit, OnDestroy {
         this.dialogService.open('Error', error);
       }
     );
+  }
+
+  deleteUserRegisteredDialog(client: Client) {
+    this.dialogService.openConfirm(
+      `¿Desea eliminar a este usuario?`,
+      `Si borra al usuario \"${this.clientsService.getUserDisplayableName(client)}\" se eliminarán todos sus datos del sistema de manera permanente.`,
+      "No",
+      "Sí"
+    )
+    .afterClosed()
+    .subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteUserRegistered(client);
+      }
+    });
+  }
+
+  deleteUserRegistered(client: Client): void {
+    this.loaderService.setLoader(true);
+
+    this.clientsService.removeClient(client.id).subscribe({
+      next: () => {
+        this.clients$ = this.clients$.pipe(
+          map(clients => clients.filter(currentClient => currentClient.id !== client.id)),
+        );
+
+        this.loaderService.setLoader(false);
+      },
+      error: (error) => {
+        this.dialogService.open('Error', error)
+      },
+    });
   }
 
   ngOnDestroy(): void {

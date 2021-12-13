@@ -26,4 +26,27 @@ export class ClientsService {
         })
       );
   }
+
+  removeClient(clientId: number): Observable<ResponseWrapped> {
+    return this.http.delete<ResponseWrapped>(this.url + `/${clientId}`);
+  }
+
+  getUserDisplayableName(client: Client): string {
+    let name: string = 'Usuario';
+
+    if (client) {
+      if (client.name) {
+        name = client.name;
+
+        if (client.lastName) {
+          name += ' ' + client.lastName;
+        }
+      }
+      else {
+        name = client.email;
+      }
+    }
+
+    return name;
+  }
 }

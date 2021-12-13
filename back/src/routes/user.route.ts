@@ -5,6 +5,7 @@ import { TokenValidation } from '../middlewares/verifyToken.middleware';
 
 const router = express.Router();
 
+router.delete('/:clientId', TokenValidation, AdminChecker, userController.removeClient);
 router.get('/getUser', TokenValidation, userController.getUser);
 router.get('/getClients', TokenValidation, AdminChecker, userController.getClients);
 
