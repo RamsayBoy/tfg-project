@@ -86,9 +86,9 @@ VALUES
 
 INSERT INTO `user`(id, `name`, lastName, email, `password`, `roleId`)
 VALUES
-    (1, 'Pedro', 'Jiménez', 'admin1@tfg.es', 'admin1pass', 2),
-    (2, 'Leopoldo', 'Gallego Misca', 'user1@tfg.es', 'user1pass', 1),
-    (3, 'Susana', 'Fuertes','user2@tfg.es', 'user2pass', 1);
+    (1, 'Pedro', 'Jiménez', 'admin1@tfg.es', '$2b$10$3GmJZ1rajKspKybcOq.d0Opy0nptyMfOLtF51GVSPAbeQvh6Omnqe', 2),
+    (2, 'Leopoldo', 'Gallego Misca', 'user1@tfg.es', '$2b$10$LYGbVLQe7HV0FbUYhuN6Q.sghoyMzAof3dMFFXcyyZVyKg5nLoHz.', 1),
+    (3, 'Susana', 'Fuertes','user2@tfg.es', '$2b$10$4AZovhpBhVMhslbwsV2f7uIQfD/Fak2QDTgB5JVn6pXtae1tDKd2y', 1);
     
 INSERT INTO `client`(id, teacherId)
 VALUES
