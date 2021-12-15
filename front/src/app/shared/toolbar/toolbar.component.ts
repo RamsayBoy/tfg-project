@@ -46,6 +46,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       if (this.router.url === '/clients/register') {
         this.tabActive = 1;
       }
+      else {
+        this.tabActive = 0;
+      }
 
       this.changeDetectorRef.detectChanges();
     });
