@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
@@ -20,6 +21,7 @@ export class ClientsRegisterComponent implements OnInit {
     private loaderService: LoaderService,
     private authService: AuthService,
     private dialogService: DialogService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +62,12 @@ export class ClientsRegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.loaderService.setLoader(false);
-          this.dialogService.open('Usuario registrado con éxito', data.message);
+          this.dialogService
+            .open('Usuario registrado con éxito', data.message)
+            .afterClosed()
+            .subscribe({
+              next: () => this.router.navigateByUrl('/clients'),
+            });
         },
         error => {
           this.loaderService.setLoader(false);

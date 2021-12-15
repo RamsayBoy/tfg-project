@@ -14,7 +14,7 @@ export class DialogService {
   ) { }
 
   open(title: string, text: string) {
-    this.dialog.open(DialogComponent, {
+    return this.dialog.open(DialogComponent, {
       data: {
         title: title,
         text: text,
