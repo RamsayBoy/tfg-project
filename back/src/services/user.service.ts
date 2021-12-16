@@ -1,6 +1,7 @@
 import {userRepository} from '../repositories/user.repository';
 import User from '../interfaces/User.interface';
 import Client from '../interfaces/Clients.interface';
+import config from '../config'
 
 // TODO: Dependency injection
 export default class UserService {
@@ -43,7 +44,7 @@ export default class UserService {
 
         clients.forEach(user => {
             if(!user.profileImage) {
-                user.profileImage = "/assets/default-profile-img.png";
+                user.profileImage = config.DEFAULT_PROFILE_IMAGE_PATH;
             }
         });
 
@@ -69,7 +70,7 @@ export default class UserService {
     }
 
     setDefaultProfileImage(client: User | Client): Client {
-        client.profileImage = "/assets/default-profile-img.png";
+        client.profileImage = config.DEFAULT_PROFILE_IMAGE_PATH;
         return client;
     }
 

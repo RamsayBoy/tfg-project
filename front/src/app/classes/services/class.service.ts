@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import Class from 'src/interfaces/Class.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 
@@ -14,7 +15,7 @@ import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 export class ClassService {
 
   // TODO: Form url by using environtment variables
-  private readonly url: string = "http://localhost:3000/api/v0/classes";
+  private readonly url: string = environment.apiUrl + "/classes";
 
   private dateSource = new BehaviorSubject<Date>(new Date());
   currentDate = this.dateSource.asObservable();

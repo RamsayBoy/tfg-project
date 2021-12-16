@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import Client from 'src/interfaces/Clients.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 
@@ -10,8 +11,7 @@ import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 })
 export class ClientsService {
 
-  // TODO: Form url by using environtment variables
-  private readonly url: string = "http://localhost:3000/api/v0/users";
+  private readonly url: string = environment.apiUrl + "/users";
 
   constructor(
     private http: HttpClient,

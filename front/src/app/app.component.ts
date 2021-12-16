@@ -5,6 +5,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { AuthService } from './auth/services/auth.service';
 import User from 'src/interfaces/User.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private _mobileQueryListener!: () => void;
 
   username$: Observable<string> = of("Usuario");
-  profileImg: string = "/assets/default-profile-img.png";
+  profileImg: string = environment.defaultProfileImagePath;
 
   @Input() toolbarTitle: string = "";
   @Input() showToolbarDateControls: boolean = false;

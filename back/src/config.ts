@@ -14,6 +14,7 @@ const config = {
         NAME     : process.env.DB_NAME,
     },
     TOKEN_SECRET: process.env.TOKEN_SECRET || 'devToken',
+    DEFAULT_PROFILE_IMAGE_PATH: process.env.DEFAULT_PROFILE_IMAGE_PATH || ''
 }
 
 export default config;

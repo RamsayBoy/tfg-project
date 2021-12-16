@@ -6,6 +6,7 @@ import { delay, map, tap } from 'rxjs/operators';
 import TokenInfo from 'src/interfaces/Payload.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
 import User from 'src/interfaces/User.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ import User from 'src/interfaces/User.interface';
 export class AuthService {
 
   // TODO: Change hardcode url
-  private registerUrl: string = "http://localhost:3000/api/v0/auth/register";
-  private loginUrl: string = "http://localhost:3000/api/v0/auth/login";
-  private BaseUrl: string = "http://localhost:3000/api/v0";
+  private registerUrl: string = environment.apiUrl + "/auth/register";
+  private loginUrl: string = environment.apiUrl + "/auth/login";
+  private BaseUrl: string = environment.apiUrl;
 
   private tokenKeySessionStorage: string = "jwt-token";
 

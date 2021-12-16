@@ -2,6 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
 import User from 'src/interfaces/User.interface';
 
 @Component({
@@ -15,7 +16,7 @@ export class BaseComponent implements OnInit {
   private _mobileQueryListener!: () => void;
 
   username: string = "Usuario";
-  profileImg: string = "/assets/default-profile-img.png";
+  profileImg: string = environment.defaultProfileImagePath;
 
   currentUser!: User;
 
