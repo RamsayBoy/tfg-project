@@ -1,7 +1,6 @@
 import { ViewContainerRef } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Directive({

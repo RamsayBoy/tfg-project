@@ -5,10 +5,12 @@ import { ClientRoutingModule } from './client-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ClientsRegisterComponent } from './pages/clients-register/clients-register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClientsComponent } from './pages/clients/clients.component';
 
 
 @NgModule({
   declarations: [
+    ClientsComponent,
     ClientsRegisterComponent
   ],
   imports: [

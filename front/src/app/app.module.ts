@@ -16,7 +16,6 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './shared/shared.module';
 import { BaseComponent } from './layouts/base/base.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
-import { ClientsComponent } from './clients/pages/clients/clients.component';
 
 
 @NgModule({
@@ -24,8 +23,6 @@ import { ClientsComponent } from './clients/pages/clients/clients.component';
     AppComponent,
     BaseComponent,
     LoginLayoutComponent,
-    ClientsComponent,
-    // IfRoleDirective,
   ],
   imports: [
     BrowserModule,

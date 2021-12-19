@@ -2,9 +2,8 @@ import { Input, OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from './auth/services/auth.service';
-import User from 'src/interfaces/User.interface';
 import { environment } from 'src/environments/environment';
 
 @Component({

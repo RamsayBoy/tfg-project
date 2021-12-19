@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseComponent } from '../layouts/base/base.component';
 import { ClientsRegisterComponent } from './pages/clients-register/clients-register.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 

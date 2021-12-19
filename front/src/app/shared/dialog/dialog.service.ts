@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ConfirmDialogComponent } from './components/confirmDialog/confirm-dialog.component';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

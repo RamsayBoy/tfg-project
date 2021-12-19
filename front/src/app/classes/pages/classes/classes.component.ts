@@ -1,12 +1,11 @@
-import { Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Input, OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
