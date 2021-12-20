@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve -o",
     "start-pwa": "ng build && http-server -p 8080 -c-1 dist/front/",
+    "start-pwa-pro": "ng build --prod && http-server -p 8080 -c-1 dist/front/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
