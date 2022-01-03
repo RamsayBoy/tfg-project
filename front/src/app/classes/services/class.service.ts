@@ -77,7 +77,7 @@ export class ClassService {
 
   isClassAvailable(classObject: Class) {
     const currentTime: number = (Math.floor((new Date).getTime() / 1000));
-    const classTime: number = (Math.floor((classObject.date).getTime() / 1000)) + this.getSecondsFromTime(classObject.duration);
+    const classTime: number = (Math.floor((classObject.date).getTime() / 1000));// + this.getSecondsFromTime(classObject.duration);
 
     return currentTime > classTime;
   }
