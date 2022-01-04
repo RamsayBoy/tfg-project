@@ -11,7 +11,8 @@
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/assets/default-profile.img.png"
         ]
       }
     },
@@ -24,6 +25,20 @@
           "/assets/**",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "urls": [
+        "http://localhost:3000/api/v0/users/getClients"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxAge": "1d",
+        "maxSize": 5,
+        "timeout": "5s"
       }
     }
   ]

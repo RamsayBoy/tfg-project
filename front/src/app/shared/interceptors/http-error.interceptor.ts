@@ -27,14 +27,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
           if (error.error instanceof ErrorEvent) {
             // client-side error
-            errorMessage = error.error.message;
+            errorMessage = error.error ? error.error.message : "Ha ocurrido un error.";
           } else {
             // server-side error
-            if (error.status === 0) {
+            if (error.status === 0 || error.status === 504) {
               errorMessage = "Ha habido un error de conexión."
             }
             else {
-              errorMessage = error.error.message;
+              errorMessage = error.error ? error.error.message : "Ha ocurrido un error.";
             }
           }
 

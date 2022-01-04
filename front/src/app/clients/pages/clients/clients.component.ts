@@ -74,9 +74,13 @@ export class ClientsComponent implements OnInit, OnDestroy {
         this.loaderService.setLoader(false);
       },
       error: (error) => {
-        this.dialogService.open('Error', error)
-      },
-    });
+        this.loaderService.setLoader(false);
+        this.dialogService.open('Error', error);
+      }
+    })
+    .add(() => {
+      this.loaderService.setLoader(false);
+    });;
   }
 
   ngOnDestroy(): void {

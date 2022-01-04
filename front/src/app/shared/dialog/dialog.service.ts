@@ -21,9 +21,10 @@ export class DialogService {
     });
   }
 
-  openConfirm(title: string, text: string, cancelText: string, acceptText: string) {
+  openConfirm(title: string, text: string, cancelText: string, acceptText: string, width: string = '21rem') {
     return this.dialog
       .open(ConfirmDialogComponent, {
+        width: width,
         data: {
           title: title,
           text: text,
