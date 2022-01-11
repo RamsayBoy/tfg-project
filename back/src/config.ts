@@ -14,7 +14,12 @@ const config = {
         NAME     : process.env.DB_NAME,
     },
     TOKEN_SECRET: process.env.TOKEN_SECRET || 'devToken',
-    DEFAULT_PROFILE_IMAGE_PATH: process.env.DEFAULT_PROFILE_IMAGE_PATH || ''
+    DEFAULT_PROFILE_IMAGE_PATH: process.env.DEFAULT_PROFILE_IMAGE_PATH || '',
+    mailer: {
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS,
+        devEmail: process.env.DEV_EMAIL
+    }
 }
 
 export default config;

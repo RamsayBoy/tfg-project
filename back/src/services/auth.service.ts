@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { userRepository } from "../repositories/user.repository";
 import passGenerator from 'generate-password';
 import bcrypt from 'bcrypt';
+import { transporter } from "./mailer.service";
 
 // TODO: Dependency injection
 export default class AuthService {
@@ -21,8 +22,20 @@ export default class AuthService {
     async register(name: string, lastName: string, email: string, teacherId: number): Promise<void> {
         // Generate random password
         let password: string = passGenerator.generate({length: 10, numbers: true});
-        // TODO: Remove console log when password can be know it
-        console.log('password generated: ', password);
+
+        // Send email
+        // TODO: Change href url depending on environment
+        await transporter.sendMail({
+            from: '"TFG App" <noreply.tfg@tfg.es>',
+            to: config.mailer.devEmail ?? email,
+            subject: "¡Ha sido registrado!",
+            html: `
+                <p>Hola, ${email}:</p>
+                <p>Ha sido registrado con éxito en la aplicación.</p>
+                <p>Su contraseña provisional es: <b>${password}</b>.</p>
+                <p>¡Diríjase a la <a href="http://localhost:4200/">aplicación</a> para cambiarla!.</p>
+            `,
+          });
         
         // Hash the password
         password = await bcrypt.hash(password, 10);
