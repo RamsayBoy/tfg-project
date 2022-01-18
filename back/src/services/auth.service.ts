@@ -25,8 +25,10 @@ export default class AuthService {
 
         // Send email
         // TODO: Change href url depending on environment
+        // TODO: Use the teacher email instead of noreply.tfg@tfg.es
+        // NOTE: Gmail mails revert the <noreply.tfg@tfg.es> to the original one
         await transporter.sendMail({
-            from: '"TFG App" <noreply.tfg@tfg.es>',
+            from: `"TFG App" <noreply.tfg@tfg.es>`,
             to: config.mailer.devEmail ?? email,
             subject: "¡Ha sido registrado!",
             html: `
