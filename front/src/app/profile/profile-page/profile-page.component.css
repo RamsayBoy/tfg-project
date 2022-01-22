@@ -8,6 +8,30 @@
 
   background: url("/assets/default-profile-img.png") no-repeat center;
   background-size: cover;
+  background-blend-mode: multiply;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
 
   margin: 0 auto;
+}
+
+.user-avatar:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  color: #fff;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.user-avatar span {
+  display: inline-block;
+  width: 80%;
+  text-align: center;
+  text-transform: uppercase;
 }
