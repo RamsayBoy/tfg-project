@@ -3,14 +3,18 @@
   margin: 0 auto;
 }
 
+mat-card {
+  margin: 1rem;
+}
+
 form {
-  margin-top: 1rem !important;
-  width: 80%;
+  /* margin-top: 2rem !important; */
+  width: 100%;
   margin: 0 auto;
 }
 @media (min-width: 530px) {
   form {
-    margin-top: 2rem !important;
+    /* margin-top: 2rem !important; */
   }
 }
 
@@ -34,7 +38,7 @@ form mat-form-field {
 
 @media (max-width: 530px) {
   button[type="submit"] {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: inline-block;
     width: 100%;
     padding: 5px;
@@ -43,7 +47,7 @@ form mat-form-field {
 }
 @media (min-width: 530px) {
   button[type="submit"] {
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     float: right;
   }
 }
