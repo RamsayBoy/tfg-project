@@ -9,7 +9,7 @@ import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service'
 @Component({
   selector: 'app-clients-register',
   templateUrl: './clients-register.component.html',
-  styleUrls: ['./clients-register.component.css']
+  styleUrls: ['./clients-register.component.css', '../../../shared/styles/ProfileRegisterStyles.css']
 })
 export class ClientsRegisterComponent implements OnInit {
 

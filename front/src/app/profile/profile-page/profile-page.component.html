@@ -1,5 +1,54 @@
-<div class="user-avatar">
-  <mat-icon>camera_alt</mat-icon>
-  <span>Subir imagen</span>
-</div>
+<div class="container">
+  <div class="user-avatar">
+    <mat-icon>camera_alt</mat-icon>
+    <span>Subir imagen</span>
+  </div>
 
+  <form [formGroup]="editProfileInfoFormGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field id="client-name-input" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input formControlName="name" type="text" placeholder="" matInput>
+      <!-- <mat-hint>Opcional</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field id="client-lastname-input" appearance="outline">
+      <mat-label>Apellidos</mat-label>
+      <input formControlName="lastName" type="text" placeholder="" matInput>
+      <!-- <mat-hint>Opcional</mat-hint> -->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email*</mat-label>
+      <input formControlName="email" type="email" placeholder="" matInput>
+      <!-- <mat-hint>Este campo es obligatorio</mat-hint> -->
+      <mat-error *ngIf="email!.hasError('email')">
+        El email no tiene un formato válido
+      </mat-error>
+      <mat-error *ngIf="!email!.hasError('email') && email!.invalid">
+        El email introducido no es válido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña actual</mat-label>
+      <input formControlName="password" placeholder="" matInput [type]="isPasswordVisible ? 'text' : 'password'">
+      <button type="button" mat-icon-button matSuffix (click)="isPasswordVisible = !isPasswordVisible" aria-label="Show/Hide password">
+        <mat-icon matSuffix>{{isPasswordVisible ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nueva contraseña</mat-label>
+      <input formControlName="newPassword" type="newPassword" placeholder="" matInput [type]="isNewPasswordVisible ? 'text' : 'password'">
+      <button type="button" mat-icon-button matSuffix (click)="isNewPasswordVisible = !isNewPasswordVisible" aria-label="Show/Hide password">
+        <mat-icon matSuffix>{{isNewPasswordVisible ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="!newPassword!.hasError('newPassword') && newPassword!.invalid">
+        La nueva contraseña debe tener al menos 6 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <button [disabled]="editProfileInfoFormGroup.invalid" mat-flat-button type="submit" color="primary">Actualizar</button>
+
+    <div style="clear: both;"></div>
+  </form>
+</div>
