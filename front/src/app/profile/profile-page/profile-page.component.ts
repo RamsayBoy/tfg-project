@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-page',
@@ -20,6 +22,8 @@ export class ProfilePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loaderService: LoaderService,
     private dialogService: DialogService,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -28,21 +32,37 @@ export class ProfilePageComponent implements OnInit {
     // this.toolbarService.showDateControls(false);
 
     this.editProfileInfoFormGroup = this.formBuilder.group({
-      name: ['', [
+      name: ["", [
         Validators.maxLength(16),
       ]],
-      lastName: ['', [
+      lastName: ["", [
         Validators.maxLength(32),
       ]],
-      email: ['', [
+      email: ["", [
         Validators.email,
         Validators.maxLength(256),
       ]],
-      password: ['', []],
-      newPassword: ['', [
+      password: ["", []],
+      newPassword: ["", [
         Validators.minLength(6)
       ]]
     });
+
+    this.authService.getUserInfo()
+      .subscribe(
+        data => {
+          this.editProfileInfoFormGroup.get("name")?.setValue(data.name);
+          this.editProfileInfoFormGroup.get("lastName")?.setValue(data.lastName);
+          this.editProfileInfoFormGroup.get("email")?.setValue(data.email);
+        },
+        error => {
+          this._snackBar.open(error, undefined, {
+            duration: 3*1000, // 3 seconds
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+          });
+        }
+      );
   }
 
   get name() {
