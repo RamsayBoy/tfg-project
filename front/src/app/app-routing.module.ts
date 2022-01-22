@@ -35,6 +35,11 @@ const routes: Routes = [
         loadChildren: () => import('./clients/client.module').then(module => module.ClientModule),
         canActivate: [AuthGuard, IsAdminGuard]
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then(module => module.ProfileModule),
+        canActivate: [AuthGuard]
+      },
       // {
       //   path: 'administration',
       //   loadChildren: () => import('./administration/administration.module').then(module => module.AdministrationModule),

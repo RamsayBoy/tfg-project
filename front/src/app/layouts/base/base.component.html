@@ -38,6 +38,14 @@
           </div>
         </mat-list-item>
       </a> -->
+      <a routerLink="/profile" routerLinkActive="active" (click)="opened = false;">
+        <mat-list-item>
+          <div class="sidenav-option">
+            <mat-icon>person</mat-icon>
+            <span>Perfil</span>
+          </div>
+        </mat-list-item>
+      </a>
       <mat-list-item (click)="logout()">
         <div class="sidenav-option">
           <mat-icon>exit_to_app</mat-icon>
