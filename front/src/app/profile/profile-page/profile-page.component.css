@@ -38,6 +38,9 @@
 
 #full-user-name {
   text-align: center;
-  margin-top: 1rem;
   font-size: x-large;
+  max-width: 70%;
+  word-break: break-word;
+  margin: 0 auto;
+  margin-top: 1rem;
 }
