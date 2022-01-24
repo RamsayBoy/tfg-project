@@ -156,6 +156,21 @@ export default class UserRepository {
             });
         });
     }
+
+    async updateUser(user: User): Promise<User> {
+        // TODO: Continue here
+        return new Promise((resolve, reject) => {
+            // const query = `
+            //     DELETE FROM user
+            //     WHERE id = ${clientId}
+            // `;
+
+            // database.query(query, (error, results) => {
+            //     if (error) return reject(false);
+            //     resolve(true);
+            // });
+        });
+    }
 }
 
 // TODO: Remove when dependency injection

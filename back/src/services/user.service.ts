@@ -2,6 +2,7 @@ import {userRepository} from '../repositories/user.repository';
 import User from '../interfaces/User.interface';
 import Client from '../interfaces/Clients.interface';
 import config from '../config'
+import { CustomError } from '../errors/CustomError';
 
 // TODO: Dependency injection
 export default class UserService {
@@ -76,6 +77,15 @@ export default class UserService {
 
     async removeClient(clientId: number): Promise<boolean> {
         return await userRepository.removeClient(clientId);
+    }
+
+    async updateUser(user: User): Promise<User> {
+        // Check if email exists
+        if (await userRepository.isAlreadyRegistered(user.email)) {
+            throw new CustomError("El email del usuario ya existe");
+        }
+
+        return await userRepository.updateUser(user);
     }
 }
 
