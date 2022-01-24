@@ -4,8 +4,12 @@
     <span>Subir imagen</span>
   </div>
 
+  <h2 id="full-user-name">{{fullname}}</h2>
+
   <mat-card>
     <form [formGroup]="editProfileInfoFormGroup" (ngSubmit)="onSubmit()">
+
+      <h2>Mis datos</h2>
 
       <h3>Nombre y apellidos</h3>
 
@@ -34,7 +38,15 @@
         </mat-error>
       </mat-form-field>
 
-      <h3>Cambiar contraseña</h3>
+      <button [disabled]="editProfileInfoFormGroup.invalid" mat-flat-button type="submit" color="primary">Actualizar datos</button>
+
+      <div style="clear: both;"></div>
+    </form>
+  </mat-card>
+
+  <mat-card>
+    <form [formGroup]="changePasswordFormGroup" (ngSubmit)="onSubmitChangePassword()">
+      <h2>Cambiar contraseña</h2>
 
       <mat-form-field appearance="outline">
         <mat-label>Contraseña actual</mat-label>
@@ -55,7 +67,7 @@
         </mat-error>
       </mat-form-field>
 
-      <button [disabled]="editProfileInfoFormGroup.invalid" mat-flat-button type="submit" color="primary">Actualizar</button>
+      <button [disabled]="changePasswordFormGroup.invalid" mat-flat-button type="submit" color="primary">Actualizar contraseña</button>
 
       <div style="clear: both;"></div>
     </form>

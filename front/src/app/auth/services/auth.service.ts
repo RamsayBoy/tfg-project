@@ -83,6 +83,20 @@ export class AuthService {
     );
   }
 
+  getUsernameByUser(user: User): string {
+    let username: string;
+
+    if (user.name) {
+      username = user.name;
+      if (user.lastName) username += " " + user.lastName;
+    }
+    else {
+      username = user.email;
+    }
+
+    return username;
+  }
+
   getUserRole(): string {
     const defaultRole = 'user';
     const token = this.getToken();

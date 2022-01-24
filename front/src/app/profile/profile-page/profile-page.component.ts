@@ -13,7 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfilePageComponent implements OnInit {
 
+  public fullname: string = "Usuario";
+
   public editProfileInfoFormGroup: FormGroup = new FormGroup({});
+  public changePasswordFormGroup: FormGroup = new FormGroup({});
+
   public isPasswordVisible: boolean = false;
   public isNewPasswordVisible: boolean = false;
 
@@ -41,7 +45,10 @@ export class ProfilePageComponent implements OnInit {
       email: ["", [
         Validators.email,
         Validators.maxLength(256),
-      ]],
+      ]]
+    });
+
+    this.changePasswordFormGroup = this.formBuilder.group({
       password: ["", []],
       newPassword: ["", [
         Validators.minLength(6)
@@ -51,6 +58,7 @@ export class ProfilePageComponent implements OnInit {
     this.authService.getUserInfo()
       .subscribe(
         data => {
+          this.fullname = this.authService.getUsernameByUser(data);
           this.editProfileInfoFormGroup.get("name")?.setValue(data.name);
           this.editProfileInfoFormGroup.get("lastName")?.setValue(data.lastName);
           this.editProfileInfoFormGroup.get("email")?.setValue(data.email);
@@ -78,32 +86,53 @@ export class ProfilePageComponent implements OnInit {
   }
 
   get password() {
-    return this.editProfileInfoFormGroup.get('password');
+    return this.changePasswordFormGroup.get('password');
   }
 
   get newPassword() {
-    return this.editProfileInfoFormGroup.get('newPassword');
+    return this.changePasswordFormGroup.get('newPassword');
   }
 
   onSubmit() {
-    // this.loaderService.setLoader(true);
-    //
-    // this.authService.register(this.registerUserFormGroup.value)
-    //   .subscribe(
-    //     data => {
-    //       this.loaderService.setLoader(false);
-    //       this.dialogService
-    //         .open('Usuario registrado con éxito', data.message)
-    //         .afterClosed()
-    //         .subscribe({
-    //           next: () => this.router.navigateByUrl('/clients'),
-    //         });
-    //     },
-    //     error => {
-    //       this.loaderService.setLoader(false);
-    //       this.dialogService.open('Error', error);
-    //     },
-    //   );
+  //   this.loaderService.setLoader(true);
+
+  //   this.authService.register(this.registerUserFormGroup.value)
+  //     .subscribe(
+  //       data => {
+  //         this.loaderService.setLoader(false);
+  //         this.dialogService
+  //           .open('Usuario registrado con éxito', data.message)
+  //           .afterClosed()
+  //           .subscribe({
+  //             next: () => this.router.navigateByUrl('/clients'),
+  //           });
+  //       },
+  //       error => {
+  //         this.loaderService.setLoader(false);
+  //         this.dialogService.open('Error', error);
+  //       },
+  //     );
   }
+
+  onSubmitChangePassword() {
+    //   this.loaderService.setLoader(true);
+
+    //   this.authService.register(this.registerUserFormGroup.value)
+    //     .subscribe(
+    //       data => {
+    //         this.loaderService.setLoader(false);
+    //         this.dialogService
+    //           .open('Usuario registrado con éxito', data.message)
+    //           .afterClosed()
+    //           .subscribe({
+    //             next: () => this.router.navigateByUrl('/clients'),
+    //           });
+    //       },
+    //       error => {
+    //         this.loaderService.setLoader(false);
+    //         this.dialogService.open('Error', error);
+    //       },
+    //     );
+    }
 
 }
