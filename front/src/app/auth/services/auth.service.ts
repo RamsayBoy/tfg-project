@@ -49,6 +49,7 @@ export class AuthService {
     localStorage.setItem(this.tokenKeySessionStorage, token);
   }
 
+  // TODO: Move to UserService
   getUserInfo(): Observable<User> {
     return this.http.get<ResponseWrapped>(this.BaseUrl + "/users/getUser")
       .pipe(
@@ -64,25 +65,17 @@ export class AuthService {
       );
   }
 
+  // TODO: Move to UserService
   getUsername(): Observable<string> {
     return this.getUserInfo().pipe(
       map(response => {
         const user: User = response;
-        let username: string;
-
-        if (user.name) {
-          username = user.name;
-          if (user.lastName) username += " " + user.lastName;
-        }
-        else {
-          username = user.email;
-        }
-
-        return username;
+        return this.getUsernameByUser(user);
       }),
     );
   }
 
+  // TODO: Move to UserService
   getUsernameByUser(user: User): string {
     let username: string;
 
@@ -97,6 +90,7 @@ export class AuthService {
     return username;
   }
 
+  // TODO: Move to UserService
   getUserRole(): string {
     const defaultRole = 'user';
     const token = this.getToken();

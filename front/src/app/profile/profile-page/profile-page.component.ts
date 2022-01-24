@@ -5,6 +5,8 @@ import { LoaderService } from 'src/app/shared/loader/services/loader.service';
 import { ToolbarService } from 'src/app/shared/toolbar/services/toolbar.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/users/user.service';
+import User from 'src/interfaces/User.interface';
 
 @Component({
   selector: 'app-profile-page',
@@ -13,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfilePageComponent implements OnInit {
 
+  private user!: User;
   public fullname: string = "Usuario";
 
   public editProfileInfoFormGroup: FormGroup = new FormGroup({});
@@ -27,6 +30,7 @@ export class ProfilePageComponent implements OnInit {
     private loaderService: LoaderService,
     private dialogService: DialogService,
     private authService: AuthService,
+    private userService: UserService,
     private _snackBar: MatSnackBar
   ) { }
 
@@ -43,6 +47,7 @@ export class ProfilePageComponent implements OnInit {
         Validators.maxLength(32),
       ]],
       email: ["", [
+        Validators.required,
         Validators.email,
         Validators.maxLength(256),
       ]]
@@ -58,10 +63,7 @@ export class ProfilePageComponent implements OnInit {
     this.authService.getUserInfo()
       .subscribe(
         data => {
-          this.fullname = this.authService.getUsernameByUser(data);
-          this.editProfileInfoFormGroup.get("name")?.setValue(data.name);
-          this.editProfileInfoFormGroup.get("lastName")?.setValue(data.lastName);
-          this.editProfileInfoFormGroup.get("email")?.setValue(data.email);
+          this.fillEditProfileFormFields(data);
         },
         error => {
           this._snackBar.open(error, undefined, {
@@ -71,6 +73,14 @@ export class ProfilePageComponent implements OnInit {
           });
         }
       );
+  }
+
+  fillEditProfileFormFields(user: User) {
+    this.user = user;
+    this.fullname = this.authService.getUsernameByUser(user);
+    this.editProfileInfoFormGroup.get("name")?.setValue(user.name);
+    this.editProfileInfoFormGroup.get("lastName")?.setValue(user.lastName);
+    this.editProfileInfoFormGroup.get("email")?.setValue(user.email);
   }
 
   get name() {
@@ -94,45 +104,42 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onSubmit() {
-  //   this.loaderService.setLoader(true);
+    this.loaderService.setLoader(true);
 
-  //   this.authService.register(this.registerUserFormGroup.value)
-  //     .subscribe(
-  //       data => {
-  //         this.loaderService.setLoader(false);
-  //         this.dialogService
-  //           .open('Usuario registrado con éxito', data.message)
-  //           .afterClosed()
-  //           .subscribe({
-  //             next: () => this.router.navigateByUrl('/clients'),
-  //           });
-  //       },
-  //       error => {
-  //         this.loaderService.setLoader(false);
-  //         this.dialogService.open('Error', error);
-  //       },
-  //     );
+    // Create a user for updating the current
+    let user: User = this.user;
+    user.email = this.email?.value;
+    user.name = this.name?.value;
+    user.lastName = this.lastName?.value;
+
+    this.userService.updateUserInfo(user)
+      .subscribe(
+        data => {
+          let user: User = data.data;
+          this.fillEditProfileFormFields(user);
+
+          this.loaderService.setLoader(false);
+        },
+        error => {
+          this.loaderService.setLoader(false);
+          this.dialogService.open('Error', error);
+        },
+      );
   }
 
   onSubmitChangePassword() {
-    //   this.loaderService.setLoader(true);
+      this.loaderService.setLoader(true);
 
-    //   this.authService.register(this.registerUserFormGroup.value)
-    //     .subscribe(
-    //       data => {
-    //         this.loaderService.setLoader(false);
-    //         this.dialogService
-    //           .open('Usuario registrado con éxito', data.message)
-    //           .afterClosed()
-    //           .subscribe({
-    //             next: () => this.router.navigateByUrl('/clients'),
-    //           });
-    //       },
-    //       error => {
-    //         this.loaderService.setLoader(false);
-    //         this.dialogService.open('Error', error);
-    //       },
-    //     );
+      this.userService.changePassword(this.user.id, this.newPassword?.value)
+        .subscribe(
+          data => {
+            this.loaderService.setLoader(false);
+          },
+          error => {
+            this.loaderService.setLoader(false);
+            this.dialogService.open('Error', error);
+          },
+        );
     }
 
 }
