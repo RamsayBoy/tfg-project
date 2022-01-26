@@ -17,8 +17,4 @@ export class UserService {
   updateUserInfo(user: User): Observable<ResponseWrapped> {
     return this.http.put<ResponseWrapped>(`${environment.apiUrl}/users/${user.id}`, user);
   }
-
-  changePassword(id: number, newPassword: string): Observable<ResponseWrapped> {
-    return this.http.put<ResponseWrapped>(`${environment.apiUrl}/users/${id}/changePassword`, newPassword);
-  }
 }

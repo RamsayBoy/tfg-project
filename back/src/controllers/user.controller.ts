@@ -121,7 +121,7 @@ export const updateUser = async (request: Request, response: Response): Promise<
         const responseWrapped: ResponseWrapped = {
             status: 200,
             statusText: 'OK',
-            message: `Datos del usuario se han actualizado con éxito`,
+            message: `Datos del usuario se han actualizado con éxito.`,
             data: user
         };
 

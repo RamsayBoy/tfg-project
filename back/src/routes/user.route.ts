@@ -9,6 +9,5 @@ router.delete('/:clientId', TokenValidation, AdminChecker, userController.remove
 router.get('/getUser', TokenValidation, userController.getUser);
 router.get('/getClients', TokenValidation, AdminChecker, userController.getClients);
 router.put('/:userId', TokenValidation, userController.updateUser);
-// router.put('/:userId/changePassword', TokenValidation, userController.changeUserPassword);
 
 export default router;

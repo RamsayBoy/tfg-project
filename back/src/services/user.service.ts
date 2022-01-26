@@ -2,6 +2,7 @@ import {userRepository} from '../repositories/user.repository';
 import User from '../interfaces/User.interface';
 import Client from '../interfaces/Clients.interface';
 import config from '../config'
+import bcrypt from 'bcrypt';
 import { CustomError } from '../errors/CustomError';
 
 // TODO: Dependency injection
@@ -22,6 +23,10 @@ export default class UserService {
         }
 
         return user;
+    }
+
+    async getPasswordById(id: number): Promise<string> {
+        return await userRepository.getPasswordById(id);
     }
 
     async getByEmailAndPassword(email: string, password: string): Promise<User|null> {
@@ -85,9 +90,18 @@ export default class UserService {
             throw new CustomError("El email introducido ya existe");
         }
 
+        // TODO: Make connection allows multipleStatements for avoiding this two calls
+        //  and do it on one
         await userRepository.updateUser(user);
 
         return await userRepository.getById(user.id);
+    }
+
+    async updatePassword(userId: number, newPassword: string): Promise<boolean> {
+        // Hash the password
+        const passHashed: string = await bcrypt.hash(newPassword, 10);
+        
+        return await userRepository.updatePassword(userId, passHashed);
     }
 }
 

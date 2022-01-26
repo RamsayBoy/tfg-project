@@ -148,4 +148,8 @@ export class AuthService {
 
     return expirationTime;
   }
+
+  changePassword(password: string, newPassword: string): Observable<ResponseWrapped> {
+    return this.http.put<ResponseWrapped>(`${environment.apiUrl}/auth/changePassword`, { password, newPassword });
+  }
 }

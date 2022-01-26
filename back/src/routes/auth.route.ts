@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/register', TokenValidation, AdminChecker, authController.register);
 router.post('/login', authController.login);
+router.put('/changePassword', TokenValidation, authController.changeUserPassword);
 
 export default router;

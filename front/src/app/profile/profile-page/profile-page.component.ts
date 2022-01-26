@@ -120,6 +120,8 @@ export class ProfilePageComponent implements OnInit {
             if (user) {
               this.fillEditProfileFormFields(user);
             }
+            this.dialogService
+              .open('Perfil actualizado', data.message);
           }
 
           this.loaderService.setLoader(false);
@@ -134,10 +136,12 @@ export class ProfilePageComponent implements OnInit {
   onSubmitChangePassword() {
       this.loaderService.setLoader(true);
 
-      this.userService.changePassword(this.user.id, this.newPassword?.value)
+      this.authService.changePassword(this.password?.value, this.newPassword?.value)
         .subscribe(
           data => {
             this.loaderService.setLoader(false);
+            this.dialogService
+              .open('Contraseña actualizada', data.message);
           },
           error => {
             this.loaderService.setLoader(false);

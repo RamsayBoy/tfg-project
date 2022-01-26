@@ -24,7 +24,7 @@ export default class UserRepository {
     async getByEmail(email: string): Promise<User> {
         return new Promise((resolve, reject) => {
             const query = `
-                SELECT u.id, u.name, u.lastName, email, password, r.name as role, teacherId
+                SELECT u.id, u.name, u.lastName, email, r.name as role, teacherId
                 FROM user u
                 INNER JOIN role r ON r.id = u.roleId
                 LEFT JOIN client c ON c.id = u.id
@@ -184,6 +184,36 @@ export default class UserRepository {
 
             database.query(query, (error, results) => {
                 if (error) return reject(false);
+                resolve(true);
+            });
+        });
+    }
+
+    async getPasswordById(id: number): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT password
+                FROM user u
+                WHERE id = '${id}';
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve(results[0].password);
+            });
+        });
+    }
+
+    async updatePassword(userId: number, newPassword: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                UPDATE user
+                    SET password = '${newPassword}'
+                WHERE id = ${userId};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
                 resolve(true);
             });
         });

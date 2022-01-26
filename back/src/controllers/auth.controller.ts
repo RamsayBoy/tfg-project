@@ -5,6 +5,7 @@ import User from '../interfaces/User.interface';
 import { authService } from '../services/auth.service';
 import ResponseWrapped from '../interfaces/ResponseWrapped.interface';
 import bcrypt from 'bcrypt';
+import { CustomError } from '../errors/CustomError';
 
 export const register = async (request: Request, response: Response): Promise<Response> => {
     const name: string = request.body.name;
@@ -73,7 +74,7 @@ export const login = async (request: Request, response: Response): Promise<Respo
 
     try {
         const user: User | null = await userService.getByEmail(email);
-
+        
         if (!user) {
             const responseWrapped: ResponseWrapped = {
                 status: 401,
@@ -84,10 +85,12 @@ export const login = async (request: Request, response: Response): Promise<Respo
                     message: `No existe el usuario con email ${email}`,
                 }
             };
-
+            
             return response.status(401).json(responseWrapped);
         }
-
+        
+        // Validate password
+        user.password = await userService.getPasswordById(user.id);
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
@@ -123,6 +126,56 @@ export const login = async (request: Request, response: Response): Promise<Respo
             status: 500,
             statusText: 'Internal error',
             message: 'Se ha producido un error al iniciar sesión',
+            error: {
+                code: 'INTERNAL_ERROR',
+                message: 'Se ha producido un error en el servidor',
+            }
+        }
+
+        return response.status(500).json(responseWrapped);
+    }
+};
+
+
+export const changeUserPassword = async (request: Request, response: Response): Promise<Response> => {
+    const password: string = request.body.password;
+    const newPassword: string = request.body.newPassword;
+    const userId: number = response.locals.userId;
+    
+    try {
+        if (!newPassword) {
+            throw new CustomError("Las contraseña introducida no es una contraseña válida.");
+        }
+
+        const databasePassword: string = await userService.getPasswordById(userId);
+        const areEqual = await bcrypt.compare(password, databasePassword);
+
+        if (!areEqual) {
+            throw new CustomError("La contraseña actual es incorrecta.");
+        }
+
+        const success: boolean = await userService.updatePassword(userId, newPassword);
+
+        if (!success) {
+            throw new CustomError("Debido a un error no se ha podido actualizar la contraseña.");
+        }
+
+        const responseWrapped: ResponseWrapped = {
+            status: 200,
+            statusText: 'OK',
+            message: `La contraseña se ha actualizado con éxito`,
+        };
+
+        return response.status(200).json(responseWrapped);
+    }
+    catch (exception) {
+        const responseWrapped: ResponseWrapped = {
+            status: 500,
+            statusText: 'Internal error',
+            message: exception instanceof(CustomError) ?
+                exception.message
+                :
+                'Se ha producido un error.',
             error: {
                 code: 'INTERNAL_ERROR',
                 message: 'Se ha producido un error en el servidor',
