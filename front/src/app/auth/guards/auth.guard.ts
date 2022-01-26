@@ -17,12 +17,12 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (this.authService.isLogginIn()) {
+      if (this.authService.isLogginIn()) {
         return true;
       }
 
       // TODO: use a constant or something like that for the navigate value
-      this.router.navigate(['/auth/login'])
+      this.router.navigate(['/auth/login'], { queryParams: { 'redirectURL': state.url } })
       return false;
   }
 

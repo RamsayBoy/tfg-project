@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +53,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value)
       .subscribe(
         _ => {
-          this.router.navigate([this.authService.redirectUrl]);
-          // window.location.reload();
+          let params = this.route.snapshot.queryParams;
+
+          if (params['redirectURL']) {
+              this.router.navigate([ params['redirectURL'] ])
+                .catch(() => this.router.navigate([this.authService.redirectUrl]));
+          }
+          else {
+            this.router.navigate([this.authService.redirectUrl]);
+          }
         },
         error => {
           // TODO: Create a handler that shows a pop up
