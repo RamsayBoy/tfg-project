@@ -115,8 +115,12 @@ export class ProfilePageComponent implements OnInit {
     this.userService.updateUserInfo(user)
       .subscribe(
         data => {
-          let user: User = data.data;
-          this.fillEditProfileFormFields(user);
+          if (data) {
+            let user: User = data.data;
+            if (user) {
+              this.fillEditProfileFormFields(user);
+            }
+          }
 
           this.loaderService.setLoader(false);
         },

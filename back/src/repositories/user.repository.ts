@@ -87,6 +87,21 @@ export default class UserRepository {
         });
     }
 
+    async isUserEmailAlreadyRegistered(user: User): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT email
+                FROM user
+                WHERE email = '${user.email}' AND id != ${user.id};
+            `;
+
+            database.query(query, (error, results) => {
+                if (error) return reject(error);
+                resolve(results.length !== 0 ? true : false);
+            });
+        });
+    }
+
     async register(name:string, lastName: string, email: string, password: string, teacherId: number): Promise<void> {
         return new Promise((resolve, reject) => {
             const query = `
@@ -157,18 +172,20 @@ export default class UserRepository {
         });
     }
 
-    async updateUser(user: User): Promise<User> {
-        // TODO: Continue here
+    async updateUser(user: User): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            // const query = `
-            //     DELETE FROM user
-            //     WHERE id = ${clientId}
-            // `;
+            const query = `
+                UPDATE user
+                   SET  name = '${user.name}',
+                        lastName = '${user.lastName}',
+                        email = '${user.email}'
+                WHERE id = ${user.id};
+            `;
 
-            // database.query(query, (error, results) => {
-            //     if (error) return reject(false);
-            //     resolve(true);
-            // });
+            database.query(query, (error, results) => {
+                if (error) return reject(false);
+                resolve(true);
+            });
         });
     }
 }

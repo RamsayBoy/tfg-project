@@ -8,7 +8,7 @@ const router = express.Router();
 router.delete('/:clientId', TokenValidation, AdminChecker, userController.removeClient);
 router.get('/getUser', TokenValidation, userController.getUser);
 router.get('/getClients', TokenValidation, AdminChecker, userController.getClients);
-router.post('/:userId', TokenValidation, userController.updateUser);
-// router.post('/:userId/changePassword', TokenValidation, userController.changeUserPassword);
+router.put('/:userId', TokenValidation, userController.updateUser);
+// router.put('/:userId/changePassword', TokenValidation, userController.changeUserPassword);
 
 export default router;

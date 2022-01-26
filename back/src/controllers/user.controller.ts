@@ -116,12 +116,13 @@ export const updateUser = async (request: Request, response: Response): Promise<
     const postUser: User = request.body;
     
     try {
-        const user: User = await userService.updateUser(postUser);
+        const user: User | null = await userService.updateUser(postUser);
 
-        const responseWrapped = {
+        const responseWrapped: ResponseWrapped = {
             status: 200,
             statusText: 'OK',
-            message: `Datos del usuario actualizado con éxito`,
+            message: `Datos del usuario se han actualizado con éxito`,
+            data: user
         };
 
         return response.status(200).json(responseWrapped);
@@ -130,10 +131,10 @@ export const updateUser = async (request: Request, response: Response): Promise<
         const responseWrapped: ResponseWrapped = {
             status: 500,
             statusText: 'Internal error',
-            message: exception instanceof CustomError ?
+            message: exception instanceof(CustomError) ?
                 exception.message
                 :
-                'Se ha producido un error al obtener los clientes.',
+                'Se ha producido un error.',
             error: {
                 code: 'INTERNAL_ERROR',
                 message: 'Se ha producido un error en el servidor',

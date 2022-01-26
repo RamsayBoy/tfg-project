@@ -79,13 +79,15 @@ export default class UserService {
         return await userRepository.removeClient(clientId);
     }
 
-    async updateUser(user: User): Promise<User> {
-        // Check if email exists
-        if (await userRepository.isAlreadyRegistered(user.email)) {
-            throw new CustomError("El email del usuario ya existe");
+    async updateUser(user: User): Promise<User | null> {
+        // Check if email exists (but is not the same)
+        if (await userRepository.isUserEmailAlreadyRegistered(user)) {
+            throw new CustomError("El email introducido ya existe");
         }
 
-        return await userRepository.updateUser(user);
+        await userRepository.updateUser(user);
+
+        return await userRepository.getById(user.id);
     }
 }
 
