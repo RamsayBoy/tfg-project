@@ -2,7 +2,7 @@ import mysql from 'mysql';
 import config from './config';
 
 const pool = mysql.createPool({
-    host     : config.api.HOST,
+    host     : config.database.HOST,
     user     : config.database.USER,
     password : config.database.PASSWORD,
     database : config.database.NAME
