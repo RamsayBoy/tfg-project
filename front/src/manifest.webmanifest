@@ -1,7 +1,8 @@
 {
   "name": "TFG",
   "short_name": "TFG",
-  "theme_color": "#1976d2",
+  "lang": "es-ES",
+  "theme_color": "#3f51b5",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
