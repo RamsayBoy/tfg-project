@@ -14,27 +14,27 @@ jobs:
       - name: "Check out the source"
       - uses: actions/checkout@v3
 
-      - name: "Setup Node"
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14.15.4"
+      # - name: "Setup Node"
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "14.15.4"
 
-      # - name: "Setup Angular"
+      # # - name: "Setup Angular"
 
-      - name: "Build Node"
-      - run: |
-          pwd
-          cd back
-          npm run build
+      # - name: "Build Node"
+      # - run: |
+      #     pwd
+      #     cd back
+      #     npm run build
 
-      - name: "Build Angular"
-      - run: |
-          pwd
-          cd ../front
-          npm run production-build
+      # - name: "Build Angular"
+      # - run: |
+      #     pwd
+      #     cd ../front
+      #     npm run production-build
 
-      - name: "Testing my PWD"
-      - run: pwd
+      # - name: "Testing my PWD"
+      # - run: pwd
 
       # - name: "Upload Node artifacts"
       # - uses: actions/upload-artifact@v3
