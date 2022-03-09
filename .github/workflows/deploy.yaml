@@ -27,11 +27,11 @@ jobs:
           npm i
           npm run build
 
-      # - name: "Build Angular"
-      #   run: |
-      #     pwd
-      #     cd ../front
-      #     npm run production-build
+      - name: "Build Angular"
+        run: |
+          cd front
+          npm i
+          npm run production-build
 
       # - name: "Upload Node artifacts"
       #   uses: actions/upload-artifact@v3
