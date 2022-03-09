@@ -43,8 +43,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: angular-front
-          path: front/dist/ # or path/to/artifact
-
+          path: front/dist/
 
   # deploy:
   #   name: "Deploy to production"
@@ -71,9 +70,12 @@ jobs:
   #     - name: Stop the server
   #       run: ssh production 'sudo systemctl stop nginx'
 
-  #     - name: Check out the source
-  #       run: ssh production 'cd my-application && git fetch && git reset --hard origin/master'
+  #     - name: Stop Node API
+  #       run: ssh production 'pm2 stop Express-API'
+
+  #     - name: Copy files
+  #       run: # TODO
 
   #     - name: Start the server
-  #       if: ${{ always() }}
-  #       run: ssh production 'sudo systemctl start my-application'
+  #       # if: ${{ always() }}
+  #       run: ssh production 'sudo systemctl restart nginx'
