@@ -21,34 +21,61 @@ jobs:
 
       # - name: "Setup Angular"
 
-  deploy:
-    name: "Deploy to production"
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/production.key
-          chmod 600 ~/.ssh/production.key
-          cat >>~/.ssh/config <<END
-          Host production
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/production.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
-          SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
-          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+      - name: "Build Node"
+      - run: |
+          pwd
+          cd back
+          npm run build
 
-      - name: Stop the server
-        run: ssh production 'sudo systemctl stop nginx'
+      - name: "Build Angular"
+      - run: |
+          pwd
+          cd ../front
+          npm run production-build
 
-      - name: Check out the source
-        run: ssh production 'cd my-application && git fetch && git reset --hard origin/master'
+      - name: "Testing my PWD"
+      - run: pwd
 
-      - name: Start the server
-        if: ${{ always() }}
-        run: ssh production 'sudo systemctl start my-application'
+      # - name: "Upload Node artifacts"
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: my-artifact
+      #     path: path/to/artifact/ # or path/to/artifact
+
+      # - name: "Upload Angular artifacts"
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: my-artifact
+      #     path: path/to/artifact/ # or path/to/artifact
+
+  # deploy:
+  #   name: "Deploy to production"
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Configure SSH
+  #       run: |
+  #         mkdir -p ~/.ssh/
+  #         echo "$SSH_KEY" > ~/.ssh/production.key
+  #         chmod 600 ~/.ssh/production.key
+  #         cat >>~/.ssh/config <<END
+  #         Host production
+  #           HostName $SSH_HOST
+  #           User $SSH_USER
+  #           IdentityFile ~/.ssh/production.key
+  #           StrictHostKeyChecking no
+  #         END
+  #       env:
+  #         SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+  #         SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+  #         SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+
+  #     - name: Stop the server
+  #       run: ssh production 'sudo systemctl stop nginx'
+
+  #     - name: Check out the source
+  #       run: ssh production 'cd my-application && git fetch && git reset --hard origin/master'
+
+  #     - name: Start the server
+  #       if: ${{ always() }}
+  #       run: ssh production 'sudo systemctl start my-application'
