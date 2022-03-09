@@ -25,7 +25,7 @@ jobs:
         run: |
           pwd
           cd back
-          npm run build
+          tsc
 
       - name: "Build Angular"
         run: |
