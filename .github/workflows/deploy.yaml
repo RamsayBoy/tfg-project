@@ -24,14 +24,13 @@ jobs:
       - name: "Build Node"
         run: |
           pwd
-          cd back
-          tsc
+          ls
 
-      - name: "Build Angular"
-        run: |
-          pwd
-          cd ../front
-          npm run production-build
+      # - name: "Build Angular"
+      #   run: |
+      #     pwd
+      #     cd ../front
+      #     npm run production-build
 
       - name: "Testing my PWD"
         run: pwd
