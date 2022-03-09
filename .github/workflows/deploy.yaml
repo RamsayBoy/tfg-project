@@ -33,17 +33,18 @@ jobs:
           npm i
           npm run production-build
 
-      # - name: "Upload Node artifacts"
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: my-artifact
-      #     path: path/to/artifact/ # or path/to/artifact
+      - name: "Upload Node artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-api
+          path: back/dist/
 
-      # - name: "Upload Angular artifacts"
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: my-artifact
-      #     path: path/to/artifact/ # or path/to/artifact
+      - name: "Upload Angular artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: angular-front
+          path: front/dist/ # or path/to/artifact
+
 
   # deploy:
   #   name: "Deploy to production"
