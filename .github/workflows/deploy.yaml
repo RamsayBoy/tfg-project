@@ -27,6 +27,8 @@ jobs:
           ls
           cd back
           ls
+          cd
+          ls
 
       # - name: "Build Angular"
       #   run: |
@@ -36,7 +38,11 @@ jobs:
 
       - name: "Testing my PWD"
         if: ${{ always() }}
-        run: pwd
+        run: |
+          pwd
+          ls
+          cd
+          ls
 
       # - name: "Upload Node artifacts"
       #   uses: actions/upload-artifact@v3
