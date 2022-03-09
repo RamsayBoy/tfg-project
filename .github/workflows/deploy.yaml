@@ -25,6 +25,8 @@ jobs:
         run: |
           pwd
           ls
+          cd back
+          tsc
 
       # - name: "Build Angular"
       #   run: |
