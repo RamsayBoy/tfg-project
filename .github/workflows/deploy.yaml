@@ -45,37 +45,65 @@ jobs:
           name: angular-front
           path: front/dist/
 
-  # deploy:
-  #   name: "Deploy to production"
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Configure SSH
-  #       run: |
-  #         mkdir -p ~/.ssh/
-  #         echo "$SSH_KEY" > ~/.ssh/production.key
-  #         chmod 600 ~/.ssh/production.key
-  #         cat >>~/.ssh/config <<END
-  #         Host production
-  #           HostName $SSH_HOST
-  #           User $SSH_USER
-  #           IdentityFile ~/.ssh/production.key
-  #           StrictHostKeyChecking no
-  #         END
-  #       env:
-  #         SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
-  #         SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
-  #         SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+  deploy:
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/production.key
+          chmod 600 ~/.ssh/production.key
+          cat >>~/.ssh/config <<END
+          Host production
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+          SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
 
-  #     - name: Stop the server
-  #       run: ssh production 'sudo systemctl stop nginx'
+      - name: Stop the server
+        run: ssh production 'sudo systemctl stop nginx'
 
-  #     - name: Stop Node API
-  #       run: ssh production 'pm2 stop Express-API'
+      - name: Stop Node API
+        run: ssh production 'pm2 stop Express-API'
 
-  #     - name: Copy files
-  #       run: # TODO
+      - name: Download Node artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: node-api
+          path: artifacts/api
 
-  #     - name: Start the server
-  #       # if: ${{ always() }}
-  #       run: ssh production 'sudo systemctl restart nginx'
+      - name: Download Angular artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: angular-front
+          path: artifacts/front
+
+      - name: Copy Node files
+        run: |
+          echo "-------------"
+          ls
+          scp -r . production:~/testing-actions/api #scp -r . production:~/var/www
+          echo "-------------"
+        working-directory: artifacts/api
+
+      - name: Copy Angular files
+        run: |
+          echo "-------------"
+          ls
+          scp -r . production:~/testing-actions/front #scp -r . production:~/var/www
+          echo "-------------"
+        working-directory: artifacts/front
+
+      - name: Start Node API
+        run: ssh production 'pm2 restart Express-API'
+
+      - name: Start the server
+        if: ${{ always() }}
+        run: ssh production 'sudo systemctl restart nginx'
