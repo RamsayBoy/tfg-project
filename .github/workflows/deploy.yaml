@@ -70,6 +70,16 @@ jobs:
       - name: Stop the server
         run: ssh production 'sudo systemctl stop nginx'
 
+      # Needed for setup PM2
+      - name: "Setup Node"
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.15.4"
+
+      # Needed for executing pm2 commands on server
+      - name: Setup PM2
+        run: npm install pm2 -g
+
       - name: Stop Node API
         run: ssh production 'pm2 stop Express-API'
 
