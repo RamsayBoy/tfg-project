@@ -102,6 +102,7 @@ jobs:
         working-directory: artifacts/front
 
       - name: Start Node API
+        if: ${{ always() }}
         run: ssh production 'pm2 restart Express-API'
 
       - name: Start the server
