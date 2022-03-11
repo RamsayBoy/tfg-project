@@ -19,8 +19,6 @@ jobs:
         with:
           node-version: "14.15.4"
 
-      # - name: "Setup Angular"
-
       - name: "Build Node"
         run: |
           cd back
@@ -71,10 +69,7 @@ jobs:
         run: ssh production 'sudo systemctl stop nginx'
 
       - name: Stop Node API
-        run: ssh production "export PATH='\$PATH:/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; echo \$PATH; echo $PATH; pm2 stop Express-API"
-
-      - name: See path
-        run: ssh production "echo $PATH"
+        run: ssh production "export PATH='/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 stop Express-API"
 
       - name: Download Node artifacts
         uses: actions/download-artifact@v3
@@ -106,7 +101,7 @@ jobs:
 
       - name: Start Node API
         if: ${{ always() }}
-        run: ssh production "export PATH='$PATH:/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 restart Express-API"
+        run: ssh production "export PATH='/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 restart Express-API"
 
       - name: Start the server
         if: ${{ always() }}
