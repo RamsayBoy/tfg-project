@@ -71,7 +71,7 @@ jobs:
         run: ssh production 'sudo systemctl stop nginx'
 
       - name: Stop Node API
-        run: ssh production "export PATH='$PATH:/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 stop Express-API"
+        run: ssh production "export PATH='\$PATH:/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 stop Express-API"
 
       - name: Download Node artifacts
         uses: actions/download-artifact@v3
