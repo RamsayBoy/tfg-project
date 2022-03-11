@@ -91,10 +91,12 @@ jobs:
         run: scp -r ./* production:~/var/www
         working-directory: artifacts/front
 
+      - name: Install node-modules for Node API
+        run: ssh production "npm i --prefix express-api"
+
       - name: Start Node API
         if: ${{ always() }}
         run: |
-          ssh production "npm i --prefix express-api"
           ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 delete Express-API"
           ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 start 'node express-api/index.js' -n Express-API"
           ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 save"
