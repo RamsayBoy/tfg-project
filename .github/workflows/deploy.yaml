@@ -73,6 +73,9 @@ jobs:
       - name: Stop Node API
         run: ssh production "export PATH='\$PATH:/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; echo \$PATH; echo $PATH; pm2 stop Express-API"
 
+      - name: See path
+        run: ssh production "echo $PATH"
+
       - name: Download Node artifacts
         uses: actions/download-artifact@v3
         with:
