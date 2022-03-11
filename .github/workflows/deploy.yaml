@@ -84,7 +84,7 @@ jobs:
           path: artifacts/front
 
       - name: Copy Node files
-        run: scp -r ./* production:~/express-api/dist/
+        run: scp -r ./* production:~/express-api/
         working-directory: artifacts/api
 
       - name: Copy Angular files
