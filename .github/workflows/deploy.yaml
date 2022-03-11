@@ -68,9 +68,6 @@ jobs:
       - name: Stop the server
         run: ssh production 'sudo systemctl stop nginx'
 
-      # - name: Stop Node API
-      #   run: ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 stop Express-API";
-
       - name: Download Node artifacts
         uses: actions/download-artifact@v3
         with:
@@ -92,7 +89,7 @@ jobs:
         working-directory: artifacts/front
 
       - name: Install node-modules for Node API
-        run: ssh production "npm i --prefix express-api"
+        run: ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; npm i --prefix express-api"
 
       - name: Start Node API
         if: ${{ always() }}
