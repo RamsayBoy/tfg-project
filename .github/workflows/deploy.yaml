@@ -87,7 +87,7 @@ jobs:
         run: |
           echo "-------------"
           ls
-          scp -r . production:~/testing-actions/api #scp -r . production:~/var/www
+          scp -r . production:~/testing-actions/api #scp -r ./ production:~/var/www
           echo "-------------"
         working-directory: artifacts/api
 
@@ -95,7 +95,7 @@ jobs:
         run: |
           echo "-------------"
           ls
-          scp -r . production:~/testing-actions/front #scp -r . production:~/var/www
+          scp -r . production:~/testing-actions/front #scp -r ./ production:~/var/www
           echo "-------------"
         working-directory: artifacts/front
 
