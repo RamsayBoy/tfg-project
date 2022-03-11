@@ -103,6 +103,10 @@ jobs:
         if: ${{ always() }}
         run: ssh production "echo '/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/' >> testing-echo-path"
 
+      - name: Test create a file by ssh with Home variable
+        if: ${{ always() }}
+        run: ssh production "echo '\$HOME/.nvm/versions/node/v14.15.4/bin/' >> testing-echo-path"
+
       - name: Start Node API
         if: ${{ always() }}
         run: ssh production "export PATH='/home/$SSH_USER/.nvm/versions/node/v14.15.4/bin/'; pm2 restart Express-API"
