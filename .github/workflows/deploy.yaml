@@ -99,7 +99,7 @@ jobs:
 
       - name: Update node source code on server
         if: ${{ always() }}
-        run: ssh production "cd/tfg-project && git fetch && git pull"
+        run: ssh production "cd tfg-project && git fetch && git pull"
 
       - name: Start Node API
         if: ${{ always() }}
