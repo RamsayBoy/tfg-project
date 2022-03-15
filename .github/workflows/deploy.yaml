@@ -19,11 +19,14 @@ jobs:
         with:
           node-version: "14.15.4"
 
-      - name: "Build Node"
-        run: |
-          cd back
-          npm i
-          npm run build
+      # TODO: Run the tests (Node)
+
+      # Disable node build. It will be done in the server
+      # - name: "Build Node"
+      #   run: |
+      #     cd back
+      #     npm i
+      #     npm run build
 
       - name: "Build Angular"
         run: |
@@ -31,11 +34,12 @@ jobs:
           npm i
           npm run production-build
 
-      - name: "Upload Node artifacts"
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-api
-          path: back/dist/
+      # Disable this step. It will be done in the server
+      # - name: "Upload Node artifacts"
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: node-api
+      #     path: back/dist/
 
       - name: "Upload Angular artifacts"
         uses: actions/upload-artifact@v3
@@ -68,11 +72,12 @@ jobs:
       - name: Stop the server
         run: ssh production 'sudo systemctl stop nginx'
 
-      - name: Download Node artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: node-api
-          path: artifacts/api
+      # Disable this step. It will be done in the server
+      # - name: Download Node artifacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: node-api
+      #     path: artifacts/api
 
       - name: Download Angular artifacts
         uses: actions/download-artifact@v3
@@ -80,22 +85,26 @@ jobs:
           name: angular-front
           path: artifacts/front
 
-      - name: Copy Node files
-        run: scp -r ./* production:~/express-api/
-        working-directory: artifacts/api
+      # Disable this step. It will be done in the server
+      # - name: Copy Node files
+      #   run: scp -r ./* production:~/express-api/
+      #   working-directory: artifacts/api
 
       - name: Copy Angular files
         run: scp -r ./* production:~/var/www
         working-directory: artifacts/front
 
-      - name: Install node-modules for Node API
-        run: ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; npm i --prefix express-api"
+      - name: Stop Node API execution
+        run: ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 delete Express-API"
+
+      - name: Update node source code on server
+        if: ${{ always() }}
+        run: ssh production "cd/tfg-project && git fetch && git pull"
 
       - name: Start Node API
         if: ${{ always() }}
         run: |
-          ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 delete Express-API"
-          ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 start 'node express-api/index.js' -n Express-API"
+          ssh production "cd tfg-project/back && export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 start 'npm start' -n Express-API"
           ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 save"
 
       - name: Start the server

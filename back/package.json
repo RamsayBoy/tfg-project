@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc && cp package.json dist",
+    "build": "rm -rf dist && tsc",
     "dev": "nodemon src/index.ts ",
     "start": "npm run build && node dist/index.js",
     "lint": "eslint . --ext .ts",
