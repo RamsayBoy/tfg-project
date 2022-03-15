@@ -104,7 +104,7 @@ jobs:
       - name: Start Node API
         if: ${{ always() }}
         run: |
-          ssh production "cd tfg-project/back && export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 start 'npm start' -n Express-API"
+          ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 start 'cd tfg-project/back; npm start -n Express-API'"
           ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 save"
 
       - name: Start the server
