@@ -55,8 +55,6 @@ jobs:
           name: node-api
           path: back/dist/
 
-  # TODO: See if it is a good option to deploy angular and express
-  #       at the same time
   deploy:
     name: "Deploy"
     runs-on: ubuntu-latest
