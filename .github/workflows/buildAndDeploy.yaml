@@ -7,8 +7,8 @@ on:
     branches:
       - main
 jobs:
-  build:
-    name: "Build"
+  angular_build:
+    name: "Angular Build"
     runs-on: ubuntu-latest
     steps:
       - name: "Check out the source"
@@ -19,23 +19,11 @@ jobs:
         with:
           node-version: "14.15.4"
 
-      - name: "Build Node"
-        run: |
-          cd back
-          npm i
-          npm run build
-
       - name: "Build Angular"
         run: |
           cd front
           npm i
           npm run production-build
-
-      - name: "Upload Node artifacts"
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-api
-          path: back/dist/
 
       - name: "Upload Angular artifacts"
         uses: actions/upload-artifact@v3
@@ -43,10 +31,36 @@ jobs:
           name: angular-front
           path: front/dist/
 
-  deploy:
-    name: "Deploy to production"
+  express_build:
+    name: "Express Build"
     runs-on: ubuntu-latest
-    needs: build
+    steps:
+      - name: "Check out the source"
+        uses: actions/checkout@v3
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.15.4"
+
+      - name: "Build Express API"
+        run: |
+          cd back
+          npm i --also=dev
+          npm run build
+
+      - name: "Upload Node artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-api
+          path: back/dist/
+
+  # TODO: See if it is a good option to deploy angular and express
+  #       at the same time
+  deploy:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    needs: [angular_build, express_build]
     steps:
       - name: Configure SSH
         run: |
@@ -65,9 +79,6 @@ jobs:
           SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
           SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
 
-      - name: Stop the server
-        run: ssh production 'sudo systemctl stop nginx'
-
       - name: Download Node artifacts
         uses: actions/download-artifact@v3
         with:
@@ -80,14 +91,10 @@ jobs:
           name: angular-front
           path: artifacts/front
 
-      # - name: Copy Node files
-      #   run: scp -r ./* production:~/express-api/
-      #   working-directory: artifacts/api
+      - name: Copy Node files
+        run: scp -r ./* production:~/express-api/
+        working-directory: artifacts/api
 
-      # - name: Restart Node API
-      #   if: ${{ always() }}
-      #   run: ssh production "export PATH=\$HOME/.nvm/versions/node/v14.15.4/bin/; pm2 restart Express-API"
-
-      - name: Start the server
-        if: ${{ always() }}
-        run: ssh production 'sudo systemctl restart nginx'
+      - name: Copy Angular files
+        run: scp -r ./* production:~/var/www
+        working-directory: artifacts/api
