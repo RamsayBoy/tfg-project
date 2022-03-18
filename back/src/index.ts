@@ -20,4 +20,11 @@ app.use(`${config.api.BASE_URL}/classes`, classesRoutes);
 
 app.listen(config.api.PORT, config.api.HOST, (): void => {
     console.log(`App listening at http://${config.api.HOST}:${config.api.PORT}${config.api.BASE_URL}`);
+
+    if (process.send) {
+        process.send('ready');
+    }
+    else {
+        console.error("process.send is not defined!");
+    }
 });
