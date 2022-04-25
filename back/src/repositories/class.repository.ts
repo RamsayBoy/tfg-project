@@ -123,13 +123,16 @@ export default class ClassRepository {
     }
 
     async isClassBetweenAnotherOne(classToAdd: Class): Promise<boolean> {
-        const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}`;
-        let classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
+        // const classToAddDate = `${classToAdd.date.getFullYear()}-${classToAdd.date.getMonth() + 1}-${classToAdd.date.getDate()}`;
+        const classToAddDate = `${classToAdd.date.getFullYear()}/${('0'+(classToAdd.date.getMonth()+1)).slice(-2)}/${('0' + classToAdd.date.getDate()).slice(-2)}`;
+        // let classToAddStartTime = `${classToAdd.date.toLocaleTimeString()}`;
+        const classToAddStartTime = `${('0'+classToAdd.date.getHours()).slice(-2)}:${('0'+classToAdd.date.getMinutes()).slice(-2)}:${('0'+classToAdd.date.getSeconds()).slice(-2)}`;
 
+        // TODO: Delete this, it is already done in classToAddStartTime
         // Check that there are 2 digits on hour part
-        if (classToAddStartTime.split(':')[0].length === 1) {
-            classToAddStartTime = '0' + classToAddStartTime;
-        }
+        // if (classToAddStartTime.split(':')[0].length === 1) {
+        //     classToAddStartTime = '0' + classToAddStartTime;
+        // }
         
         return new Promise((resolve, reject) => {
             const query = `
