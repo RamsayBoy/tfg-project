@@ -89,12 +89,12 @@ export default class ClassRepository {
 
     async addClass(classToAdd: Class): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            console.log('class.repository > addClass: date value: ', `${classToAdd.date.getFullYear()}-${('0' + (classToAdd.date.getMonth() + 1)).slice(-2)}-${('0' + classToAdd.date.getDate()).slice(-2)} ${classToAdd.date.toLocaleTimeString()}`);
+            console.log('class.repository > addClass: date value: ', `${classToAdd.date.getFullYear()}/${('0'+(classToAdd.date.getMonth()+1)).slice(-2)}/${('0' + classToAdd.date.getDate()).slice(-2)} ${('0'+classToAdd.date.getHours()).slice(-2)}:${('0'+classToAdd.date.getMinutes()).slice(-2)}:${('0'+classToAdd.date.getSeconds()).slice(-2)}`);
             const query = `
                 INSERT INTO class
                 (date, duration, numMaxClients, teacherId)
                 VALUES
-                ('${classToAdd.date.getFullYear()}-${('0' + (classToAdd.date.getMonth() + 1)).slice(-2)}-${('0' + classToAdd.date.getDate()).slice(-2)} ${classToAdd.date.toLocaleTimeString()}',
+                ('${classToAdd.date.getFullYear()}/${('0'+(classToAdd.date.getMonth()+1)).slice(-2)}/${('0' + classToAdd.date.getDate()).slice(-2)} ${('0'+classToAdd.date.getHours()).slice(-2)}:${('0'+classToAdd.date.getMinutes()).slice(-2)}:${('0'+classToAdd.date.getSeconds()).slice(-2)}',
                  '${classToAdd.duration}',
                  ${classToAdd.numMaxClients},
                  ${classToAdd.teacherId});
