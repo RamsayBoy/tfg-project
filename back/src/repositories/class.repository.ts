@@ -100,6 +100,7 @@ export default class ClassRepository {
             `;
 
             database.query(query, (error, results) => {
+                console.log(`class.repository > addClass: \nerror -> ${error} \nresults -> ${results}`);
                 if (error) return reject(false);
                 resolve(true);
             });
