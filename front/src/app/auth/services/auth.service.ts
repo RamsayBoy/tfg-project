@@ -36,7 +36,6 @@ export class AuthService {
 
   // TODO: Change any to the type ResponseWrapped
   login(loginFormData: any): Observable<any> {
-    // TODO: Ask Enrique if I can share interfaces between angular and node (routes references in .env?)
     return this.http.post<any>(this.loginUrl, loginFormData)
       .pipe(
         tap(response => {
