@@ -95,4 +95,4 @@ jobs:
 
       - name: Copy Angular files
         run: scp -r ./* production:~/var/www
-        working-directory: artifacts/api
+        working-directory: artifacts/front
