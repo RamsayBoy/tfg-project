@@ -32,7 +32,8 @@
     {
       "name": "api-data",
       "urls": [
-        "https://pablomiragarcia.engineer/api/users/getClients"
+        "https://pablomiragarcia.engineer/api/users/getClients",
+        "https://pablomiragarcia.engineer/api/users/getUser"
       ],
       "cacheConfig": {
         "strategy": "freshness",
