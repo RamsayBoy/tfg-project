@@ -12,12 +12,15 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
 
-    <div>
-      <input hidden matInput [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="onDatePick($event)">
-      <mat-datepicker touchUi #picker></mat-datepicker>
-      <button mat-icon-button (click)="picker.open()">
-        <mat-icon>today</mat-icon>
-      </button>
+    <div class="datepicker-div">
+      <span (click)="picker.open()">{{ date.toLocaleDateString() }}</span>
+      <div>
+        <input hidden matInput [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="onDatePick($event)">
+        <mat-datepicker touchUi #picker></mat-datepicker>
+        <button mat-icon-button (click)="picker.open()">
+          <mat-icon>today</mat-icon>
+        </button>
+      </div>
     </div>
 
     <button (click)="nextDay()" type="button" mat-icon-button>

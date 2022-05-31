@@ -47,6 +47,24 @@ mat-toolbar {
   max-width: 45rem;
 }
 
+.datepicker-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.datepicker-div span {
+  margin-top: 2px;
+  margin-right: 2px;
+  font-size: smaller;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
+.datepicker-div div {
+  margin-top: -7px;
+}
+
 .tabs {
   align-items: flex-end;
   display: flex;
