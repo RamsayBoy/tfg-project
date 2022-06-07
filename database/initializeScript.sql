@@ -32,6 +32,16 @@ CREATE TABLE `user`(
         ON DELETE SET NULL
 );
 
+CREATE TABLE `teacher`(
+    id          INT UNSIGNED    NOT NULL,
+    
+    PRIMARY KEY(id),
+    
+    FOREIGN KEY(id)	REFERENCES `user`(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 CREATE TABLE `client`(
     id          INT UNSIGNED    NOT NULL,
     teacherId   INT UNSIGNED    NOT NULL,
@@ -41,18 +51,7 @@ CREATE TABLE `client`(
     FOREIGN KEY(id)	REFERENCES `user`(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY(teacherId)	REFERENCES `user`(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
-
--- CREATE TABLE teacher => only when teacher has to have columns teacher only has (and not the clients)namelastName
-CREATE TABLE `teacher`(
-    id          INT UNSIGNED    NOT NULL,
-    
-    PRIMARY KEY(id),
-    
-    FOREIGN KEY(id)	REFERENCES `user`(id)
+    FOREIGN KEY(teacherId)	REFERENCES `teacher`(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -99,14 +98,14 @@ VALUES
     (2, 'Leopoldo', 'Gallego Misca', 'user1@tfg.es', '$2b$10$LYGbVLQe7HV0FbUYhuN6Q.sghoyMzAof3dMFFXcyyZVyKg5nLoHz.', 1),
     (3, 'Susana', 'Fuertes','user2@tfg.es', '$2b$10$4AZovhpBhVMhslbwsV2f7uIQfD/Fak2QDTgB5JVn6pXtae1tDKd2y', 1);
     
+INSERT INTO `teacher`(id)
+VALUES
+    (1);
+    
 INSERT INTO `client`(id, teacherId)
 VALUES
     (2, 1),
     (3, 1);
-    
-INSERT INTO `teacher`(id)
-VALUES
-    (1);
 
 INSERT INTO class(`date`, duration, numMaxClients, teacherId)
 VALUES
