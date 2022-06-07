@@ -47,6 +47,15 @@ CREATE TABLE `client`(
 );
 
 -- CREATE TABLE teacher => only when teacher has to have columns teacher only has (and not the clients)namelastName
+CREATE TABLE `teacher`(
+    id          INT UNSIGNED    NOT NULL,
+    
+    PRIMARY KEY(id),
+    
+    FOREIGN KEY(id)	REFERENCES `user`(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
 CREATE TABLE class(
     id              INT UNSIGNED    AUTO_INCREMENT,
@@ -57,7 +66,7 @@ CREATE TABLE class(
     
     PRIMARY KEY(id),
     
-    FOREIGN KEY(teacherId)	REFERENCES `user`(id)
+    FOREIGN KEY(teacherId)	REFERENCES `teacher`(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -94,6 +103,10 @@ INSERT INTO `client`(id, teacherId)
 VALUES
     (2, 1),
     (3, 1);
+    
+INSERT INTO `teacher`(id)
+VALUES
+    (1);
 
 INSERT INTO class(`date`, duration, numMaxClients, teacherId)
 VALUES
@@ -170,6 +183,8 @@ VALUES
         1
     );
 
+INSERT INTO `client_class`(client_id, class_id)
+VALUES(2, 5),(3, 5),(3, 6);
 
 -- Stored procedures
 DELIMITER $$
