@@ -35,7 +35,7 @@ export default class AuthService {
                 <p>Hola, ${email}:</p>
                 <p>Ha sido registrado con éxito en la aplicación.</p>
                 <p>Su contraseña provisional es: <b>${password}</b>.</p>
-                <p>¡Diríjase a la <a href="${config.clientApp.baseUrl}/profile">aplicación</a> para cambiarla!.</p>
+                <p>¡Diríjase a la <a href="${config.clientApp.baseUrl}/profile">aplicación</a> para cambiarla!</p>
             `,
           });
         
