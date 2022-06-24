@@ -45,6 +45,7 @@ jobs:
 
       - name: "Lint"
         run: |
+          cd back
           npm run lint
 
       - name: "Build Express API"
