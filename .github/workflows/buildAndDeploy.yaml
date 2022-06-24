@@ -43,19 +43,19 @@ jobs:
         with:
           node-version: "14.15.4"
 
-      - name: "Lint"
-        run: |
-          cd back
-          npm run lint
-
       - name: "Build Express API"
-        if: ${{ success() }}
         run: |
           cd back
           npm i --also=dev
           npm run build
 
+      - name: "Lint"
+        run: |
+          cd back
+          npm run lint
+
       - name: "Upload Node artifacts"
+        if: ${{ success() }}
         uses: actions/upload-artifact@v3
         with:
           name: node-api
