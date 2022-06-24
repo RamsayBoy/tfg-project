@@ -43,7 +43,12 @@ jobs:
         with:
           node-version: "14.15.4"
 
+      - name: "Lint"
+        run: |
+          npm run lint
+
       - name: "Build Express API"
+        if: ${{ success() }}
         run: |
           cd back
           npm i --also=dev
