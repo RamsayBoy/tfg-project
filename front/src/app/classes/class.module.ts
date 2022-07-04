@@ -9,6 +9,8 @@ import { AddClassComponent } from './pages/add-class/add-class.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MondayAsFirstDay } from '../shared/dateAdapter/mondayAsFirstDay';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
@@ -26,6 +28,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatDialogModule,
     MatTooltipModule
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: MondayAsFirstDay },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
   ]
 })
 export class ClassModule { }
