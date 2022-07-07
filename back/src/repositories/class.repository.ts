@@ -10,7 +10,7 @@ export default class ClassRepository {
             const query = `
                     SELECT id, date, duration, numMaxClients, teacherId
                     FROM class
-                    WHERE teacherId = ${teacherId}
+                    WHERE teacherId = ${database.escape(teacherId)}
                         AND DATE(date) = '${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}'
                     ORDER BY date ASC
             `;
@@ -27,7 +27,7 @@ export default class ClassRepository {
             const query = `
                 SELECT client_id
                 FROM client_class
-                WHERE class_id = ${classId};
+                WHERE class_id = ${database.escape(classId)};
             `;
 
             database.query(query, (error, results) => {
@@ -41,8 +41,8 @@ export default class ClassRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 SELECT client_id FROM client_class
-                WHERE class_id = ${classId}
-                    AND client_id = ${userId};
+                WHERE class_id = ${database.escape(classId)}
+                    AND client_id = ${database.escape(userId)};
             `;
 
             database.query(query, (error, results) => {
@@ -60,12 +60,12 @@ export default class ClassRepository {
                     class_id
                 )
                 VALUES (
-                    ${userId},
-                    ${classId}
+                    ${database.escape(userId)},
+                    ${database.escape(classId)}
                 )
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -76,11 +76,11 @@ export default class ClassRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 DELETE FROM client_class
-                WHERE client_id = ${userId}
-                    AND class_id = ${classId};
+                WHERE client_id = ${database.escape(userId)}
+                    AND class_id = ${database.escape(classId)};
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -95,9 +95,9 @@ export default class ClassRepository {
                 (date, duration, numMaxClients, teacherId)
                 VALUES
                 ('${classToAdd.date.getFullYear()}/${('0'+(classToAdd.date.getMonth()+1)).slice(-2)}/${('0' + classToAdd.date.getDate()).slice(-2)} ${('0'+classToAdd.date.getHours()).slice(-2)}:${('0'+classToAdd.date.getMinutes()).slice(-2)}:${('0'+classToAdd.date.getSeconds()).slice(-2)}',
-                 '${classToAdd.duration}',
-                 ${classToAdd.numMaxClients},
-                 ${classToAdd.teacherId});
+                 ${database.escape(classToAdd.duration)},
+                 ${database.escape(classToAdd.numMaxClients)},
+                 ${database.escape(classToAdd.teacherId)});
             `;
 
             database.query(query, (error, results) => {
@@ -190,11 +190,11 @@ export default class ClassRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 DELETE FROM class
-                WHERE teacherId = ${teacherId}
-                    AND id = ${classId};
+                WHERE teacherId = ${database.escape(teacherId)}
+                    AND id = ${database.escape(classId)};
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -209,7 +209,7 @@ export default class ClassRepository {
                 INNER JOIN client_class cc ON cc.client_id = c.id
                 INNER JOIN user u ON u.id = c.id
                 INNER JOIN role r ON r.id = u.roleId
-                WHERE class_id = ${classId};
+                WHERE class_id = ${database.escape(classId)};
             `;
 
             database.query(query, (error, results) => {
@@ -224,7 +224,7 @@ export default class ClassRepository {
             const query = `
                 SELECT id, date, duration, numMaxClients, teacherId
                 FROM class
-                WHERE id = ${classId};
+                WHERE id = ${database.escape(classId)};
             `;
 
             database.query(query, (error, results) => {

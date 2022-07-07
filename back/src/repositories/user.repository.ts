@@ -11,7 +11,7 @@ export default class UserRepository {
                 FROM user u
                 INNER JOIN role r ON r.id = u.roleId
                 LEFT JOIN client c ON c.id = u.id
-                WHERE u.id = ${id};
+                WHERE u.id = ${database.escape(id)};
             `;
 
             database.query(query, (error, results) => {
@@ -28,7 +28,7 @@ export default class UserRepository {
                 FROM user u
                 INNER JOIN role r ON r.id = u.roleId
                 LEFT JOIN client c ON c.id = u.id
-                WHERE email = '${email}';
+                WHERE email = ${database.escape(email)};
             `;
 
             database.query(query, (error, results) => {
@@ -45,8 +45,8 @@ export default class UserRepository {
                 FROM user u
                 INNER JOIN role r ON r.id = u.roleId
                 LEFT JOIN client c ON c.id = u.id
-                WHERE email = '${email}' AND
-                    password = '${password}';
+                WHERE email = ${database.escape(email)} AND
+                    password = ${database.escape(password)};
             `;
 
             database.query(query, (error, results) => {
@@ -62,7 +62,7 @@ export default class UserRepository {
                 SELECT r.name AS rol
                 FROM user
                 INNER JOIN role r ON r.id = user.roleId
-                WHERE user.id = ${userId};
+                WHERE user.id = ${database.escape(userId)};
             `;
 
             database.query(query, (error, results) => {
@@ -77,7 +77,7 @@ export default class UserRepository {
             const query = `
                 SELECT email
                 FROM user
-                WHERE email = '${email}';
+                WHERE email = ${database.escape(email)};
             `;
 
             database.query(query, (error, results) => {
@@ -92,7 +92,7 @@ export default class UserRepository {
             const query = `
                 SELECT email
                 FROM user
-                WHERE email = '${user.email}' AND id != ${user.id};
+                WHERE email = ${database.escape(user.email)} AND id != ${database.escape(user.id)};
             `;
 
             database.query(query, (error, results) => {
@@ -105,10 +105,11 @@ export default class UserRepository {
     async register(name:string, lastName: string, email: string, password: string, teacherId: number): Promise<void> {
         return new Promise((resolve, reject) => {
             const query = `
-                CALL sp_registerUser('${name}', '${lastName}', '${email}', '${password}', ${teacherId});
+                CALL sp_registerUser(
+                    ${database.escape(name)}, ${database.escape(lastName)}, ${database.escape(email)}, ${database.escape(password)}, ${database.escape(teacherId)});
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(error);
                 resolve();
             });
@@ -126,7 +127,7 @@ export default class UserRepository {
                 FROM client c
                 LEFT JOIN user u ON u.id = c.id
                 INNER JOIN role r ON r.id = u.roleId
-                WHERE teacherId = ${teacherId};
+                WHERE teacherId = ${database.escape(teacherId)};
             `;
 
             database.query(query, (error, results) => {
@@ -162,10 +163,10 @@ export default class UserRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 DELETE FROM user
-                WHERE id = ${clientId}
+                WHERE id = ${database.escape(clientId)}
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -176,13 +177,13 @@ export default class UserRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 UPDATE user
-                   SET  name = '${user.name}',
-                        lastName = '${user.lastName}',
-                        email = '${user.email}'
-                WHERE id = ${user.id};
+                   SET  name = ${database.escape(user.name)},
+                        lastName = ${database.escape(user.lastName)},
+                        email = ${database.escape(user.email)}
+                WHERE id = ${database.escape(user.id)};
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(false);
                 resolve(true);
             });
@@ -194,7 +195,7 @@ export default class UserRepository {
             const query = `
                 SELECT password
                 FROM user u
-                WHERE id = '${id}';
+                WHERE id = ${database.escape(id)};
             `;
 
             database.query(query, (error, results) => {
@@ -208,11 +209,11 @@ export default class UserRepository {
         return new Promise((resolve, reject) => {
             const query = `
                 UPDATE user
-                    SET password = '${newPassword}'
+                    SET password = ${database.escape(newPassword)}
                 WHERE id = ${userId};
             `;
 
-            database.query(query, (error, results) => {
+            database.query(query, (error) => {
                 if (error) return reject(error);
                 resolve(true);
             });
