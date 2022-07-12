@@ -34,7 +34,7 @@
       "urls": [
         "http://localhost:3000/api/v0/users/getClients",
         "http://localhost:3000/api/v0/users/getUser",
-        "http://localhost:3000/api/classes/getClasses"
+        "http://localhost:3000/api/v0/getClasses"
       ],
       "cacheConfig": {
         "strategy": "freshness",

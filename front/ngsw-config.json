@@ -34,7 +34,7 @@
       "urls": [
         "https://pablomiragarcia.engineer/api/users/getClients",
         "https://pablomiragarcia.engineer/api/users/getUser",
-        "https://pablomiragarcia.engineer/api/classes/getClasses"
+        "https://pablomiragarcia.engineer/api/getClasses"
       ],
       "cacheConfig": {
         "strategy": "freshness",
