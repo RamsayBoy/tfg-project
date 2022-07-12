@@ -33,7 +33,8 @@
       "name": "api-data",
       "urls": [
         "https://pablomiragarcia.engineer/api/users/getClients",
-        "https://pablomiragarcia.engineer/api/users/getUser"
+        "https://pablomiragarcia.engineer/api/users/getUser",
+        "https://pablomiragarcia.engineer/api/users/getClasses"
       ],
       "cacheConfig": {
         "strategy": "freshness",
