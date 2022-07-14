@@ -120,8 +120,7 @@ export class ProfilePageComponent implements OnInit {
             if (user) {
               this.fillEditProfileFormFields(user);
             }
-            this.dialogService
-              .open('Perfil actualizado', data.message);
+            this.authService.setCurrentUsername(user);
           }
 
           this.loaderService.setLoader(false);

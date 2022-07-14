@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import User from 'src/interfaces/User.interface';
@@ -14,7 +15,7 @@ export class BaseComponent implements OnInit {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  username: string = "Usuario";
+  username$!: Observable<string>;
   profileImg: string = environment.defaultProfileImagePath;
 
   currentUser!: User;
@@ -42,24 +43,26 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUserInfo()
-      .subscribe({
-        next: (userInfo) => {
-          if (userInfo.name) {
-            this.username = userInfo.name;
+    this.authService.getUserInfo().subscribe();
+    this.username$ = this.authService.currentUsername;
+    // this.authService.getUserInfo()
+    //   .subscribe({
+    //     next: (userInfo) => {
+    //       if (userInfo.name) {
+    //         this.username = userInfo.name;
 
-            if (userInfo.email) {
-              this.username += ' ' + userInfo.lastName;
-            }
-          }
-          else {
-            this.username = userInfo.email;
-          }
-        },
-        error: (error) => {
-          this.username = 'Usuario';
-        },
-      });
+    //         if (userInfo.email) {
+    //           this.username += ' ' + userInfo.lastName;
+    //         }
+    //       }
+    //       else {
+    //         this.username = userInfo.email;
+    //       }
+    //     },
+    //     error: (error) => {
+    //       this.username = 'Usuario';
+    //     },
+    //   });
   }
 
   showMenu(): void {

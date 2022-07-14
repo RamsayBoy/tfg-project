@@ -9,7 +9,7 @@
 
     <div [ngStyle]="{'background-image': 'url(' + profileImg + ')'}"
         class="user-avatar"></div>
-    <h1 class="username">{{username}}</h1>
+    <h1 class="username">{{username$ | async}}</h1>
 
     <!-- TODO: This could be a reusable component -->
     <mat-nav-list>

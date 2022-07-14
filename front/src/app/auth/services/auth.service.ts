@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import TokenInfo from 'src/interfaces/Payload.interface';
 import ResponseWrapped from 'src/interfaces/ResponseWrapped.interface';
@@ -24,11 +24,13 @@ export class AuthService {
   public readonly authUrl: string = "/auth/login";
 
   public currentUser!: User;
+  private usernameSource = new BehaviorSubject<string>('');
+  currentUsername = this.usernameSource.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {}
 
   register(formData: any): Observable<ResponseWrapped> {
     return this.http.post<ResponseWrapped>(this.registerUrl, formData);
@@ -59,6 +61,8 @@ export class AuthService {
             this.currentUser = user;
           }
 
+          this.setCurrentUsername(user);
+
           return user;
         }),
       );
@@ -69,6 +73,7 @@ export class AuthService {
     return this.getUserInfo().pipe(
       map(response => {
         const user: User = response;
+        this.setCurrentUsername(user);
         return this.getUsernameByUser(user);
       }),
     );
@@ -150,5 +155,15 @@ export class AuthService {
 
   changePassword(password: string, newPassword: string): Observable<ResponseWrapped> {
     return this.http.put<ResponseWrapped>(`${environment.apiUrl}/auth/changePassword`, { password, newPassword });
+  }
+
+  setCurrentUsername(user: User): void {
+    let username = this.getUsernameByUser(user);
+
+    if(!username){
+      username = user.email;
+    }
+
+    this.usernameSource.next(username);
   }
 }
