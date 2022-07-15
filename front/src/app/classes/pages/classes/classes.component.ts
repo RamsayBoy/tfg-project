@@ -54,6 +54,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
   getClasses(date: Date): void {
     window.scroll(0, 0);
     this.classes$ = this.classService.getClasses(date);
+    this.classes$ = this.classService.currentClasses;
     this.classes$.subscribe(
       data => {
         //this.areErrors = false;
