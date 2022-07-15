@@ -60,19 +60,23 @@ export class ProfilePageComponent implements OnInit {
       ]]
     });
 
+    this.updateUserInfo();
+  }
+
+  updateUserInfo() {
     this.authService.getUserInfo()
-      .subscribe(
-        data => {
-          this.fillEditProfileFormFields(data);
-        },
-        error => {
-          this._snackBar.open(error, undefined, {
-            duration: 3*1000, // 3 seconds
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-          });
-        }
-      );
+    .subscribe(
+      data => {
+        this.fillEditProfileFormFields(data);
+      },
+      error => {
+        this._snackBar.open(error, undefined, {
+          duration: 3*1000, // 3 seconds
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }
+    );
   }
 
   fillEditProfileFormFields(user: User) {
@@ -121,19 +125,7 @@ export class ProfilePageComponent implements OnInit {
               this.fillEditProfileFormFields(user);
             }
             this.authService.setCurrentUsername(user);
-            this.authService.getUserInfo()
-              .subscribe(
-                data => {
-                  this.fillEditProfileFormFields(data);
-                },
-                error => {
-                  this._snackBar.open(error, undefined, {
-                    duration: 3*1000, // 3 seconds
-                    verticalPosition: 'top',
-                    horizontalPosition: 'center',
-                  });
-                }
-              );
+            this.updateUserInfo();
           }
 
           this.loaderService.setLoader(false);
