@@ -11,7 +11,8 @@
     </ng-template>
 
     <ng-container *ngIf="classes$ | async as classes; else loadingOrError">
-      <app-class *ngFor="let class of classes" [class]="class" (classDeleted)="removeClass($event)"></app-class>
+      <app-class *ngFor="let class of classes" [class]="class" (classDeleted)="removeClass($event)"
+                                                               (userJoined)="joinClass($event)"></app-class>
       <h1 *ngIf="classes.length === 0" class="infoMessage">No hay clases para este día</h1>
     </ng-container>
 

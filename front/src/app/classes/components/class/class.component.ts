@@ -18,6 +18,7 @@ export class ClassComponent implements OnInit {
   public durationPeriod!: string;
 
   @Output() classDeleted: EventEmitter<number> = new EventEmitter();
+  @Output() userJoined: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private classService: ClassService,
@@ -66,6 +67,9 @@ export class ClassComponent implements OnInit {
         this.class.isUserJoined = true;
 
         this.class.usersJoined.push(this.authService.currentUser);
+
+        this.userJoined.emit(this.class.id);
+
         this.loaderService.setLoader(false);
       },
       error: (error) => {
