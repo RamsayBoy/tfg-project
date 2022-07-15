@@ -20,9 +20,6 @@ export class ClassService {
   private dateSource = new BehaviorSubject<Date>(new Date());
   currentDate = this.dateSource.asObservable();
 
-  private classSource = new BehaviorSubject<Class[]>([]);
-  currentClasses = this.classSource.asObservable();
-
   constructor(
     private http: HttpClient,
   ) { }
@@ -34,8 +31,6 @@ export class ClassService {
           response.data.classes.forEach((element: Class) => {
             element.date = new Date(element.date);
           });
-
-          this.classSource.next(response.data.classes);
 
           return response.data.classes;
         })

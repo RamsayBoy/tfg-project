@@ -41,7 +41,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
       this.date = date;
       this.getClasses(this.date);
     });
-    this.classes$ = this.classService.currentClasses;
 
     this.toolbarService.updateTitle("Clases");
     this.toolbarService.showDateControls(true);
@@ -54,20 +53,19 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   getClasses(date: Date): void {
     window.scroll(0, 0);
-    this.classService.getClasses(date);
-    // this.classes$ = this.classService.getClasses(date);
-    // this.classes$.subscribe(
-    //   data => {
-    //     //this.areErrors = false;
-    //     this.thereIsAnError$.next(false);
-    //   },
-    //   error => {
-    //     // Set the date to the previous date if there is an error
-    //     //this.areErrors = true;
-    //     this.thereIsAnError$.next(true);
-    //     this.dialogService.open('Error', error);
-    //   }
-    // );
+    this.classes$ = this.classService.getClasses(date);
+    this.classes$.subscribe(
+      data => {
+        //this.areErrors = false;
+        this.thereIsAnError$.next(false);
+      },
+      error => {
+        // Set the date to the previous date if there is an error
+        //this.areErrors = true;
+        this.thereIsAnError$.next(true);
+        this.dialogService.open('Error', error);
+      }
+    );
   }
 
   removeClass(classId: number) {
