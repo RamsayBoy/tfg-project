@@ -67,6 +67,12 @@ export class ClassComponent implements OnInit {
 
         this.class.usersJoined.push(this.authService.currentUser);
         this.loaderService.setLoader(false);
+        this.classService.getClasses(this.class.date).subscribe(
+          _ => {
+          },
+          _ => {
+          }
+        );
       },
       error: (error) => {
         this.dialogService.open('Error', error)
