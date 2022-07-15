@@ -121,6 +121,7 @@ export class ProfilePageComponent implements OnInit {
               this.fillEditProfileFormFields(user);
             }
             this.authService.setCurrentUsername(user);
+            this.authService.getUserInfo().subscribe();
           }
 
           this.loaderService.setLoader(false);
