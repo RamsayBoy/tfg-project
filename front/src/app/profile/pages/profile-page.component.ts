@@ -121,7 +121,19 @@ export class ProfilePageComponent implements OnInit {
               this.fillEditProfileFormFields(user);
             }
             this.authService.setCurrentUsername(user);
-            this.authService.getUserInfo().subscribe();
+            this.authService.getUserInfo()
+              .subscribe(
+                data => {
+                  this.fillEditProfileFormFields(data);
+                },
+                error => {
+                  this._snackBar.open(error, undefined, {
+                    duration: 3*1000, // 3 seconds
+                    verticalPosition: 'top',
+                    horizontalPosition: 'center',
+                  });
+                }
+              );
           }
 
           this.loaderService.setLoader(false);
