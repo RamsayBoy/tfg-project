@@ -114,6 +114,7 @@ export class AddClassComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialogRef.close();
+          this.classService.getClasses(this.data.class.date);
         },
         error: (error) => {
           this.dialogService.open('Error', error);
