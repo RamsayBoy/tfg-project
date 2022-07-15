@@ -16,7 +16,7 @@
       <div>Apuntarme</div>
       <mat-icon>person_add</mat-icon>
     </button>
-    <button [disabled]="isClassAvailable(class) || class.usersJoined!.length >= class!.numMaxClients ? '' : null" *ngIf="class.isUserJoined" (click)="removeFromClassDialog()" type="button" mat-flat-button color="warn" class="joined">
+    <button [disabled]="isClassAvailable(class)" *ngIf="class.isUserJoined" (click)="removeFromClassDialog()" type="button" mat-flat-button color="warn" class="joined">
       <div>Apuntado</div>
       <mat-icon>person_remove</mat-icon>
     </button>
