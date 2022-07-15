@@ -87,6 +87,19 @@ export class ClassesComponent implements OnInit, OnDestroy {
     );
   }
 
+  removedFromClass(classId: number) {
+    this.classes$ = this.classes$.pipe(
+      map(classes => {
+        const clas = classes.find(c => c.id === classId);
+        if (clas) {
+          clas.isUserJoined = false;
+          // clas.usersJoined.splice(userIndex, 1);
+        }
+        return classes;
+      })
+    );
+  }
+
   addClassDialog() {
     this.dialog.open(AddClassComponent, {
       width: '21rem',

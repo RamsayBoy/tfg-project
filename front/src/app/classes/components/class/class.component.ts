@@ -19,6 +19,7 @@ export class ClassComponent implements OnInit {
 
   @Output() classDeleted: EventEmitter<number> = new EventEmitter();
   @Output() userJoined: EventEmitter<number> = new EventEmitter();
+  @Output() userRemoveFromClass: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private classService: ClassService,
@@ -107,6 +108,8 @@ export class ClassComponent implements OnInit {
           .findIndex(user => user.id === this.authService.currentUser.id);
 
         this.class.usersJoined.splice(userIndex, 1);
+
+        this.userRemoveFromClass.emit(this.class.id);
 
         this.loaderService.setLoader(false);
       },
