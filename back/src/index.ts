@@ -22,7 +22,7 @@ app.listen(config.api.PORT, config.api.HOST, (): void => {
     console.log(`App listening at http://${config.api.HOST}:${config.api.PORT}${config.api.BASE_URL}`);
 
     if (process.send) {
-        console.log("Event ready was launched. This instance is ONLINE.");
+        console.log(`${new Date().toLocaleDateString()}: Event ready was launched. This instance is ONLINE.`);
         process.send('ready');
     }
     else {
