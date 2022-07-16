@@ -114,14 +114,3 @@ jobs:
       - name: Copy Angular files
         run: scp -r ./* production:~/var/www
         working-directory: artifacts/front
-
-  LS Example:
-    name: LS Example
-    steps:
-      - name: Executing ls
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PRODUCTION_SSH_HOST }}
-          username: ${{ secrets.PRODUCTION_SSH_USER }}
-          key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          script: ls
