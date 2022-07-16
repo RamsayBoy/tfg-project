@@ -114,4 +114,4 @@ jobs:
           host: ${{ secrets.PRODUCTION_SSH_HOST }}
           username: ${{ secrets.PRODUCTION_SSH_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          script: pm2 reload Express-API
+          script: npm install pm2 -g && pm2 reload Express-API
