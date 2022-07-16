@@ -102,21 +102,3 @@ jobs:
       - name: Copy Angular files
         run: scp -r ./* production:~/var/www
         working-directory: artifacts/front
-
-  reload_app:
-    name: Reload Express-API
-    runs-on: ubuntu-latest
-    needs: [deploy]
-    steps:
-      - name: "Setup Node"
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14.15.4"
-
-      - name: pm2 reloading
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PRODUCTION_SSH_HOST }}
-          username: ${{ secrets.PRODUCTION_SSH_USER }}
-          key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          script: npm install pm2 -g && pm2 reload Express-API
