@@ -106,6 +106,7 @@ jobs:
   reload_app:
     name: Reload Express-API
     runs-on: ubuntu-latest
+    needs: [deploy]
     steps:
       - name: pm2 reloading
         uses: appleboy/ssh-action@master
